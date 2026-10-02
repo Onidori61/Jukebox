@@ -1,1 +1,81 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Termos de uso • Jukebox</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Material+Symbols+Outlined" rel="stylesheet"><script src="https://cdn.tailwindcss.com"></script></head><body class="bg-[#f7f9ff] text-[#171c21] font-['Inter']"><main class="max-w-md mx-auto min-h-screen p-4"><a href="index.html" class="inline-flex items-center gap-1 text-sm font-bold text-[#00629d]"><span class="material-symbols-outlined">arrow_back</span>Voltar para a Jukebox</a><article class="mt-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200"><h1 class="font-['Plus_Jakarta_Sans'] text-xl font-extrabold">Termos de uso</h1><p class="mt-3 text-sm leading-relaxed text-slate-600">A Jukebox organiza sugestões musicais para o intervalo escolar. Use o formulário com respeito e envie apenas músicas adequadas ao ambiente da escola.</p><ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed text-slate-600"><li>Os pedidos passam por análise antes de aparecerem na playlist.</li><li>O Grêmio pode aprovar ou barrar uma sugestão conforme as regras da escola.</li><li>Não envie dados pessoais, ofensivos ou informações de terceiros.</li><li>A execução depende da disponibilidade da música, dos equipamentos e do evento.</li></ul></article></main></body></html>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Termos de uso • Jukebox</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0..200" rel="stylesheet">
+  <style>
+    :root{font-family:Inter,sans-serif;color:#171c21;background:#f7f9ff;font-synthesis:none;text-rendering:optimizeLegibility}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;background:#f7f9ff;color:#171c21;line-height:1.6}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0;background-image:url("assets/halloween-wallpaper.png");background-size:180px 180px}
+    .site-header,.page{position:relative;z-index:1}
+    .site-header{height:64px;border-bottom:1px solid #e2e8f0;background:rgba(255,255,255,.92);backdrop-filter:blur(14px)}
+    .header-inner{width:min(100% - 32px,680px);height:100%;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:11px;min-width:0}
+    .brand img{width:38px;height:38px;object-fit:contain}
+    .brand-title{font-family:"Plus Jakarta Sans",sans-serif;font-size:14px;font-weight:800;line-height:1.2}
+    .brand-subtitle{margin-top:2px;color:#64748b;font-size:11px}
+    .theme-badge{display:none;padding:3px 7px;border:1px solid #fed7aa;border-radius:999px;background:#fff7ed;color:#c2410c;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+    .page{width:min(100% - 32px,680px);margin:0 auto;padding:28px 0 36px}
+    .back-link{display:inline-flex;align-items:center;gap:7px;color:#00629d;font-size:13px;font-weight:700;text-decoration:none}
+    .back-link:hover{text-decoration:underline}
+    .back-link .material-symbols-outlined{font-size:19px}
+    .panel{margin-top:20px;padding:clamp(22px,5vw,36px);border:1px solid #e2e8f0;border-radius:22px;background:#fff;box-shadow:0 8px 28px #0f172a0a}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;color:#00629d;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+    .eyebrow .material-symbols-outlined{font-size:17px}
+    h1{margin:10px 0 0;font-family:"Plus Jakarta Sans",sans-serif;font-size:clamp(24px,6vw,32px);line-height:1.2;letter-spacing:-.035em}
+    .intro{margin:12px 0 0;color:#475569;font-size:14px}
+    .terms-list{display:grid;gap:12px;margin:24px 0 0;padding:0;list-style:none}
+    .terms-list li{display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid #e8edf4;border-radius:14px;background:#f8fafc;color:#475569;font-size:13px}
+    .terms-list .material-symbols-outlined{flex:none;margin-top:1px;color:#00629d;font-size:19px}
+    .terms-list strong{color:#171c21}
+    .page-footer{margin-top:22px;color:#64748b;font-size:11px;text-align:center}
+    body.theme-halloween{background:#0c0a09;color:#fafaf9}
+    body.theme-halloween:before{opacity:.07}
+    body.theme-halloween .site-header{border-color:#292524;background:rgba(12,10,9,.94)}
+    body.theme-halloween .brand-title{color:#fff7ed}
+    body.theme-halloween .brand-subtitle{color:#a8a29e}
+    body.theme-halloween .theme-badge{display:inline-block}
+    body.theme-halloween .panel{border-color:#292524;background:#171513;box-shadow:0 12px 36px #0005}
+    body.theme-halloween .eyebrow,body.theme-halloween .back-link,body.theme-halloween .terms-list .material-symbols-outlined{color:#fb923c}
+    body.theme-halloween .intro,body.theme-halloween .terms-list li{color:#c4b9ae}
+    body.theme-halloween .terms-list li{border-color:#38302a;background:#211c18}
+    body.theme-halloween .terms-list strong,body.theme-halloween h1{color:#fff7ed}
+    body.theme-halloween .page-footer{color:#a8a29e}
+    @media(max-width:420px){.page{padding-top:22px}.panel{border-radius:18px}.terms-list li{padding:12px}}
+    @media(prefers-reduced-motion:no-preference){.panel{animation:arrive .28s ease-out}@keyframes arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand"><img src="assets/logo-al.png" alt="Grêmio Estudantil Azarias Leite"><div><div class="brand-title">Jukebox <span class="theme-badge">Halloween 🎃</span></div><div class="brand-subtitle">Grêmio Estudantil Azarias Leite</div></div></div>
+    </div>
+  </header>
+  <main class="page">
+    <a class="back-link" href="index.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>Voltar para a Jukebox</a>
+    <article class="panel">
+      <div class="eyebrow"><span class="material-symbols-outlined" aria-hidden="true">gavel</span>Informações para estudantes</div>
+      <h1>Termos de uso</h1>
+      <p class="intro">A Jukebox organiza sugestões musicais para o intervalo escolar. Ao usar o serviço, ajude a manter um ambiente respeitoso e adequado para toda a comunidade escolar.</p>
+      <ul class="terms-list">
+        <li><span class="material-symbols-outlined" aria-hidden="true">fact_check</span><span><strong>Pedidos passam por revisão.</strong> Uma sugestão só entra na playlist depois de ser analisada pelo Grêmio.</span></li>
+        <li><span class="material-symbols-outlined" aria-hidden="true">music_note</span><span><strong>Escolha conteúdo apropriado.</strong> O Grêmio pode aprovar ou barrar músicas de acordo com as regras da escola.</span></li>
+        <li><span class="material-symbols-outlined" aria-hidden="true">shield</span><span><strong>Proteja sua privacidade.</strong> Não envie dados pessoais, conteúdo ofensivo ou informações de outras pessoas, inclusive nos recados.</span></li>
+        <li><span class="material-symbols-outlined" aria-hidden="true">speaker</span><span><strong>A execução depende do evento.</strong> A disponibilidade da faixa, dos equipamentos e do horário pode afetar a reprodução.</span></li>
+      </ul>
+    </article>
+    <footer class="page-footer">Jukebox • Chapa Renovação</footer>
+  </main>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    const config={apiKey:"AIzaSyDGbDeolFBC-Dw6EBZnNXygq9WuEdH8nS4",authDomain:"jukebox-c6d07.firebaseapp.com",projectId:"jukebox-c6d07",storageBucket:"jukebox-c6d07.firebasestorage.app",messagingSenderId:"56386350624",appId:"1:56386350624:web:df7a6fe404a1242176d645"};
+    onSnapshot(doc(getFirestore(initializeApp(config)),"configuracoes","jukebox"),snapshot=>document.body.classList.toggle("theme-halloween",snapshot.data()?.theme==="halloween"),error=>console.error("Não foi possível carregar o tema da Jukebox",error));
+  </script>
+</body>
+</html>
