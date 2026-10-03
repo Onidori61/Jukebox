@@ -74,17 +74,21 @@
   </style>
   <style>
     :root{color-scheme:dark}
-    body{--page:#100b0a;--panel:#1b1210;--panel-raised:#241714;--line:rgba(255,255,255,.1);--primary-text:#f5f2f1;--secondary-text:#a99f9c;--accent:#e11d2e;--accent-soft:rgba(225,29,46,.13);position:relative;isolation:isolate;min-height:100vh;background:radial-gradient(ellipse at 50% -18%,#3b1516 0,transparent 48%),linear-gradient(180deg,#140d0b 0%,var(--page) 58%,#0b0706 100%)!important;color:var(--primary-text)!important;font-family:Inter,sans-serif;padding-bottom:28px}
+    body{--page:#100b0a;--panel:#1b1210;--panel-raised:#241714;--line:rgba(255,255,255,.1);--primary-text:#f5f2f1;--secondary-text:#a99f9c;--accent:#e11d2e;--accent-soft:rgba(225,29,46,.13);position:relative;isolation:isolate;min-height:100vh;background:#100c0b!important;color:var(--primary-text)!important;font-family:Inter,sans-serif;padding-bottom:28px}
     body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;background-image:url("assets/halloween-wallpaper.png");background-size:180px 180px}
-    body.theme-halloween{--page:#0c0a09;--panel:#171513;--panel-raised:#211c18;--line:rgba(251,146,60,.18);--primary-text:#fff7ed;--secondary-text:#c4b9ae;--accent:#f97316;--accent-soft:rgba(249,115,22,.14);background:radial-gradient(ellipse at 50% -18%,#3a2113 0,transparent 48%),linear-gradient(180deg,#120d09 0%,var(--page) 58%,#090706 100%)!important}
+    body.theme-halloween{--page:#0c0a09;--panel:#171513;--panel-raised:#211c18;--line:rgba(251,146,60,.18);--primary-text:#fff7ed;--secondary-text:#c4b9ae;--accent:#f97316;--accent-soft:rgba(249,115,22,.14);background:#0c0a09!important}
     body.theme-halloween:before{opacity:.055}
     body.theme-halloween .player-artwork{background:radial-gradient(circle at 50% 38%,#653d20 0,#291c15 42%,#17100f 78%)}
     body.theme-halloween #close-rules:disabled{background:#3b2c20!important;color:#c4b9ae!important}
     body *{scrollbar-color:#59413a transparent}
     .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24}
-    .doodle{position:relative;background:var(--panel)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 16px 40px rgba(0,0,0,.2)!important}
+    .doodle{position:relative;background:rgba(27,18,16,.72)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 16px 40px rgba(0,0,0,.2)!important;backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15)}
     .doodle:after{display:none!important}
     .music-header{position:sticky!important;top:0;z-index:40;height:64px!important;background:rgba(15,10,9,.94)!important;border-color:var(--line)!important;box-shadow:0 1px 18px rgba(0,0,0,.24)!important;color:var(--primary-text)!important}
+    #album-atmosphere{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#100c0b}
+    #album-atmosphere img{position:absolute;inset:-12%;width:124%;height:124%;object-fit:cover;object-position:center 62%;opacity:.55;filter:blur(68px) saturate(1.35) brightness(.65);transform:scale(1.12);transition:opacity .7s ease}
+    #album-atmosphere:after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,12,11,.4),rgba(16,12,11,.56) 48%,rgba(11,8,7,.78));content:""}
+    body.theme-halloween #album-atmosphere:after{background:linear-gradient(180deg,rgba(22,14,9,.6),rgba(16,12,10,.76) 48%,rgba(9,7,6,.9))}
     .music-header-inner{max-width:560px!important;height:100%!important;padding:0 16px!important}
     .music-header img{border:1px solid var(--line);border-radius:50%;background:transparent!important}
     .music-header h1{color:#fff!important}
@@ -95,7 +99,7 @@
     #rules-info:hover{background:rgba(255,255,255,.1)!important}
     .online-pill{background:rgba(255,255,255,.05)!important;border-color:var(--line)!important;color:#e6dcda!important}
     .online-pill .bg-green,.online-pill .animate-ping{background:#10b981!important}
-    .music-main{width:100%;max-width:560px!important;min-height:calc(100vh - 64px)!important;margin:0 auto;padding:18px 16px 32px!important;gap:14px!important}
+    .music-main{position:relative;z-index:1;width:100%;max-width:560px!important;min-height:calc(100vh - 64px)!important;margin:0 auto;padding:18px 16px 32px!important;gap:14px!important}
     #request-status{display:inline-flex;min-height:26px;align-items:center;gap:6px;max-width:100%;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);color:var(--secondary-text);font-size:9px;font-weight:700;line-height:1.2;white-space:nowrap}
     #request-status .status-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#78716c}
     #request-status[data-state="open"]{border-color:rgba(52,211,153,.2);background:rgba(16,185,129,.1);color:#a7f3d0}
@@ -134,7 +138,7 @@
     #tab-recent:disabled{cursor:not-allowed;opacity:.45}
     #playlist-state{color:var(--secondary-text)!important}
     #playlist-indicator.text-green{color:#34d399!important}
-    #playback-status{margin:0!important;padding:14px!important;border:1px solid var(--line)!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(36,23,20,.88),rgba(27,18,16,.96))!important;color:var(--primary-text)!important}
+    #playback-status{margin:0!important;padding:14px!important;border:1px solid var(--line)!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(36,23,20,.64),rgba(27,18,16,.76))!important;color:var(--primary-text)!important;backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15)}
     .player-feature{display:grid;gap:12px}
     .player-artwork{position:relative;overflow:hidden;width:100%;aspect-ratio:1/1;border:1px solid var(--line);border-radius:14px;background:radial-gradient(circle at 50% 38%,#653130 0,#291817 42%,#17100f 78%);box-shadow:0 18px 36px rgba(0,0,0,.36)}
     .player-artwork img{display:block;width:100%;height:100%;object-fit:cover}
@@ -160,7 +164,7 @@
     .player-next-label{display:block;color:var(--secondary-text);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
     .player-next-title{display:block;margin-top:2px;color:var(--primary-text);font-size:11px;font-weight:700}
     .player-next-waiting{padding:10px 2px 0;border-top:1px solid var(--line);color:var(--secondary-text);font-size:11px}
-    .playback-panel{position:relative;isolation:isolate;overflow:hidden;margin:0!important;padding:14px!important;background:linear-gradient(145deg,rgba(36,23,20,.88),rgba(27,18,16,.96))!important}
+    .playback-panel{position:relative;isolation:isolate;overflow:hidden;margin:0!important;padding:14px!important;background:linear-gradient(145deg,rgba(36,23,20,.64),rgba(27,18,16,.76))!important}
     .playback-backdrop{position:absolute;inset:-18%;z-index:0;overflow:hidden;pointer-events:none;opacity:.46;filter:blur(34px) saturate(1.7)}
     .playback-backdrop img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
     .player-content{position:relative;z-index:2}
@@ -246,6 +250,7 @@
   </style>
 </head>
 <body class="font-body min-h-screen">
+  <div id="album-atmosphere" aria-hidden="true"><img id="album-atmosphere-image" alt=""></div>
   <header class="music-header sticky top-0 z-40 w-full backdrop-blur-xl border-b">
     <div class="music-header-inner mx-auto flex items-center justify-between">
       <div class="flex items-center gap-2.5 min-w-0">
@@ -380,6 +385,17 @@
     let timer, apiSongs=[], pendingRequest=null, requestCheckId=0;
     const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
     function highResolutionArtwork(url){return String(url||"").replace(/\/\d{2,4}x\d{2,4}bb(?=\.)/i,"/600x600bb");}
+    let albumAtmosphereUrl="";
+    function updateAlbumAtmosphere(url){
+      const image=document.getElementById("album-atmosphere-image"),source=highResolutionArtwork(url);
+      if(source===albumAtmosphereUrl)return;
+      albumAtmosphereUrl=source;
+      image.style.opacity="0";
+      if(!source){image.onload=null;image.onerror=null;image.removeAttribute("src");return}
+      image.onload=()=>{if(albumAtmosphereUrl===source)image.style.opacity=".55"};
+      image.onerror=()=>{if(albumAtmosphereUrl===source){image.style.opacity="0";console.error("Não foi possível carregar a capa para o fundo da Jukebox.")}};
+      image.src=source;
+    }
     function titleLooksExplicit(value){const words=String(value??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();return /(?:^|[^a-z0-9])(puta|putinha|putas|puto|putinho|putos|caralho|porra|buceta|bucetinha|foda|foder|fodendo|fuck|fucking|shit|bitch|dick|pussy|motherfucker)(?:$|[^a-z0-9])/.test(words);}
     function showResults(items,term){apiSongs=items; results.innerHTML=items.length?items.map((s,i)=>`<button type="button" data-index="${i}" class="w-full p-2.5 flex gap-2.5 text-left hover:bg-soft border-b border-slate-100"><img class="w-10 h-10 rounded-lg object-cover" src="${escapeHtml(highResolutionArtwork(s.artworkUrl100))}" alt=""><span class="min-w-0"><b class="block text-xs truncate">${escapeHtml(s.trackName)}</b><small class="text-[11px] text-muted truncate block">${escapeHtml(s.artistName)}</small></span></button>`).join(""):`<button type="button" id="manual-request" class="w-full p-3 text-left text-xs font-bold text-primary hover:bg-soft">Não achou? Enviar manualmente</button>`; results.classList.remove("hidden"); results.querySelectorAll("[data-index]").forEach(b=>b.onclick=()=>openRequestConfirmation(apiSongs[Number(b.dataset.index)])); const manual=document.getElementById("manual-request"); if(manual)manual.onclick=()=>openRequestConfirmation({trackName:term,artistName:"",artworkUrl100:"",trackTimeMillis:0,manual:true});}
     async function search(term){try{const r=await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=song&limit=4`); const data=await r.json(); showResults(data.results||[],term);}catch(error){console.error("Falha na busca do iTunes",error);showResults([],term);}}
@@ -443,7 +459,8 @@
         pinned=ranked.find(s=>s.id===currentSongId),rest=ranked.filter(s=>s.id!==currentSongId),
         playback=document.getElementById("playback-status"),next=pinned?rest[0]:ranked[0],current=pinned?.data(),
         queue=pinned?rest:ranked,
-        ordered=pinned?queue:queue.filter(song=>song.id!==next?.id);
+        ordered=queue.filter(song=>song.id!==next?.id);
+      updateAlbumAtmosphere((current||next?.data())?.capa);
       if(sortMode==="history"){
         const todaysHistory=playHistoryDate===localDateKey()?[...playHistory]:[];
         if(requestingAllowed&&current&&!todaysHistory.some(track=>track.songId===currentSongId))todaysHistory.push({...current,songId:currentSongId,current:true});
