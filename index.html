@@ -30,8 +30,8 @@
     body.theme-halloween #song-input{color:#fafaf9!important}
     body.theme-halloween #song-input::placeholder{color:#78716c!important}
     body.theme-halloween #submit-song{background:#ea580c!important;color:white!important}
-    body.theme-halloween #search-results{background:#171513!important;border-color:#44403c!important}
-    body.theme-halloween #search-results button{color:#e7e5e4!important;border-color:#292524!important}
+    body.theme-halloween #search-results{background-color:#171513!important;border-color:#44403c!important}
+    body.theme-halloween #search-results button{background-color:#171513!important;color:#e7e5e4!important;border-color:#292524!important}
     body.theme-halloween #search-results button:hover{background:#292524!important}
     body.theme-halloween #playlist-state{color:#a8a29e!important}
     body.theme-halloween #tab-top,body.theme-halloween #tab-recent{background:#1c1917!important;color:#a8a29e!important}
@@ -107,7 +107,7 @@
     body.theme-halloween #request-status[data-state="maintenance"]{border-color:rgba(251,191,36,.24);background:rgba(245,158,11,.1);color:#fde68a}
     #maintenance-notice{background:#291b0b!important;border-color:#8b5b18!important;color:#fde68a!important}
     #maintenance-notice h2,#maintenance-notice p{color:#fde68a!important}
-    .request-panel{padding:16px!important}
+    .request-panel{position:relative;z-index:5;padding:16px!important}
     .section-heading{color:var(--primary-text)!important}
     .request-form{margin-bottom:0!important}
     .search-field{background:#110d0c!important;border-color:var(--line)!important;box-shadow:inset 0 1px 6px rgba(0,0,0,.28)!important}
@@ -118,8 +118,11 @@
     #submit-song,#confirm-request,#announcement-modal button,#close-rules:not(:disabled),#institutional-done{background:var(--accent)!important;color:white!important}
     #submit-song:hover,#confirm-request:hover,#announcement-modal button:hover,#close-rules:not(:disabled):hover{filter:brightness(1.1)}
     #close-rules:disabled{background:#3b3331!important;color:#a99f9c!important;filter:none;cursor:not-allowed}
-    #search-results{position:absolute!important;z-index:30;margin-top:8px!important;max-height:256px;background:var(--panel)!important;border:1px solid var(--line)!important;color:var(--primary-text)!important;box-shadow:0 18px 38px rgba(0,0,0,.48)!important}
-    #search-results button{border-color:var(--line)!important;color:var(--primary-text)!important}
+    #search-results{position:absolute!important;z-index:30;left:0;right:0;width:100%;box-sizing:border-box;margin-top:8px!important;max-height:256px;overflow-y:auto;overflow-x:hidden;border:1px solid var(--line)!important;border-radius:14px;background-color:#1b1210!important;color:var(--primary-text)!important;box-shadow:0 18px 38px rgba(0,0,0,.62)!important;backdrop-filter:blur(18px)}
+    #search-results button{width:100%;min-height:68px;align-items:center;padding:12px!important;gap:12px!important;border-color:var(--line)!important;background-color:#1b1210!important;color:var(--primary-text)!important}
+    #search-results button>img{width:48px;height:48px;flex:none;border-radius:10px}
+    #search-results button b{font-size:14px;line-height:1.35}
+    #search-results button small{margin-top:3px;font-size:12px;line-height:1.3}
     #search-results button:hover{background:var(--panel-raised)!important}
     .request-hint{color:var(--secondary-text)!important}
     .playlist-panel{overflow:hidden}
@@ -427,7 +430,7 @@
         voteIcon=halloween?'<img class="vote-icon h-5 w-5 object-contain" src="assets/halloween-abobora.png" alt="">':`<span class="material-symbols-outlined text-base">${voted?"favorite":"favorite_border"}</span>`;
       return `<button data-vote="${snap.id}" aria-label="${voted?"Você já votou nesta música":"Votar nesta música"}" aria-pressed="${voted}" class="vote-btn inline-flex min-h-10 min-w-[4.25rem] shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 ${voted?"is-voted bg-brand text-white":"bg-soft text-ink"}">${voteIcon}<span>${Number(d.votos)||0}</span></button>`;
     }
-    function renderSkipVoteButton(snap){const d=snap.data(),voters=Array.isArray(d.skipVotedBy)?d.skipVotedBy:[],voted=voters.includes(uid),votes=Math.max(Number(d.skipVotes)||0,voters.length);return `<button data-skip-vote="${snap.id}" aria-label="${voted?"Seu voto para pular foi registrado":"Votar para pular esta música"}; ${votes} voto(s). O Grêmio decide quando avançar." title="O Grêmio decide quando avançar" aria-pressed="${voted}"${voted?" disabled":""} class="skip-vote-btn${voted?" is-voted":""}"><span class="material-symbols-outlined" aria-hidden="true">${voted?"how_to_vote":"skip_next"}</span><span class="skip-vote-copy"><span>${voted?"Voto enviado":"Votar para pular"}</span><small>O Grêmio decide quando avançar</small></span><span class="skip-vote-count"><strong>${votes}</strong><small>votos</small></span></button>`}
+    function renderSkipVoteButton(snap){const d=snap.data(),voters=Array.isArray(d.skipVotedBy)?d.skipVotedBy:[],voted=voters.includes(uid),votes=Math.max(Number(d.skipVotes)||0,voters.length);return `<button data-skip-vote="${snap.id}" aria-label="${voted?"Seu voto para pular foi registrado":"Votar para pular esta música"}; ${votes} voto(s). O Grêmio decide quando avançar." title="O Grêmio decide quando avançar" aria-pressed="${voted}"${voted?" disabled":""} class="skip-vote-btn${voted?" is-voted":""}"><span class="material-symbols-outlined" aria-hidden="true">skip_next</span><span class="skip-vote-copy"><span>${voted?"Voto enviado":"Votar para pular"}</span><small>O Grêmio decide quando avançar</small></span><span class="skip-vote-count"><strong>${votes}</strong><small>votos</small></span></button>`}
     function renderApprovedNotes(songId){return approvedNotes.filter(note=>note.data().songId===songId).map(note=>`<div role="note" class="student-note"><div class="student-note-copy"><b class="student-note-label">Recado desta música</b><p class="student-note-text whitespace-pre-wrap break-words">${escapeHtml(note.data().texto)}</p></div></div>`).join("");}
     function renderCard(snap,index){
       const d=snap.data(),
