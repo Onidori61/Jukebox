@@ -33,8 +33,8 @@
     body.theme-halloween #search-results button{background-color:#171513!important;color:#e7e5e4!important;border-color:#292524!important}
     body.theme-halloween #search-results button:hover{background:#292524!important}
     body.theme-halloween #playlist-state{color:#a8a29e!important}
-    body.theme-halloween #tab-top,body.theme-halloween #tab-recent{background:#1c1917!important;color:#a8a29e!important}
-    body.theme-halloween #tab-top.bg-ink,body.theme-halloween #tab-recent.bg-ink{background:#ea580c!important;color:white!important}
+    body.theme-halloween #tab-top,body.theme-halloween #tab-requests,body.theme-halloween #tab-recent{background:#1c1917!important;color:#a8a29e!important}
+    body.theme-halloween #tab-top.bg-ink,body.theme-halloween #tab-requests.bg-ink,body.theme-halloween #tab-recent.bg-ink{background:#ea580c!important;color:white!important}
     body.theme-halloween #approved-list>p.bg-white{background:#171513!important;color:#a8a29e!important}
     body.theme-halloween #approved-list>article{background:#171513!important;color:#fafaf9!important;--tw-ring-color:#292524!important}
     body.theme-halloween #approved-list>article .text-muted{color:#a8a29e!important}
@@ -110,6 +110,20 @@
     #maintenance-notice{background:#291b0b!important;border-color:#8b5b18!important;color:#fde68a!important}
     #maintenance-notice h2,#maintenance-notice p{color:#fde68a!important}
     .request-panel{position:relative;z-index:5;padding:16px!important}
+    .my-request-row{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}
+    .my-request-cover{display:flex;width:42px;height:42px;align-items:center;justify-content:center;overflow:hidden;border-radius:9px;background:var(--panel-raised);color:var(--secondary-text)}
+    .my-request-cover img{width:100%;height:100%;object-fit:cover}
+    .my-request-info{min-width:0}
+    .my-request-title{display:block;overflow:hidden;color:var(--primary-text);font-size:11px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+    .my-request-artist{display:block;overflow:hidden;margin-top:2px;color:var(--secondary-text);font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+    .my-request-state{display:inline-flex;align-items:center;gap:4px;margin-top:5px;color:var(--secondary-text);font-size:9px;font-weight:700}
+    .my-request-state .material-symbols-outlined{font-size:13px}
+    .my-request-state[data-status="pendente"]{color:#fbbf24}
+    .my-request-state[data-status="aprovada"]{color:#86efac}
+    .my-request-state[data-status="tocando"],.my-request-state[data-status="tocou"]{color:#93c5fd}
+    .my-request-state[data-status="barrada"]{color:#fca5a5}
+    .my-request-reason{margin-top:4px;color:var(--secondary-text);font-size:10px;line-height:1.4}
+    .my-request-empty{padding:10px 2px;color:var(--secondary-text);font-size:11px;line-height:1.5}
     .section-heading{color:var(--primary-text)!important}
     .request-form{margin-bottom:0!important}
     .search-field{background:#110d0c!important;border-color:var(--line)!important;box-shadow:inset 0 1px 6px rgba(0,0,0,.28)!important}
@@ -129,11 +143,19 @@
     .request-hint{color:var(--secondary-text)!important}
     .playlist-panel{overflow:hidden}
     .playlist-heading{padding:12px 14px!important;border-color:var(--line)!important}
-    .playlist-tabs{gap:14px!important}
-    #tab-top,#tab-recent{position:relative;padding:7px 1px!important;border-radius:0!important;background:transparent!important;color:var(--secondary-text)!important;font-size:11px!important;font-weight:700!important;letter-spacing:.07em;text-transform:uppercase}
-    #tab-top[aria-selected="true"],#tab-recent[aria-selected="true"]{color:#fff!important}
-    #tab-top[aria-selected="true"]:after,#tab-recent[aria-selected="true"]:after{position:absolute;right:0;bottom:-13px;left:0;height:2px;background:var(--accent);content:""}
+    .playlist-tabs{gap:clamp(8px,2.2vw,14px)!important}
+    #tab-top,#tab-requests,#tab-recent{position:relative;display:inline-flex;align-items:center;gap:4px;padding:7px 1px!important;border-radius:0!important;background:transparent!important;color:var(--secondary-text)!important;font-size:11px!important;font-weight:700!important;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+    #tab-requests.hidden,#playlist-state-indicator.hidden{display:none!important}
+    #tab-top[aria-selected="true"],#tab-requests[aria-selected="true"],#tab-recent[aria-selected="true"]{color:#fff!important}
+    #tab-top[aria-selected="true"]:after,#tab-requests[aria-selected="true"]:after,#tab-recent[aria-selected="true"]:after{position:absolute;right:0;bottom:-13px;left:0;height:2px;background:var(--accent);content:""}
     #tab-recent:disabled{cursor:not-allowed;opacity:.45}
+    #my-requests-count{display:inline-flex;min-width:16px;height:16px;align-items:center;justify-content:center;padding:0 4px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--secondary-text);font-size:9px;font-weight:800;letter-spacing:0}
+    #my-requests-count.hidden{display:none!important}
+    #my-requests-count[data-state="pending"]{background:rgba(251,191,36,.16);color:#fcd34d}
+    #my-requests-count[data-state="approved"]{background:rgba(52,211,153,.15);color:#6ee7b7}
+    #my-requests-count[data-state="rejected"]{background:#dc2626;color:#fff}
+    #my-requests-count[data-unread="true"]{animation:request-status-pulse 1s ease-in-out infinite}
+    @keyframes request-status-pulse{50%{opacity:.42;transform:scale(.92)}}
     #playlist-state{color:var(--secondary-text)!important}
     #playlist-indicator.text-green{color:#34d399!important}
     #playback-status{margin:0!important;padding:14px!important;border:1px solid var(--line)!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(36,23,20,.64),rgba(27,18,16,.76))!important;color:var(--primary-text)!important;backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15)}
@@ -185,6 +207,8 @@
     .track-info>span{margin-top:3px;color:var(--secondary-text);font-size:10px}
     .track-info>small{margin-top:3px;color:#827875;font-size:9px}
     .history-time{color:var(--secondary-text)!important;font-size:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .history-popular{display:inline-flex;align-items:center;justify-content:center;color:#f87171}
+    .history-popular .material-symbols-outlined{font-size:16px;font-variation-settings:'FILL' 1,'wght' 500}
     #approved-list .student-note{grid-column:1/-1}
     #approved-list>article b,#playback-status b{color:var(--primary-text)!important}
     #approved-list>article .text-muted,#playback-status .text-muted{color:var(--secondary-text)!important}
@@ -254,9 +278,11 @@
     @media(min-width:640px){.music-main{padding-top:22px!important}.player-artwork{max-height:520px}.request-panel{padding:18px!important}}
     @media(max-width:380px){.music-header-inner{padding:0 11px!important}.music-main{padding-right:11px!important;padding-left:11px!important}.header-actions{gap:5px!important}#rules-info{padding:6px 8px!important;font-size:10px}.online-pill{padding-right:7px!important;padding-left:7px!important}.player-title{font-size:15px}}
     body.theme-halloween #playback-status.playback-panel{background:linear-gradient(145deg,rgba(42,27,18,.82),rgba(23,21,19,.94))!important;border-color:rgba(251,146,60,.2)!important}
-    body.theme-halloween #tab-top[aria-selected="true"],body.theme-halloween #tab-recent[aria-selected="true"]{background:transparent!important;color:#fff7ed!important}
-    body.theme-halloween #tab-top[aria-selected="false"],body.theme-halloween #tab-recent[aria-selected="false"]{background:transparent!important;color:#a8a29e!important}
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    body.theme-halloween .my-request-row{background:#171513!important;border-color:#292524!important}
+    body.theme-halloween .my-request-cover{background:#211c18!important}
+    body.theme-halloween #tab-top[aria-selected="true"],body.theme-halloween #tab-requests[aria-selected="true"],body.theme-halloween #tab-recent[aria-selected="true"]{background:transparent!important;color:#fff7ed!important}
+    body.theme-halloween #tab-top[aria-selected="false"],body.theme-halloween #tab-requests[aria-selected="false"],body.theme-halloween #tab-recent[aria-selected="false"]{background:transparent!important;color:#a8a29e!important}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}#my-requests-count[data-unread="true"]{animation:none}}
   </style>
 </head>
 <body class="font-body min-h-screen">
@@ -265,7 +291,7 @@
     <div class="music-header-inner mx-auto flex items-center justify-between">
       <div class="flex items-center gap-2.5 min-w-0">
         <img src="assets/logo-al.png" alt="Logo Grêmio AL" class="w-9 h-9 object-contain">
-        <div class="min-w-0"><div class="flex items-center gap-1.5"><h1 class="font-headline text-base font-bold leading-none tracking-tight">Jukebox</h1><span id="theme-badge" class="hidden rounded border border-orange-500/30 bg-orange-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-400">Halloween 🎃</span></div><span class="text-muted truncate text-[11px] leading-tight font-medium">Uma ação da Chapa Renovação</span></div>
+        <div class="min-w-0"><div class="flex items-center gap-1.5"><h1 class="font-headline text-base font-bold leading-none tracking-tight">Jukebox</h1><span id="theme-badge" class="hidden rounded border border-orange-500/30 bg-orange-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-400">Halloween</span></div><span class="text-muted truncate text-[11px] leading-tight font-medium">Uma ação da Chapa Renovação</span></div>
       </div>
       <div class="header-actions flex items-center"><button aria-label="Regras e informações" aria-haspopup="dialog" aria-controls="institutional-modal" title="Regras e informações" id="rules-info" type="button"><span class="material-symbols-outlined text-base" aria-hidden="true">info</span><span>Regras</span></button><div class="online-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs shrink-0 border"><i class="w-2 h-2 rounded-full bg-green animate-ping"></i><b><span id="online-count">0</span> online</b></div></div>
     </div>
@@ -285,8 +311,7 @@
       </div>
       <div id="search-results" class="hidden mt-2 max-h-64 overflow-y-auto rounded-xl shadow-md ring-1"></div>
       <div class="request-hint flex items-center mt-2.5"><span class="text-[10px] flex items-center gap-1"><span class="material-symbols-outlined text-sm" style="color:var(--accent)">verified</span>Pedidos e recados passam por revisão do Grêmio</span></div></form></section>
-    <section class="doodle playlist-panel"><div class="playlist-heading flex items-center justify-between border-b"><div class="playlist-tabs flex"><button id="tab-top" aria-selected="true" class="font-semibold">Fila</button><button id="tab-recent" aria-selected="false" class="font-medium" disabled aria-disabled="true" title="Carregando configurações">Histórico</button></div><span class="text-[11px] flex items-center gap-1"><span id="playlist-indicator" class="material-symbols-outlined text-xs animate-spin">sync</span><span id="playlist-state">Ao vivo</span></span></div><div id="approved-list" class="flex flex-col"><p class="text-xs p-4 text-center">Carregando playlist...</p></div></section>
-    <section id="my-rejected" class="doodle hidden bg-white rounded-2xl p-4 shadow-sm ring-1 ring-red-200"><h2 class="font-headline text-sm font-bold flex items-center gap-1.5 text-red-600"><span class="material-symbols-outlined text-base">info</span>Sobre seus pedidos</h2><div id="rejected-list" class="mt-2 space-y-2"></div></section>
+    <section class="doodle playlist-panel"><div class="playlist-heading flex items-center justify-between border-b"><div class="playlist-tabs flex"><button id="tab-top" aria-selected="true" class="font-semibold">Fila</button><button id="tab-requests" aria-selected="false" class="font-semibold hidden" aria-controls="approved-list">Meus pedidos <span id="my-requests-count" data-state="pending" aria-label="0 ainda não aprovados">0</span></button><button id="tab-recent" aria-selected="false" class="font-medium" disabled aria-disabled="true" title="Carregando configurações">Histórico</button></div><span id="playlist-state-indicator" class="text-[11px] flex items-center gap-1"><span id="playlist-indicator" class="material-symbols-outlined text-xs animate-spin">sync</span><span id="playlist-state">Ao vivo</span></span></div><div id="approved-list" class="flex flex-col"><p class="text-xs p-4 text-center">Carregando playlist...</p></div></section>
     <section id="my-rejected-notes" class="doodle hidden bg-white rounded-2xl p-4 shadow-sm ring-1 ring-amber-200"><h2 class="font-headline text-sm font-bold flex items-center gap-1.5 text-amber-700"><span class="material-symbols-outlined text-base">chat_error</span>Sobre seus recados</h2><div id="rejected-notes-list" class="mt-2 space-y-2"></div></section>
   </main>
   <div id="rules-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
@@ -358,7 +383,9 @@
     const firebaseConfig={apiKey:"AIzaSyDGbDeolFBC-Dw6EBZnNXygq9WuEdH8nS4",authDomain:"jukebox-c6d07.firebaseapp.com",projectId:"jukebox-c6d07",storageBucket:"jukebox-c6d07.firebasestorage.app",messagingSenderId:"56386350624",appId:"1:56386350624:web:df7a6fe404a1242176d645"};
     const db=getFirestore(initializeApp(firebaseConfig)), songs=collection(db,"musicas"), recados=collection(db,"recados"), presence=collection(db,"presenca"), settingsRef=doc(db,"configuracoes","jukebox");
     const uid=localStorage.getItem("jukebox_uid")||crypto.randomUUID(); localStorage.setItem("jukebox_uid",uid);
-    const input=document.getElementById("song-input"), results=document.getElementById("search-results"), list=document.getElementById("approved-list"),notice=document.getElementById("notice");let approvedDocs=[],approvedNotes=[],playHistory=[],playHistoryDate="",playHistoryLoaded=false,sortMode="queue",jukeboxOverride=false,currentSongId=null,maintenanceEnabled=false,settingsLoaded=false,requestingAllowed=false;
+    const myRequestsSeenKey=`jukebox_my_requests_seen_${uid}`;
+    let acknowledgedRequestSignature=localStorage.getItem(myRequestsSeenKey)||"",currentRequestSignature="";
+    const input=document.getElementById("song-input"), results=document.getElementById("search-results"), list=document.getElementById("approved-list"),notice=document.getElementById("notice");let approvedDocs=[],approvedNotes=[],myRequestDocs=[],myRequestsError="",playHistory=[],playHistoryDate="",playHistoryLoaded=false,sortMode="queue",jukeboxOverride=false,currentSongId=null,maintenanceEnabled=false,settingsLoaded=false,requestingAllowed=false;
     function showNotice(text){notice.textContent=text;notice.classList.remove("hidden");setTimeout(()=>notice.classList.add("hidden"),2800)}
     function updateBreak(){
       const now=new Date(),start=new Date(now),end=new Date(now);
@@ -387,6 +414,7 @@
       indicator.classList.toggle("text-green",active);
       indicator.classList.toggle("text-muted",!active);
       document.getElementById("maintenance-notice").classList.toggle("hidden",!maintenanceEnabled);
+      syncMyRequestsTab();
     }
     document.getElementById("footer-year").textContent=new Date().getFullYear();document.getElementById("close-announcement").onclick=()=>{const modal=document.getElementById("announcement-modal");localStorage.setItem("jukebox_announcement_seen",modal.dataset.announcementId||"");modal.classList.add("hidden");modal.classList.remove("flex")};updateBreak();setInterval(updateBreak,15000);
     function applyTheme(theme){const halloween=theme==="halloween";document.body.classList.toggle("theme-halloween",halloween);document.getElementById("theme-badge").classList.toggle("hidden",!halloween)}
@@ -420,7 +448,7 @@
     async function submitSong(name,meta,noteText=""){if(!name)return;if(!requestingAllowed){showNotice(maintenanceEnabled?"A Jukebox está em manutenção no momento.":"A Jukebox está fechada agora.");return}await saveSong(meta||{trackName:name,artistName:"",artworkUrl100:"",trackTimeMillis:0,manual:true},noteText);}
     async function saveSong(meta,noteText=""){
       const name=meta.trackName.trim(),low=name.toLocaleLowerCase("pt-BR"),apiExplicitness=String(meta.trackExplicitness||"desconhecida").toLowerCase(),titleExplicit=titleLooksExplicit(name),explicit=apiExplicitness==="explicit"||titleExplicit,explicitness=apiExplicitness==="explicit"?"itunes_explicit":titleExplicit?"termo_explicito_no_titulo":apiExplicitness;
-      const payload={nome:name,nome_low:low,artista:meta.artistName||"",capa:highResolutionArtwork(meta.artworkUrl100)||null,duracao:meta.trackTimeMillis?formatDuration(meta.trackTimeMillis):"",explicita:explicit,classificacaoConteudo:explicitness,status:"pendente",motivo:"",votos:1,votedBy:[uid],skipVotes:0,skipVotedBy:[],createdAt:serverTimestamp()};
+      const payload={nome:name,nome_low:low,artista:meta.artistName||"",capa:highResolutionArtwork(meta.artworkUrl100)||null,duracao:meta.trackTimeMillis?formatDuration(meta.trackTimeMillis):"",explicita:explicit,classificacaoConteudo:explicitness,status:"pendente",motivo:"",votos:1,votedBy:[uid],requestedBy:[uid],requestedAt:serverTimestamp(),skipVotes:0,skipVotedBy:[],createdAt:serverTimestamp()};
       try{
         const matches=await getDocs(query(songs,where("nome_low","==",low))),newSongRef=doc(songs),noteRef=noteText?doc(recados):null;
         let blockedByRejection=null,savedSongRef=null;
@@ -432,8 +460,9 @@
           const existing=existingDocs.find(s=>s.exists());
           if(existing){
             savedSongRef=existing.ref;
-            const data=existing.data(),voters=Array.isArray(data.votedBy)?data.votedBy:[],updates={};
+            const data=existing.data(),voters=Array.isArray(data.votedBy)?data.votedBy:[],requesters=Array.isArray(data.requestedBy)?data.requestedBy:[],updates={};
             if(!voters.includes(uid)){updates.votedBy=[...voters,uid];updates.votos=(Number(data.votos)||0)+1;}
+            if(!requesters.includes(uid)){updates.requestedBy=[...requesters,uid];updates.requestedAt=serverTimestamp();}
             if(explicit&&!data.explicita){updates.explicita=true;updates.classificacaoConteudo=explicitness;}
             if(Object.keys(updates).length)tx.update(existing.ref,updates);
           }else{savedSongRef=newSongRef;tx.set(newSongRef,payload)}
@@ -448,8 +477,9 @@
     function localDateKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;}
     function renderHistoryCard(track){
       const cover=track.capa?`<img src="${escapeHtml(highResolutionArtwork(track.capa))}" alt="Capa de ${escapeHtml(track.nome)}">`:'<span class="material-symbols-outlined">album</span>',
-        playedAt=new Date(track.playedAt||""),time=Number.isNaN(playedAt.getTime())?"":playedAt.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
-      return `<article class="track-row"><div class="track-cover">${cover}</div><div class="track-info"><b>${escapeHtml(track.nome||"Música")}</b><span>${escapeHtml(track.artista||"Artista não informado")}</span>${track.duracao?`<small>${escapeHtml(track.duracao)}</small>`:""}</div>${track.current?'<span class="history-time">Atual</span>':time?`<time class="history-time" datetime="${escapeHtml(playedAt.toISOString())}">${time}</time>`:""}</article>`;
+        playedAt=new Date(track.playedAt||""),time=Number.isNaN(playedAt.getTime())?"":playedAt.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
+        popular=Number(track.playCount)>1?`<span class="history-popular" role="img" aria-label="Tocada ${Number(track.playCount)} vezes; música popular" title="Tocada ${Number(track.playCount)} vezes"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></span>`:"";
+      return `<article class="track-row"><div class="track-cover">${cover}</div><div class="track-info"><b>${escapeHtml(track.nome||"Música")}</b><span>${escapeHtml(track.artista||"Artista não informado")}</span>${track.duracao?`<small>${escapeHtml(track.duracao)}</small>`:""}</div>${popular}${track.current?'<span class="history-time">Atual</span>':time?`<time class="history-time" datetime="${escapeHtml(playedAt.toISOString())}">${time}</time>`:""}</article>`;
     }
     function renderVoteButton(snap){
       const d=snap.data(),voters=Array.isArray(d.votedBy)?d.votedBy:[],voted=voters.includes(uid),halloween=document.body.classList.contains("theme-halloween"),
@@ -471,9 +501,13 @@
         queue=pinned?rest:ranked,
         ordered=queue.filter(song=>song.id!==next?.id);
       updateAlbumAtmosphere((current||next?.data())?.capa);
-      if(sortMode==="history"){
-        const todaysHistory=playHistoryDate===localDateKey()?[...playHistory]:[];
-        if(requestingAllowed&&current&&!todaysHistory.some(track=>track.songId===currentSongId))todaysHistory.push({...current,songId:currentSongId,current:true});
+      syncMyRequestsTab();
+      if(sortMode==="requests"){
+        list.classList.remove("hidden");
+        list.innerHTML=renderMyRequestsContent();
+      }else if(sortMode==="history"){
+        const todaysHistory=playHistoryDate===localDateKey()?normalizePlayHistory(playHistory):[];
+        if(requestingAllowed&&current&&!todaysHistory.some(track=>track.songId===currentSongId))todaysHistory.push({...current,songId:currentSongId,current:true,playCount:1});
         list.classList.remove("hidden");
         list.innerHTML=!playHistoryLoaded?'<p class="text-xs text-muted p-4 text-center">Carregando histórico...</p>':todaysHistory.length?[...todaysHistory].reverse().map(renderHistoryCard).join(""):'<p class="text-xs text-muted p-4 text-center">Nenhuma música tocou hoje ainda.</p>';
       }else{
@@ -493,11 +527,73 @@
       document.querySelectorAll("#approved-list [data-vote],#playback-status [data-vote]").forEach(b=>b.onclick=()=>vote(b.dataset.vote));
       document.querySelectorAll("#playback-status [data-skip-vote]").forEach(b=>b.onclick=()=>voteToSkip(b.dataset.skipVote));
     }
+    function normalizePlayHistory(history){
+      const tracksBySong=new Map();
+      for(const track of history){
+        const key=track.songId||`${track.nome_low||track.nome||"unknown"}:${track.artista||""}`,
+          previous=tracksBySong.get(key),count=Math.max(1,Number(track.playCount)||1);
+        if(!previous){tracksBySong.set(key,{...track,playCount:count});continue}
+        const previousTime=Date.parse(previous.playedAt||""),trackTime=Date.parse(track.playedAt||""),
+          latest=trackTime>=previousTime?track:previous;
+        tracksBySong.set(key,{...previous,...latest,playCount:previous.playCount+count,current:previous.current||track.current});
+      }
+      return [...tracksBySong.values()].sort((a,b)=>Date.parse(a.playedAt||"")-Date.parse(b.playedAt||""));
+    }
+    function syncMyRequestsTab(){
+      const tab=document.getElementById("tab-requests"),count=document.getElementById("my-requests-count"),
+        stateIndicator=document.getElementById("playlist-state-indicator"),rejected=myRequestDocs.some(song=>song.data().status==="barrada"),
+        pendingCount=myRequestDocs.filter(song=>song.data().status==="pendente").length,
+        approvedCount=myRequestDocs.filter(song=>song.data().status==="aprovada").length,
+        visible=requestingAllowed&&myRequestDocs.length>0&&!myRequestsError,
+        hasUnread=currentRequestSignature!==acknowledgedRequestSignature;
+      tab.classList.toggle("hidden",!visible);
+      stateIndicator.classList.toggle("hidden",visible);
+      if(!visible&&sortMode==="requests"){
+        sortMode="queue";
+        document.getElementById("tab-top").setAttribute("aria-selected","true");
+        tab.setAttribute("aria-selected","false");
+      }
+      const priorityState=rejected?"rejected":pendingCount?"pending":approvedCount?"approved":"pending",
+        priorityLabel=priorityState==="rejected"?"há pedido barrado":priorityState==="pending"?"há pedido em análise":"pedidos aprovados",
+        countLabel=`${myRequestDocs.length} ${myRequestDocs.length===1?"pedido":"pedidos"}; ${priorityLabel}`;
+      count.dataset.state=priorityState;
+      count.dataset.unread=String(hasUnread);
+      count.textContent=String(myRequestDocs.length);
+      count.setAttribute("aria-label",countLabel);
+      count.classList.toggle("hidden",!hasUnread);
+      tab.setAttribute("aria-label",`Meus pedidos, ${countLabel}`);
+    }
+    function markMyRequestsRead(){
+      acknowledgedRequestSignature=currentRequestSignature;
+      localStorage.setItem(myRequestsSeenKey,acknowledgedRequestSignature);
+      syncMyRequestsTab();
+    }
+    function renderMyRequestsContent(){
+      if(myRequestsError)return '<p class="my-request-empty">Não foi possível carregar seus pedidos agora. Tente atualizar a página.</p>';
+      if(!myRequestDocs.length)return '<p class="my-request-empty">Você ainda não tem pedidos para acompanhar.</p>';
+      const ranked=[...approvedDocs].sort((a,b)=>(Number(b.data().votos)||0)-(Number(a.data().votos)||0)),
+        currentIsApproved=ranked.some(song=>song.id===currentSongId),
+        queue=currentIsApproved?ranked.filter(song=>song.id!==currentSongId):ranked,
+        playedToday=new Set(playHistoryDate===localDateKey()?normalizePlayHistory(playHistory).map(track=>track.songId):[]);
+      const statusFor=snap=>{
+        const d=snap.data();
+        if(d.status==="barrada")return {key:"barrada",icon:"block",label:"Barrada",detail:d.motivo?`Motivo: ${escapeHtml(d.motivo)}`:"O Grêmio não informou um motivo."};
+        if(d.status==="pendente")return {key:"pendente",icon:"schedule",label:"Em análise",detail:"Aguardando a revisão do Grêmio."};
+        if(snap.id===currentSongId)return {key:"tocando",icon:"equalizer",label:"Tocando agora",detail:"Seu pedido está tocando neste momento."};
+        if(playedToday.has(snap.id))return {key:"tocou",icon:"check_circle",label:"Já tocou hoje",detail:"Esta música já foi reproduzida hoje."};
+        const position=queue.findIndex(song=>song.id===snap.id)+1;
+        return {key:"aprovada",icon:"queue_music",label:"Aprovada e na fila",detail:position?`Posição aproximada: #${position} na fila.`:"Aprovada; posição da fila atualizando."};
+      };
+      return [...myRequestDocs].sort((a,b)=>(b.data().requestedAt?.toMillis?.()||b.data().createdAt?.toMillis?.()||0)-(a.data().requestedAt?.toMillis?.()||a.data().createdAt?.toMillis?.()||0)).map(snap=>{
+        const d=snap.data(),state=statusFor(snap),cover=d.capa?`<img src="${escapeHtml(highResolutionArtwork(d.capa))}" alt="">`:'<span class="material-symbols-outlined" aria-hidden="true">album</span>';
+        return `<article class="my-request-row"><div class="my-request-cover">${cover}</div><div class="my-request-info"><b class="my-request-title">${escapeHtml(d.nome||"Música")}</b><span class="my-request-artist">${escapeHtml(d.artista||"Artista não informado")}</span><span class="my-request-state" data-status="${state.key}"><span class="material-symbols-outlined" aria-hidden="true">${state.icon}</span>${state.label}</span><p class="my-request-reason">${state.detail}</p></div></article>`;
+      }).join("");
+    }
     onSnapshot(query(songs,where("status","==","aprovada")),snap=>{approvedDocs=snap.docs;renderApproved()},error=>{console.error(error);list.innerHTML='<p class="text-xs text-red-600 p-4">Não foi possível carregar a playlist.</p>';});
+    onSnapshot(query(songs,where("votedBy","array-contains",uid)),snap=>{myRequestDocs=snap.docs.filter(s=>{const d=s.data();return Array.isArray(d.requestedBy)?d.requestedBy.includes(uid):["pendente","barrada"].includes(d.status)||(Array.isArray(d.votedBy)&&d.votedBy[0]===uid)});currentRequestSignature=JSON.stringify(myRequestDocs.map(s=>[s.id,s.data().status]).sort((a,b)=>a[0].localeCompare(b[0])));myRequestsError="";if(sortMode==="requests")markMyRequestsRead();else syncMyRequestsTab();renderApproved()},error=>{console.error("Falha ao carregar meus pedidos",error);myRequestsError="error";syncMyRequestsTab();if(sortMode==="requests")renderApproved()});
     onSnapshot(query(recados,where("status","==","aprovada")),snap=>{approvedNotes=snap.docs;renderApproved()},error=>console.error("Falha ao carregar recados aprovados",error));
     onSnapshot(query(recados,where("uid","==",uid)),snap=>{const rejected=snap.docs.filter(s=>s.data().status==="barrada"),box=document.getElementById("my-rejected-notes"),target=document.getElementById("rejected-notes-list");box.classList.toggle("hidden",!rejected.length);target.innerHTML=rejected.map(s=>{const d=s.data();return `<div class="rounded-xl bg-amber-50 p-3"><b class="block text-xs">${escapeHtml(d.nomeMusica||"Música")}</b><p class="mt-1 text-[11px] text-amber-900">${escapeHtml(d.texto)}</p>${d.motivo?`<span class="block text-[11px] text-amber-800 mt-1"><strong>Motivo:</strong> ${escapeHtml(d.motivo)}</span>`:""}</div>`}).join("")},error=>console.error("Falha ao carregar recados barrados",error));
-    onSnapshot(query(songs,where("votedBy","array-contains",uid)),snap=>{const rejected=snap.docs.filter(s=>s.data().status==="barrada"),box=document.getElementById("my-rejected"),target=document.getElementById("rejected-list");box.classList.toggle("hidden",!rejected.length);target.innerHTML=rejected.map(s=>{const d=s.data();return `<div class="rounded-xl bg-red-50 p-3"><b class="block text-xs">${escapeHtml(d.nome)}</b><span class="block text-[11px] text-red-700 mt-1"><strong>Motivo:</strong> ${escapeHtml(d.motivo||"Não informado")}</span></div>`}).join("")},error=>console.error("Falha ao carregar pedidos barrados",error));
-    const topTab=document.getElementById("tab-top"),historyTab=document.getElementById("tab-recent");topTab.onclick=()=>{sortMode="queue";topTab.setAttribute("aria-selected","true");historyTab.setAttribute("aria-selected","false");renderApproved()};historyTab.onclick=()=>{if(historyTab.disabled)return;sortMode="history";historyTab.setAttribute("aria-selected","true");topTab.setAttribute("aria-selected","false");renderApproved()};
+    const topTab=document.getElementById("tab-top"),requestsTab=document.getElementById("tab-requests"),historyTab=document.getElementById("tab-recent");topTab.onclick=()=>{sortMode="queue";topTab.setAttribute("aria-selected","true");requestsTab.setAttribute("aria-selected","false");historyTab.setAttribute("aria-selected","false");renderApproved()};requestsTab.onclick=()=>{if(requestsTab.classList.contains("hidden"))return;sortMode="requests";markMyRequestsRead();topTab.setAttribute("aria-selected","false");requestsTab.setAttribute("aria-selected","true");historyTab.setAttribute("aria-selected","false");renderApproved()};historyTab.onclick=()=>{if(historyTab.disabled)return;sortMode="history";historyTab.setAttribute("aria-selected","true");requestsTab.setAttribute("aria-selected","false");topTab.setAttribute("aria-selected","false");renderApproved()};
     async function vote(id){try{await runTransaction(db,async tx=>{const ref=doc(db,"musicas",id),snap=await tx.get(ref);if(!snap.exists())return;const d=snap.data(),voters=Array.isArray(d.votedBy)?d.votedBy:[];if(voters.includes(uid))return;tx.update(ref,{votedBy:[...voters,uid],votos:(Number(d.votos)||0)+1});});}catch(error){console.error(error);showNotice("Não foi possível registrar o voto.");}}
     async function voteToSkip(id){if(id!==currentSongId){showNotice("Essa música não está mais tocando.");return}try{await runTransaction(db,async tx=>{const ref=doc(db,"musicas",id),snap=await tx.get(ref);if(!snap.exists()||snap.data().status!=="aprovada"||id!==currentSongId)return;const d=snap.data(),voters=Array.isArray(d.skipVotedBy)?d.skipVotedBy:[];if(voters.includes(uid))return;tx.update(ref,{skipVotedBy:[...voters,uid],skipVotes:Math.max(Number(d.skipVotes)||0,voters.length)+1});});}catch(error){console.error("Falha ao registrar voto para pular",error);showNotice("Não foi possível registrar o voto para pular.");}}
     let seconds=5;const modal=document.getElementById("rules-modal"),close=document.getElementById("close-rules"),count=document.getElementById("rules-count"),rulesSeenKey="jukebox_rules_seen",now=new Date(),today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`,institutionalModal=document.getElementById("institutional-modal");if(localStorage.getItem(rulesSeenKey)!==today){modal.classList.remove("hidden");modal.classList.add("flex");localStorage.setItem(rulesSeenKey,today);}const countdown=setInterval(()=>{seconds--;count.textContent=seconds?`Aguarde (${seconds}s)...`:"Entendi, ir para a Jukebox";if(!seconds){clearInterval(countdown);close.disabled=false;close.className="mt-4 w-full py-3 rounded-xl bg-brand text-white text-xs font-bold shadow-md hover:brightness-105";}},1000);close.onclick=()=>{modal.classList.add("hidden");modal.classList.remove("flex");localStorage.setItem(rulesSeenKey,today)};const closeInstitutional=()=>{institutionalModal.classList.add("hidden");institutionalModal.classList.remove("flex")};document.getElementById("rules-info").onclick=()=>{institutionalModal.classList.remove("hidden");institutionalModal.classList.add("flex");document.getElementById("close-institutional").focus()};document.getElementById("close-institutional").onclick=closeInstitutional;document.getElementById("institutional-done").onclick=closeInstitutional;institutionalModal.addEventListener("click",event=>{if(event.target===institutionalModal)closeInstitutional()});document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!institutionalModal.classList.contains("hidden"))closeInstitutional()});
