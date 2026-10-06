@@ -158,4 +158,447 @@
     @keyframes request-status-pulse{50%{opacity:.42;transform:scale(.92)}}
     #playlist-state{color:var(--secondary-text)!important}
     #playlist-indicator.text-green{color:#34d399!important}
-    #playback-status{margin:0!important;padding:14px!important;border:1px solid var(--line)!important;bor
+    #playback-status{margin:0!important;padding:14px!important;border:1px solid var(--line)!important;border-radius:18px!important;background:linear-gradient(145deg,rgba(36,23,20,.64),rgba(27,18,16,.76))!important;color:var(--primary-text)!important;backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15)}
+    .player-feature{display:grid;gap:12px}
+    .player-artwork{position:relative;overflow:hidden;width:100%;aspect-ratio:1/1;border:1px solid var(--line);border-radius:14px;background:radial-gradient(circle at 50% 38%,#653130 0,#291817 42%,#17100f 78%);box-shadow:0 18px 36px rgba(0,0,0,.36)}
+    .player-artwork img{display:block;width:100%;height:100%;object-fit:cover}
+    .player-artwork .artwork-fallback{display:flex;width:100%;height:100%;align-items:center;justify-content:center;color:rgba(255,255,255,.55)}
+    .player-artwork .artwork-fallback .material-symbols-outlined{font-size:72px}
+    .player-state-badge{position:absolute;top:12px;left:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid rgba(255,255,255,.17);border-radius:999px;background:rgba(0,0,0,.68);color:#fff;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;backdrop-filter:blur(10px)}
+    .player-state-badge .material-symbols-outlined{font-size:15px;color:var(--accent)}
+    .player-caption{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;padding:0 2px}
+    .player-caption>.min-w-0{flex:1 1 180px}
+    .player-caption>.skip-vote-btn{flex:none;align-self:center;margin:0;padding:7px 10px;border-radius:999px;background:rgba(255,255,255,.055);font-size:10px}
+    .player-caption>.skip-vote-btn .skip-vote-copy>small{display:none}
+    .player-caption>.skip-vote-btn .skip-vote-count{min-width:0;flex-direction:row;gap:3px;padding-left:7px;border-left:1px solid var(--line)}
+    .player-caption>.skip-vote-btn .skip-vote-count small{font-size:9px}
+    .player-caption .student-note{flex:1 0 100%;width:100%;margin-top:0!important}
+    .player-caption .student-note+.student-note{margin-top:0!important}
+    .player-title{display:block;color:var(--primary-text);font-family:"Plus Jakarta Sans",sans-serif;font-size:17px;font-weight:800;line-height:1.3;overflow-wrap:anywhere}
+    .player-artist{display:block;margin-top:3px;color:var(--secondary-text);font-size:12px;overflow-wrap:anywhere}
+    .player-duration{display:block;margin-top:5px;color:#827875;font-size:10px}
+    .player-next{display:flex;align-items:center;gap:10px;margin-top:2px;padding:10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035)}
+    .player-next-cover{width:40px;height:40px;flex:none;overflow:hidden;border-radius:8px;background:var(--panel-raised);color:var(--accent)}
+    .player-next-cover img{width:100%;height:100%;object-fit:cover}
+    .player-next-cover .material-symbols-outlined{display:flex;height:100%;align-items:center;justify-content:center}
+    .player-next-label{display:block;color:var(--secondary-text);font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+    .player-next-title{display:block;margin-top:2px;color:var(--primary-text);font-size:11px;font-weight:700}
+    .player-next-waiting{padding:10px 2px 0;border-top:1px solid var(--line);color:var(--secondary-text);font-size:11px}
+    .playback-panel{position:relative;isolation:isolate;overflow:hidden;margin:0!important;padding:14px!important;background:linear-gradient(145deg,rgba(36,23,20,.64),rgba(27,18,16,.76))!important}
+    .playback-backdrop{position:absolute;inset:-18%;z-index:0;overflow:hidden;pointer-events:none;opacity:.46;filter:blur(34px) saturate(1.7)}
+    .playback-backdrop img{width:100%;height:100%;object-fit:cover;transform:scale(1.08)}
+    .player-content{position:relative;z-index:2}
+    #playback-status:after{display:block!important;position:absolute;inset:0;z-index:1;border:0;border-radius:inherit;background:linear-gradient(135deg,rgba(12,9,9,.3),rgba(12,9,9,.74));content:"";pointer-events:none}
+    .student-note{display:flex!important;align-items:flex-start!important;gap:9px!important;margin-top:12px!important;padding:11px 12px!important;border:1px solid rgba(255,255,255,.09)!important;border-left:0!important;border-radius:12px!important;background:rgba(8,7,7,.3)!important;color:var(--primary-text)!important;box-shadow:inset 0 1px rgba(255,255,255,.025)!important}
+    .student-note-copy{min-width:0;padding-top:1px}
+    .student-note-label{display:block!important;color:var(--secondary-text)!important;font-size:9px!important;font-weight:700!important;letter-spacing:.07em!important;text-transform:uppercase!important}
+    .student-note-text{display:block!important;margin:3px 0 0!important;color:var(--primary-text)!important;font-size:12px!important;font-weight:500!important;line-height:1.55!important}
+    #approved-list{padding:12px!important;gap:8px!important}
+    #approved-list>article{padding:10px!important;border:1px solid var(--line)!important;border-radius:12px!important;background:rgba(255,255,255,.025)!important;color:var(--primary-text)!important;box-shadow:none!important}
+    #approved-list>article:hover{background:rgba(255,255,255,.055)!important}
+    #approved-list>.track-row{display:grid;grid-template-columns:48px minmax(0,1fr) auto;align-items:center;gap:10px}
+    .track-cover{position:relative;width:48px;height:48px;overflow:hidden;border-radius:8px;background:var(--panel-raised);color:var(--accent)}
+    .track-cover>img{width:100%;height:100%;object-fit:cover}
+    .track-cover>.material-symbols-outlined{display:flex;width:100%;height:100%;align-items:center;justify-content:center}
+    .track-rank{position:absolute;top:2px;left:3px;border-radius:4px;background:rgba(0,0,0,.7);padding:1px 3px;color:#fff;font-size:8px;font-weight:800}
+    .track-info{min-width:0}
+    .track-info>b,.track-info>span,.track-info>small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .track-info>b{font-size:12px}
+    .track-info>span{margin-top:3px;color:var(--secondary-text);font-size:10px}
+    .track-info>small{margin-top:3px;color:#827875;font-size:9px}
+    .history-time{color:var(--secondary-text)!important;font-size:10px;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .history-popular{display:inline-flex;align-items:center;justify-content:center;color:#f87171}
+    .history-popular .material-symbols-outlined{font-size:16px;font-variation-settings:'FILL' 1,'wght' 500}
+    #approved-list .student-note{grid-column:1/-1}
+    #approved-list>article b,#playback-status b{color:var(--primary-text)!important}
+    #approved-list>article .text-muted,#playback-status .text-muted{color:var(--secondary-text)!important}
+    #approved-list>article .bg-soft{background:var(--panel-raised)!important;color:var(--accent)!important}
+    #approved-list>article [class*="bg-brand"]{background:var(--accent)!important}
+    .vote-btn{min-height:40px!important;border:1px solid var(--line)!important;background:rgba(255,255,255,.055)!important;color:var(--primary-text)!important}
+    .vote-btn.is-voted{border-color:var(--accent)!important;background:var(--accent)!important;color:#fff!important}
+    .vote-btn .material-symbols-outlined{color:inherit}
+    .skip-vote-btn{display:flex;min-height:48px;align-items:center;gap:8px;margin-top:2px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.055);color:var(--primary-text);font-size:11px;font-weight:700;text-align:left}
+    .skip-vote-btn .material-symbols-outlined{color:var(--accent);font-size:18px}
+    .skip-vote-copy{min-width:0;flex:1}
+    .skip-vote-copy>span,.skip-vote-copy>small{display:block}
+    .skip-vote-copy>small{margin-top:2px;color:var(--secondary-text);font-size:9px;font-weight:500}
+    .skip-vote-count{display:flex;min-width:32px;flex-direction:column;align-items:center}
+    .skip-vote-count strong{color:var(--primary-text);font-size:12px;font-variant-numeric:tabular-nums}
+    .skip-vote-count small{color:var(--secondary-text);font-size:8px}
+    .skip-vote-btn.is-voted{border-color:color-mix(in srgb,var(--accent) 45%,transparent);background:var(--accent-soft)}
+    .skip-vote-btn:disabled{cursor:default;opacity:.88}
+    #my-rejected,#my-rejected-notes{color:var(--primary-text)!important}
+    #my-rejected>h2{color:#fca5a5!important}
+    #my-rejected-notes>h2{color:#fcd34d!important}
+    #my-rejected #rejected-list>div{background:rgba(127,29,29,.24)!important;color:#fee2e2!important}
+    #my-rejected-notes #rejected-notes-list>div{background:rgba(120,53,15,.23)!important;color:#fef3c7!important}
+    #my-rejected-notes #rejected-notes-list .text-amber-900{color:#fde68a!important}
+    #my-rejected-notes #rejected-notes-list .text-amber-800{color:#fcd34d!important}
+    #approved-list>p{border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)!important;color:var(--secondary-text)!important}
+    #notice{border:1px solid var(--line);background:#241714!important;color:#fff!important}
+    #rules-modal,#announcement-modal,#request-confirm-modal,#rejected-song-modal,#institutional-modal{background:rgba(0,0,0,.74)!important}
+    #rules-modal>div,#announcement-modal>div,#request-confirm-modal>div,#rejected-song-modal>div,#institutional-modal>div{max-height:min(88dvh,760px);overflow-y:auto;border:1px solid var(--line)!important;border-radius:22px!important;background:var(--panel)!important;color:var(--primary-text)!important;box-shadow:0 28px 90px rgba(0,0,0,.62)!important}
+    #rules-modal h2,#announcement-modal h2,#request-confirm-modal h2,#institutional-modal h2{color:var(--primary-text)!important}
+    #rules-modal .text-muted,#announcement-modal .text-muted,#request-confirm-modal .text-muted,#institutional-modal .text-muted{color:var(--secondary-text)!important}
+    #rules-modal .text-ink,#request-confirm-modal .text-ink{color:var(--primary-text)!important}
+    #rules-modal .bg-blue-50,#rules-modal .bg-blue-50\/80,#rules-modal .bg-red-50\/80,#rules-modal .bg-green-50\/80,#rules-modal .bg-violet-50\/80{background:var(--panel-raised)!important;border-color:var(--line)!important}
+    #rules-modal p,#institutional-modal p,#institutional-modal li{color:var(--secondary-text)}
+    #rules-modal b,#institutional-modal strong{color:var(--primary-text)}
+    #rules-modal .text-primary,#rules-modal .text-brand,#rules-modal .text-red-500,#rules-modal .text-green,#rules-modal .text-violet-600{color:var(--accent)!important}
+    #request-confirm-modal .text-primary,#announcement-modal .text-primary,#request-confirm-modal .material-symbols-outlined,#announcement-modal .material-symbols-outlined{color:var(--accent)!important}
+    #request-confirm-modal .bg-blue-50,#announcement-modal .bg-blue-50{background:var(--accent-soft)!important;border-color:var(--line)!important}
+    #request-confirm-song .bg-white{background:var(--panel-raised)!important;color:var(--accent)!important;box-shadow:none!important}
+    #request-confirm-song,#request-note{border-color:var(--line)!important;background:var(--panel-raised)!important;color:var(--primary-text)!important}
+    #request-note::placeholder{color:#817775}
+    #announcement-message-display{color:var(--primary-text)!important}
+    #cancel-request,#close-rejected-song{border:1px solid var(--line);background:var(--panel-raised)!important;color:var(--primary-text)!important}
+    #rejected-song-modal .bg-red-50{background:rgba(127,29,29,.24)!important;border-color:rgba(248,113,113,.2)!important}
+    #rejected-song-modal .text-red-700{color:#fca5a5!important}
+    #rejected-song-modal .text-red-900{color:#fecaca!important}
+    #institutional-modal{background:rgba(0,0,0,.78)!important;backdrop-filter:blur(4px)!important}
+    #institutional-modal>div{border:1px solid rgba(255,255,255,.12)!important;border-radius:16px!important;background:#171513!important;box-shadow:0 18px 54px rgba(0,0,0,.48)!important}
+    #institutional-modal>div>div:first-child{padding-bottom:15px;border-bottom:1px solid var(--line)}
+    #institutional-modal>div>div:first-child>div>p:first-child{letter-spacing:.08em!important}
+    #institutional-modal .institutional-section{padding:0 0 12px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:transparent}
+    #institutional-modal .institutional-section:last-child{padding-bottom:0;border-bottom:0}
+    #institutional-modal .institutional-section h3{margin:0;color:var(--primary-text);font-size:11px;font-weight:700;letter-spacing:.01em}
+    #institutional-modal .institutional-section p{margin:5px 0 0;font-size:11px;line-height:1.6}
+    #institutional-modal .institutional-section ul{margin:6px 0 0;padding-left:17px;font-size:11px;line-height:1.6}
+    #institutional-modal .institutional-section li{padding-left:2px}
+    #institutional-modal .institutional-section li::marker{color:var(--accent)}
+    #institutional-modal .institutional-icon{display:flex;width:22px;height:22px;flex:none;align-items:center;justify-content:center;border-radius:0;background:transparent;color:var(--accent)}
+    #institutional-modal .institutional-icon .material-symbols-outlined{font-size:18px}
+    #close-institutional{display:flex;width:32px;height:32px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.035);color:var(--secondary-text)}
+    #close-institutional:hover{background:rgba(255,255,255,.08);color:var(--primary-text)}
+    #institutional-done{border:1px solid var(--line)!important;background:rgba(255,255,255,.05)!important;color:var(--primary-text)!important}
+    #institutional-done:hover{background:rgba(255,255,255,.09)!important}
+    #institutional-modal>div>p:last-child{padding-top:10px;border-top:1px solid var(--line)}
+    #institutional-modal a{color:var(--accent);font-weight:700;text-decoration:none}
+    #institutional-modal a:hover{text-decoration:underline}
+    @media(min-width:640px){.music-main{padding-top:22px!important}.player-artwork{max-height:520px}.request-panel{padding:18px!important}}
+    @media(max-width:380px){.music-header-inner{padding:0 11px!important}.music-main{padding-right:11px!important;padding-left:11px!important}.header-actions{gap:5px!important}#rules-info{padding:6px 8px!important;font-size:10px}.online-pill{padding-right:7px!important;padding-left:7px!important}.player-title{font-size:15px}}
+    body.theme-halloween #playback-status.playback-panel{background:linear-gradient(145deg,rgba(42,27,18,.82),rgba(23,21,19,.94))!important;border-color:rgba(251,146,60,.2)!important}
+    body.theme-halloween .my-request-row{background:#171513!important;border-color:#292524!important}
+    body.theme-halloween .my-request-cover{background:#211c18!important}
+    body.theme-halloween #tab-top[aria-selected="true"],body.theme-halloween #tab-requests[aria-selected="true"],body.theme-halloween #tab-recent[aria-selected="true"]{background:transparent!important;color:#fff7ed!important}
+    body.theme-halloween #tab-top[aria-selected="false"],body.theme-halloween #tab-requests[aria-selected="false"],body.theme-halloween #tab-recent[aria-selected="false"]{background:transparent!important;color:#a8a29e!important}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}#my-requests-count[data-unread="true"]{animation:none}}
+  </style>
+</head>
+<body class="font-body min-h-screen">
+  <div id="album-atmosphere" aria-hidden="true"><img id="album-atmosphere-image" alt=""></div>
+  <header class="music-header sticky top-0 z-40 w-full backdrop-blur-xl border-b">
+    <div class="music-header-inner mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <img src="assets/logo-al.png" alt="Logo Grêmio AL" class="w-9 h-9 object-contain">
+        <div class="min-w-0"><div class="flex items-center gap-1.5"><h1 class="font-headline text-base font-bold leading-none tracking-tight">Jukebox</h1><span id="theme-badge" class="hidden rounded border border-orange-500/30 bg-orange-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-400">Halloween</span></div><span class="text-muted truncate text-[11px] leading-tight font-medium">Uma ação da Chapa Renovação</span></div>
+      </div>
+      <div class="header-actions flex items-center"><button aria-label="Regras e informações" aria-haspopup="dialog" aria-controls="institutional-modal" title="Regras e informações" id="rules-info" type="button"><span class="material-symbols-outlined text-base" aria-hidden="true">info</span><span>Regras</span></button><div class="online-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs shrink-0 border"><i class="w-2 h-2 rounded-full bg-green animate-ping"></i><b><span id="online-count">0</span> online</b></div></div>
+    </div>
+  </header>
+  <main class="music-main flex flex-col">
+    <section id="maintenance-notice" class="hidden rounded-2xl border border-amber-200 bg-amber-50 p-4 text-amber-950 shadow-sm" role="status"><div class="flex items-start gap-3"><span class="material-symbols-outlined mt-0.5 text-amber-700">construction</span><div><h2 class="text-sm font-bold">Jukebox em manutenção</h2><p id="maintenance-message-display" class="mt-1 text-xs leading-relaxed"></p></div></div></section>
+    <div class="flex justify-end"><span id="request-status" data-state="closed" role="status" aria-live="polite"><i class="status-dot" aria-hidden="true"></i><span id="request-status-text">Pedidos fechados</span></span></div>
+    <section id="playback-status" class="doodle playback-panel hidden" aria-live="polite"></section>
+    <section class="doodle request-panel">
+      <div class="flex items-center justify-between gap-2 mb-3"><h2 class="section-heading font-headline text-sm font-bold tracking-tight">Peça a próxima música</h2></div>
+    <form id="song-request-form" class="request-form relative">
+      <label for="song-input" class="sr-only">Buscar faixa ou artista</label>
+      <div class="search-field relative w-full flex items-center rounded-full border focus-within:ring-2">
+        <span class="material-symbols-outlined ml-3">search</span>
+        <input id="song-input" autocomplete="off" required class="w-full px-2.5 py-3 bg-transparent outline-none text-sm" placeholder="Buscar faixa ou artista...">
+        <button id="submit-song" class="mr-1.5 px-4 py-2 rounded-full text-white text-xs font-bold flex items-center gap-1" type="submit"><span class="material-symbols-outlined text-sm">send</span>Pedir</button>
+      </div>
+      <div id="search-results" class="hidden mt-2 max-h-64 overflow-y-auto rounded-xl shadow-md ring-1"></div>
+      <div class="request-hint flex items-center mt-2.5"><span class="text-[10px] flex items-center gap-1"><span class="material-symbols-outlined text-sm" style="color:var(--accent)">verified</span>Pedidos e recados passam por revisão do Grêmio</span></div></form></section>
+    <section class="doodle playlist-panel"><div class="playlist-heading flex items-center justify-between border-b"><div class="playlist-tabs flex"><button id="tab-top" aria-selected="true" class="font-semibold">Fila</button><button id="tab-requests" aria-selected="false" class="font-semibold hidden" aria-controls="approved-list">Meus pedidos <span id="my-requests-count" data-state="pending" aria-label="0 ainda não aprovados">0</span></button><button id="tab-recent" aria-selected="false" class="font-medium" disabled aria-disabled="true" title="Carregando configurações">Histórico</button></div><span id="playlist-state-indicator" class="text-[11px] flex items-center gap-1"><span id="playlist-indicator" class="material-symbols-outlined text-xs animate-spin">sync</span><span id="playlist-state">Ao vivo</span></span></div><div id="approved-list" class="flex flex-col"><p class="text-xs p-4 text-center">Carregando playlist...</p></div></section>
+    <section id="my-rejected-notes" class="doodle hidden bg-white rounded-2xl p-4 shadow-sm ring-1 ring-amber-200"><h2 class="font-headline text-sm font-bold flex items-center gap-1.5 text-amber-700"><span class="material-symbols-outlined text-base">chat_error</span>Sobre seus recados</h2><div id="rejected-notes-list" class="mt-2 space-y-2"></div></section>
+  </main>
+  <div id="rules-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+    <div class="w-full max-w-sm bg-white rounded-3xl p-5 shadow-2xl ring-1 ring-white/20">
+      <div class="flex items-center justify-between"><span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-blue-50 text-primary text-[10px] font-bold uppercase"><span class="material-symbols-outlined text-sm">waving_hand</span>Boas-vindas</span><img src="assets/logo-al.png" alt="Logo AL" class="w-8 h-8 object-contain"></div>
+      <h2 id="rules-modal-title" class="font-headline text-lg font-bold mt-3">Diretrizes do Pátio</h2><p class="text-xs text-muted mt-1">Leia rapidinho antes de escolher o som do intervalo.</p>
+      <div class="space-y-2.5 mt-4">
+        <div class="flex gap-3 p-3 rounded-2xl bg-blue-50/80 ring-1 ring-blue-100"><span class="material-symbols-outlined text-brand">favorite</span><p class="text-[11px] text-muted"><b class="text-ink block">Uma curtida é um voto</b>Cada aluno pode votar uma vez em cada música. As mais votadas ganham prioridade na playlist.</p></div>
+        <div class="flex gap-3 p-3 rounded-2xl bg-red-50/80 ring-1 ring-red-100"><span class="material-symbols-outlined text-red-500">shield</span><p class="text-[11px] text-muted"><b class="text-ink block">Respeito sempre</b>Conteúdo ofensivo, discriminatório ou explícito não será aprovado.</p></div>
+        <div class="flex gap-3 p-3 rounded-2xl bg-green-50/80 ring-1 ring-green-100"><span class="material-symbols-outlined text-green">fact_check</span><p class="text-[11px] text-muted"><b class="text-ink block">Todo pedido passa por revisão</b>O Grêmio confere as sugestões antes de liberar qualquer música para o som do pátio.</p></div>
+        <div class="flex gap-3 p-3 rounded-2xl bg-blue-50/80 ring-1 ring-blue-100"><span class="material-symbols-outlined text-primary">chat</span><p class="text-[11px] text-muted"><b class="text-ink block">Recado é opcional e revisado à parte</b>O Grêmio pode liberar ou remover o recado sem barrar uma música adequada. Não inclua dados pessoais.</p></div>
+        <div class="flex gap-3 p-3 rounded-2xl bg-violet-50/80 ring-1 ring-violet-100"><span class="material-symbols-outlined text-violet-600">manage_search</span><p class="text-[11px] text-muted"><b class="text-ink block">Não encontrou sua faixa?</b>Use o envio manual. A equipe procurará a capa e a versão adequada depois.</p></div>
+      </div><p class="mt-3 text-[10px] leading-relaxed text-muted/80">Ao enviar uma sugestão, você concorda em colaborar com um ambiente escolar respeitoso. Consulte os termos completos no botão Regras, no topo da página.</p>
+      <button id="close-rules" disabled class="mt-4 w-full py-3 rounded-xl bg-slate-200 text-muted text-xs font-bold cursor-not-allowed"><span id="rules-count">Aguarde (5s)...</span></button>
+    </div>
+  </div>
+  <div id="institutional-modal" class="hidden fixed inset-0 z-[58] items-center justify-center p-4 bg-black/70 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="institutional-title">
+    <div class="w-full max-w-lg p-5 sm:p-6">
+      <div class="flex items-start justify-between gap-4">
+        <div class="flex items-center gap-3"><span class="institutional-icon"><span class="material-symbols-outlined">info</span></span><div><p class="text-[9px] font-bold uppercase tracking-[.16em]" style="color:var(--accent)">Jukebox • Grêmio Azarias Leite</p><h2 id="institutional-title" class="mt-1 font-headline text-lg font-bold">Regras e informações</h2><p class="mt-1 text-[11px] text-muted">Como participar, como os pedidos são tratados e como cuidamos das informações.</p></div></div>
+        <button id="close-institutional" type="button" aria-label="Fechar informações"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="mt-5 space-y-3">
+        <section class="institutional-section">
+          <div class="flex items-center gap-2"><span class="institutional-icon"><span class="material-symbols-outlined text-base">rule</span></span><h3>Diretrizes do pátio</h3></div>
+          <ul><li>Uma curtida por aluno em cada música; as mais votadas ganham prioridade.</li><li>Todo pedido passa por revisão do Grêmio antes de entrar na playlist.</li><li>Conteúdo ofensivo, discriminatório ou inadequado ao ambiente escolar não será aprovado.</li><li>Recados são opcionais e moderados separadamente; podem ser removidos sem barrar a música. Não inclua dados pessoais.</li><li>Se não encontrar a faixa, envie o título manualmente; a equipe tentará localizá-la.</li></ul>
+        </section>
+        <section class="institutional-section">
+          <div class="flex items-center gap-2"><span class="institutional-icon"><span class="material-symbols-outlined text-base">gavel</span></span><h3>Termos de uso</h3></div>
+          <p>Use a Jukebox para sugerir músicas e recados respeitosos, adequados a toda a comunidade escolar. Ao enviar um pedido, você concorda com a análise e as decisões de moderação do Grêmio. A reprodução depende da aprovação, da disponibilidade da faixa, dos equipamentos e do horário do intervalo.</p>
+        </section>
+        <section class="institutional-section">
+          <div class="flex items-center gap-2"><span class="institutional-icon"><span class="material-symbols-outlined text-base">visibility</span></span><h3>Transparência e privacidade</h3></div>
+          <p>A playlist aprovada é atualizada em tempo real. Um identificador aleatório guardado neste navegador ajuda a limitar votos repetidos e a mostrar o resultado dos seus pedidos; a Jukebox não solicita nome, e-mail ou senha. Sugestões e recados ficam visíveis à equipe do Grêmio para moderação.</p>
+        </section>
+        <section class="institutional-section">
+          <div class="flex items-center gap-2"><span class="institutional-icon"><span class="material-symbols-outlined text-base">alternate_email</span></span><h3>Contato</h3></div>
+          <p>Dúvidas ou sugestões? Fale com o Grêmio Estudantil Azarias Leite pelo <a href="https://www.instagram.com/gremioestudantilazariasleite/" target="_blank" rel="noopener noreferrer">@gremioestudantilazariasleite</a>.</p>
+        </section>
+      </div>
+      <button id="institutional-done" type="button" class="mt-4 w-full rounded-xl py-3 text-xs font-bold text-white" style="background:var(--accent)">Fechar</button>
+      <p class="mt-3 text-center text-[9px] text-muted">© <span id="footer-year"></span> Grêmio Estudantil Azarias Leite • Chapa Renovação</p>
+    </div>
+  </div>
+  <div id="notice" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 z-[70] w-[min(92vw,360px)] rounded-xl px-4 py-3 text-xs text-center shadow-xl" role="status" aria-live="polite"></div>
+  <div id="announcement-modal" class="hidden fixed inset-0 z-[55] items-center justify-center p-4 bg-black/60 backdrop-blur-md" role="dialog" aria-modal="true" aria-labelledby="announcement-title"><div class="w-full max-w-sm rounded-3xl bg-white p-5 shadow-2xl ring-1 ring-blue-100"><div class="flex items-center gap-2 text-primary"><span class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50"><span class="material-symbols-outlined">campaign</span></span><h2 id="announcement-title" class="font-headline text-base font-bold">Aviso do Grêmio</h2></div><p id="announcement-message-display" class="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-ink"></p><button id="close-announcement" class="mt-5 w-full rounded-xl bg-primary py-3 text-xs font-bold text-white">Entendi</button></div></div>
+  <div id="request-confirm-modal" class="hidden fixed inset-0 z-[45] items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+    <div class="w-full max-w-sm bg-white rounded-3xl p-5 shadow-2xl ring-1 ring-white/20">
+      <div class="flex items-center gap-2 text-primary"><span class="w-9 h-9 rounded-xl bg-blue-50 flex items-center justify-center"><span class="material-symbols-outlined">playlist_add_check</span></span><div><h2 class="font-headline text-base font-bold">Enviar esta música?</h2><p class="text-[10px] text-muted">Seu pedido será encaminhado ao Grêmio.</p></div></div>
+      <div id="request-confirm-song" class="mt-4 rounded-2xl bg-soft p-3"></div>
+      <label for="request-note" class="mt-4 block text-xs font-bold text-ink">Recado (opcional)</label>
+      <textarea id="request-note" maxlength="200" rows="3" class="mt-1 w-full resize-none rounded-xl border border-slate-200 p-3 text-xs outline-none focus:ring-2 focus:ring-brand" placeholder="Ex.: Esta música é para..."></textarea>
+      <p class="mt-1 text-[10px] leading-relaxed text-muted">O recado também será revisado pelo Grêmio. Ele pode ser removido sem barrar a música.</p>
+      <p class="mt-3 text-xs leading-relaxed text-muted">A música será enviada para verificação. Ela só aparecerá na playlist se for aprovada pela moderação e poderá receber votos dos demais alunos.</p>
+      <div class="flex gap-2 mt-5"><button id="cancel-request" type="button" class="flex-1 py-3 rounded-xl bg-soft text-xs font-bold text-ink">Voltar</button><button id="confirm-request" type="button" class="flex-1 py-3 rounded-xl bg-brand text-white text-xs font-bold shadow-sm">Enviar para análise</button></div>
+    </div>
+  </div>
+  <div id="rejected-song-modal" class="hidden fixed inset-0 z-[46] items-center justify-center p-4 bg-black/60 backdrop-blur-md">
+    <div class="w-full max-w-sm bg-white rounded-3xl p-5 shadow-2xl ring-1 ring-red-100">
+      <div class="flex items-center gap-2 text-red-700"><span class="w-9 h-9 rounded-xl bg-red-50 flex items-center justify-center"><span class="material-symbols-outlined">playlist_remove</span></span><div><h2 class="font-headline text-base font-bold">Este pedido já foi analisado</h2><p class="text-[10px] text-muted">A música não pode ser enviada novamente.</p></div></div>
+      <div id="rejected-song-title" class="mt-4 text-sm font-bold text-ink"></div>
+      <div class="mt-3 rounded-2xl bg-red-50 p-3 ring-1 ring-red-100"><span class="block text-[10px] font-bold uppercase tracking-wide text-red-700">Justificativa do Grêmio</span><p id="rejected-song-reason" class="mt-1 text-xs leading-relaxed text-red-900"></p></div>
+      <button id="close-rejected-song" type="button" class="mt-5 w-full py-3 rounded-xl bg-soft text-xs font-bold text-ink">Entendi</button>
+    </div>
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getFirestore, collection, query, where, getDocs, onSnapshot, runTransaction, serverTimestamp, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    const firebaseConfig={apiKey:"AIzaSyDGbDeolFBC-Dw6EBZnNXygq9WuEdH8nS4",authDomain:"jukebox-c6d07.firebaseapp.com",projectId:"jukebox-c6d07",storageBucket:"jukebox-c6d07.firebasestorage.app",messagingSenderId:"56386350624",appId:"1:56386350624:web:df7a6fe404a1242176d645"};
+    const db=getFirestore(initializeApp(firebaseConfig)), songs=collection(db,"musicas"), recados=collection(db,"recados"), presence=collection(db,"presenca"), settingsRef=doc(db,"configuracoes","jukebox");
+    const uid=localStorage.getItem("jukebox_uid")||crypto.randomUUID(); localStorage.setItem("jukebox_uid",uid);
+    const myRequestsSeenKey=`jukebox_my_requests_seen_${uid}`;
+    let acknowledgedRequestSignature=localStorage.getItem(myRequestsSeenKey)||"",currentRequestSignature="";
+    const input=document.getElementById("song-input"), results=document.getElementById("search-results"), list=document.getElementById("approved-list"),notice=document.getElementById("notice");let approvedDocs=[],approvedNotes=[],myRequestDocs=[],myRequestsError="",playHistory=[],playHistoryDate="",playHistoryLoaded=false,sortMode="queue",jukeboxOverride=false,currentSongId=null,maintenanceEnabled=false,settingsLoaded=false,requestingAllowed=false;
+    function showNotice(text){notice.textContent=text;notice.classList.remove("hidden");setTimeout(()=>notice.classList.add("hidden"),2800)}
+    function updateBreak(){
+      const now=new Date(),start=new Date(now),end=new Date(now);
+      start.setHours(9,30,0,0);end.setHours(9,50,0,0);
+      const scheduled=now>=start&&now<end,active=!maintenanceEnabled&&(scheduled||jukeboxOverride),
+        status=document.getElementById("request-status"),statusText=document.getElementById("request-status-text");
+      requestingAllowed=active;
+      const historyTab=document.getElementById("tab-recent");
+      historyTab.disabled=!settingsLoaded||maintenanceEnabled;
+      historyTab.setAttribute("aria-disabled",String(historyTab.disabled));
+      historyTab.title=!settingsLoaded?"Carregando configurações":maintenanceEnabled?"Indisponível durante a manutenção":"";
+      if(maintenanceEnabled&&sortMode==="history"){
+        sortMode="queue";
+        document.getElementById("tab-top").setAttribute("aria-selected","true");
+        historyTab.setAttribute("aria-selected","false");
+      }
+      status.dataset.state=maintenanceEnabled?"maintenance":active?"open":"closed";
+      statusText.textContent=maintenanceEnabled?"Em manutenção":scheduled&&active?`Pedidos abertos · ${Math.ceil((end-now)/60000)} min restantes`:active?"Pedidos abertos":"Pedidos fechados";
+      document.getElementById("song-request-form").classList.toggle("opacity-50",!active);
+      document.getElementById("song-request-form").classList.toggle("pointer-events-none",!active);
+      document.getElementById("submit-song").disabled=!active;
+      document.getElementById("playlist-state").textContent=maintenanceEnabled?"Manutenção":active?"Ao vivo":"Jukebox desligada";
+      const indicator=document.getElementById("playlist-indicator");
+      indicator.textContent=active?"sync":"pause_circle";
+      indicator.classList.toggle("animate-spin",active);
+      indicator.classList.toggle("text-green",active);
+      indicator.classList.toggle("text-muted",!active);
+      document.getElementById("maintenance-notice").classList.toggle("hidden",!maintenanceEnabled);
+      syncMyRequestsTab();
+    }
+    document.getElementById("footer-year").textContent=new Date().getFullYear();document.getElementById("close-announcement").onclick=()=>{const modal=document.getElementById("announcement-modal");localStorage.setItem("jukebox_announcement_seen",modal.dataset.announcementId||"");modal.classList.add("hidden");modal.classList.remove("flex")};updateBreak();setInterval(updateBreak,15000);
+    function applyTheme(theme){const halloween=theme==="halloween";document.body.classList.toggle("theme-halloween",halloween);document.getElementById("theme-badge").classList.toggle("hidden",!halloween)}
+    onSnapshot(settingsRef,snap=>{const settings=snap.data()||{};settingsLoaded=true;jukeboxOverride=settings.enabled===true;maintenanceEnabled=settings.maintenance===true;currentSongId=settings.currentSongId||null;playHistoryDate=settings.playHistoryDate||"";playHistory=Array.isArray(settings.playHistory)?settings.playHistory:[];playHistoryLoaded=true;applyTheme(settings.theme);document.getElementById("maintenance-message-display").textContent=settings.maintenanceMessage||"A equipe está trabalhando para restabelecer o serviço.";updateBreak();renderApproved();const announcementId=settings.announcementId||"",announcementText=settings.announcementText||"";if(announcementId&&announcementText&&announcementId!==localStorage.getItem("jukebox_announcement_seen")){const modal=document.getElementById("announcement-modal");modal.dataset.announcementId=announcementId;document.getElementById("announcement-message-display").textContent=announcementText;modal.classList.remove("hidden");modal.classList.add("flex")}else if(!announcementId||!announcementText){const modal=document.getElementById("announcement-modal");modal.classList.add("hidden");modal.classList.remove("flex")}},error=>console.error("Falha ao ler estado da Jukebox",error));
+    async function heartbeat(){try{await setDoc(doc(presence,uid),{lastSeen:serverTimestamp()},{merge:true})}catch(error){console.error("Falha na presença",error)}}heartbeat();setInterval(heartbeat,30000);onSnapshot(presence,snap=>{const cutoff=Date.now()-90000;document.getElementById("online-count").textContent=[...snap.docs].filter(s=>(s.data().lastSeen?.toMillis?.()||0)>cutoff).length});
+    let timer, apiSongs=[], pendingRequest=null, requestCheckId=0;
+    const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+    function highResolutionArtwork(url){return String(url||"").replace(/\/\d{2,4}x\d{2,4}bb(?=\.)/i,"/600x600bb");}
+    let albumAtmosphereUrl="";
+    function updateAlbumAtmosphere(url){
+      const image=document.getElementById("album-atmosphere-image"),source=highResolutionArtwork(url);
+      if(source===albumAtmosphereUrl)return;
+      albumAtmosphereUrl=source;
+      image.style.opacity="0";
+      if(!source){image.onload=null;image.onerror=null;image.removeAttribute("src");return}
+      image.onload=()=>{if(albumAtmosphereUrl===source)image.style.opacity=".55"};
+      image.onerror=()=>{if(albumAtmosphereUrl===source){image.style.opacity="0";console.error("Não foi possível carregar a capa para o fundo da Jukebox.")}};
+      image.src=source;
+    }
+    function titleLooksExplicit(value){const words=String(value??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();return /(?:^|[^a-z0-9])(puta|putinha|putas|puto|putinho|putos|caralho|porra|buceta|bucetinha|foda|foder|fodendo|fuck|fucking|shit|bitch|dick|pussy|motherfucker)(?:$|[^a-z0-9])/.test(words);}
+    function showResults(items,term){apiSongs=items; results.innerHTML=items.length?items.map((s,i)=>`<button type="button" data-index="${i}" class="w-full p-2.5 flex gap-2.5 text-left hover:bg-soft border-b border-slate-100"><img class="w-10 h-10 rounded-lg object-cover" src="${escapeHtml(highResolutionArtwork(s.artworkUrl100))}" alt=""><span class="min-w-0"><b class="block text-xs truncate">${escapeHtml(s.trackName)}</b><small class="text-[11px] text-muted truncate block">${escapeHtml(s.artistName)}</small></span></button>`).join(""):`<button type="button" id="manual-request" class="w-full p-3 text-left text-xs font-bold text-primary hover:bg-soft">Não achou? Enviar manualmente</button>`; results.classList.remove("hidden"); results.querySelectorAll("[data-index]").forEach(b=>b.onclick=()=>openRequestConfirmation(apiSongs[Number(b.dataset.index)])); const manual=document.getElementById("manual-request"); if(manual)manual.onclick=()=>openRequestConfirmation({trackName:term,artistName:"",artworkUrl100:"",trackTimeMillis:0,manual:true});}
+    async function search(term){try{const r=await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=song&limit=4`); const data=await r.json(); showResults(data.results||[],term);}catch(error){console.error("Falha na busca do iTunes",error);showResults([],term);}}
+    input.addEventListener("input",()=>{clearTimeout(timer);const term=input.value.trim();if(!term){results.classList.add("hidden");return}timer=setTimeout(()=>search(term),500)});
+    document.addEventListener("click",e=>{if(!e.target.closest("#song-request-form"))results.classList.add("hidden")});
+    document.getElementById("song-request-form").addEventListener("submit",e=>{e.preventDefault();if(!requestingAllowed){showNotice(maintenanceEnabled?"A Jukebox está em manutenção no momento.":"A Jukebox está fechada agora.");return}openRequestConfirmation({trackName:input.value.trim(),artistName:"",artworkUrl100:"",trackTimeMillis:0,manual:true})});
+    async function openRequestConfirmation(meta){if(!meta?.trackName?.trim())return;const checkId=++requestCheckId;results.classList.add("hidden");try{const low=meta.trackName.trim().toLocaleLowerCase("pt-BR"),matches=await getDocs(query(songs,where("nome_low","==",low))),rejected=matches.docs.find(s=>s.data().status==="barrada");if(checkId!==requestCheckId)return;if(rejected){showRejectedSong(meta.trackName,rejected.data().motivo);return}}catch(error){console.error("Falha ao verificar histórico da música",error);showNotice("Não foi possível verificar se essa música já foi barrada. Tente novamente.");return}pendingRequest=meta;document.getElementById("request-note").value="";const cover=meta.artworkUrl100?`<img class="w-12 h-12 rounded-xl object-cover" src="${escapeHtml(highResolutionArtwork(meta.artworkUrl100))}" alt="">`:`<div class="w-12 h-12 rounded-xl bg-white text-primary flex items-center justify-center ring-1 ring-slate-200"><span class="material-symbols-outlined">album</span></div>`;document.getElementById("request-confirm-song").innerHTML=`<div class="flex items-center gap-3">${cover}<div class="min-w-0"><b class="block text-sm truncate">${escapeHtml(meta.trackName.trim())}</b><span class="block text-[11px] text-muted truncate">${escapeHtml(meta.artistName||"Artista não informado")}</span></div></div>`;const confirmModal=document.getElementById("request-confirm-modal");confirmModal.classList.remove("hidden");confirmModal.classList.add("flex");}
+    function showRejectedSong(name,reason){closeRequestConfirmation();document.getElementById("rejected-song-title").textContent=name;document.getElementById("rejected-song-reason").textContent=reason?.trim()||"O Grêmio não informou uma justificativa.";const modal=document.getElementById("rejected-song-modal");modal.classList.remove("hidden");modal.classList.add("flex");}
+    function closeRejectedSong(){const modal=document.getElementById("rejected-song-modal");modal.classList.add("hidden");modal.classList.remove("flex");}
+    function closeRequestConfirmation(){pendingRequest=null;const confirmModal=document.getElementById("request-confirm-modal");confirmModal.classList.add("hidden");confirmModal.classList.remove("flex");}
+    document.getElementById("cancel-request").onclick=closeRequestConfirmation;document.getElementById("close-rejected-song").onclick=closeRejectedSong;document.getElementById("confirm-request").onclick=async()=>{if(!pendingRequest)return;if(!requestingAllowed){closeRequestConfirmation();showNotice(maintenanceEnabled?"A Jukebox está em manutenção no momento.":"A Jukebox está fechada agora.");return}const request=pendingRequest,note=document.getElementById("request-note").value.trim();closeRequestConfirmation();await submitSong(request.trackName,request.manual?null:request,note);};
+    async function submitSong(name,meta,noteText=""){if(!name)return;if(!requestingAllowed){showNotice(maintenanceEnabled?"A Jukebox está em manutenção no momento.":"A Jukebox está fechada agora.");return}await saveSong(meta||{trackName:name,artistName:"",artworkUrl100:"",trackTimeMillis:0,manual:true},noteText);}
+    async function saveSong(meta,noteText=""){
+      const name=meta.trackName.trim(),low=name.toLocaleLowerCase("pt-BR"),apiExplicitness=String(meta.trackExplicitness||"desconhecida").toLowerCase(),titleExplicit=titleLooksExplicit(name),explicit=apiExplicitness==="explicit"||titleExplicit,explicitness=apiExplicitness==="explicit"?"itunes_explicit":titleExplicit?"termo_explicito_no_titulo":apiExplicitness;
+      const payload={nome:name,nome_low:low,artista:meta.artistName||"",capa:highResolutionArtwork(meta.artworkUrl100)||null,duracao:meta.trackTimeMillis?formatDuration(meta.trackTimeMillis):"",explicita:explicit,classificacaoConteudo:explicitness,status:"pendente",motivo:"",votos:1,votedBy:[uid],requestedBy:[uid],requestedAt:serverTimestamp(),skipVotes:0,skipVotedBy:[],createdAt:serverTimestamp()};
+      try{
+        const matches=await getDocs(query(songs,where("nome_low","==",low))),newSongRef=doc(songs),noteRef=noteText?doc(recados):null;
+        let blockedByRejection=null,savedSongRef=null;
+        await runTransaction(db,async tx=>{
+          blockedByRejection=null;savedSongRef=null;
+          const existingDocs=await Promise.all(matches.docs.map(s=>tx.get(s.ref)));
+          const rejected=existingDocs.find(s=>s.exists()&&s.data().status==="barrada");
+          if(rejected){blockedByRejection=rejected.data();return}
+          const existing=existingDocs.find(s=>s.exists());
+          if(existing){
+            savedSongRef=existing.ref;
+            const data=existing.data(),voters=Array.isArray(data.votedBy)?data.votedBy:[],requesters=Array.isArray(data.requestedBy)?data.requestedBy:[],updates={};
+            if(!voters.includes(uid)){updates.votedBy=[...voters,uid];updates.votos=(Number(data.votos)||0)+1;}
+            if(!requesters.includes(uid)){updates.requestedBy=[...requesters,uid];updates.requestedAt=serverTimestamp();}
+            if(data.jaTocou===true){updates.jaTocou=false;updates.status="pendente";updates.motivo="";updates.requestedAt=serverTimestamp();}
+            if(explicit&&!data.explicita){updates.explicita=true;updates.classificacaoConteudo=explicitness;}
+            if(Object.keys(updates).length)tx.update(existing.ref,updates);
+          }else{savedSongRef=newSongRef;tx.set(newSongRef,payload)}
+          if(noteRef&&savedSongRef)tx.set(noteRef,{songId:savedSongRef.id,nomeMusica:name,artista:meta.artistName||"",capa:meta.artworkUrl100||null,texto:noteText,uid,status:"pendente",motivo:"",createdAt:serverTimestamp()});
+        });
+        if(blockedByRejection){showRejectedSong(name,blockedByRejection.motivo);return}
+        input.value="";document.getElementById("request-note").value="";results.classList.add("hidden");
+        showNotice(noteText?`"${name}" e seu recado foram enviados para análise.`:meta.manual?"Pedido manual registrado. O Grêmio vai procurar a capa!":`"${name}" foi enviado para o Grêmio!`);
+      }catch(error){console.error("Falha ao salvar pedido",error);showNotice("Não foi possível registrar o pedido. Tente novamente.");}
+    }
+    function formatDuration(ms){const s=Math.floor(ms/1000);return `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;}
+    function localDateKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;}
+    function renderHistoryCard(track){
+      const cover=track.capa?`<img src="${escapeHtml(highResolutionArtwork(track.capa))}" alt="Capa de ${escapeHtml(track.nome)}">`:'<span class="material-symbols-outlined">album</span>',
+        playedAt=new Date(track.playedAt||""),time=Number.isNaN(playedAt.getTime())?"":playedAt.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
+        popular=Number(track.playCount)>1?`<span class="history-popular" role="img" aria-label="Tocada ${Number(track.playCount)} vezes; música popular" title="Tocada ${Number(track.playCount)} vezes"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></span>`:"";
+      return `<article class="track-row"><div class="track-cover">${cover}</div><div class="track-info"><b>${escapeHtml(track.nome||"Música")}</b><span>${escapeHtml(track.artista||"Artista não informado")}</span>${track.duracao?`<small>${escapeHtml(track.duracao)}</small>`:""}</div>${popular}${track.current?'<span class="history-time">Atual</span>':time?`<time class="history-time" datetime="${escapeHtml(playedAt.toISOString())}">${time}</time>`:""}</article>`;
+    }
+    function renderVoteButton(snap){
+      const d=snap.data(),voters=Array.isArray(d.votedBy)?d.votedBy:[],voted=voters.includes(uid),halloween=document.body.classList.contains("theme-halloween"),
+        voteIcon=halloween?'<img class="vote-icon h-5 w-5 object-contain" src="assets/halloween-abobora.png" alt="">':`<span class="material-symbols-outlined text-base">${voted?"favorite":"favorite_border"}</span>`;
+      return `<button data-vote="${snap.id}" aria-label="${voted?"Você já votou nesta música":"Votar nesta música"}" aria-pressed="${voted}" class="vote-btn inline-flex min-h-10 min-w-[4.25rem] shrink-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-400 ${voted?"is-voted bg-brand text-white":"bg-soft text-ink"}">${voteIcon}<span>${Number(d.votos)||0}</span></button>`;
+    }
+    function renderSkipVoteButton(snap){const d=snap.data(),voters=Array.isArray(d.skipVotedBy)?d.skipVotedBy:[],voted=voters.includes(uid),votes=Math.max(Number(d.skipVotes)||0,voters.length);return `<button data-skip-vote="${snap.id}" aria-label="${voted?"Seu voto para pular foi registrado":"Votar para pular esta música"}; ${votes} voto(s). O Grêmio decide quando avançar." title="O Grêmio decide quando avançar" aria-pressed="${voted}"${voted?" disabled":""} class="skip-vote-btn${voted?" is-voted":""}"><span class="material-symbols-outlined" aria-hidden="true">skip_next</span><span class="skip-vote-copy"><span>${voted?"Voto enviado":"Votar para pular"}</span><small>O Grêmio decide quando avançar</small></span><span class="skip-vote-count"><strong>${votes}</strong><small>votos</small></span></button>`}
+    function renderApprovedNotes(songId){return approvedNotes.filter(note=>note.data().songId===songId).map(note=>`<div role="note" class="student-note"><div class="student-note-copy"><b class="student-note-label">Recado desta música</b><p class="student-note-text whitespace-pre-wrap break-words">${escapeHtml(note.data().texto)}</p></div></div>`).join("");}
+    function renderCard(snap,index){
+      const d=snap.data(),
+        cover=d.capa?`<img src="${escapeHtml(d.capa)}" alt="Capa de ${escapeHtml(d.nome)}">`:`<span class="material-symbols-outlined">album</span>`,
+        notes=renderApprovedNotes(snap.id);
+      return `<article class="track-row"><div class="track-cover">${cover}<span class="track-rank">#${index+1}</span></div><div class="track-info"><b>${escapeHtml(d.nome)}</b><span>${escapeHtml(d.artista||"Artista não informado")}</span>${d.duracao?`<small>${escapeHtml(d.duracao)}</small>`:""}</div>${renderVoteButton(snap)}${notes}</article>`;
+    }
+    function renderApproved(){
+      const ranked=approvedDocs.filter(song=>song.data().jaTocou!==true).sort((a,b)=>(Number(b.data().votos)||0)-(Number(a.data().votos)||0)),
+        pinned=ranked.find(s=>s.id===currentSongId),rest=ranked.filter(s=>s.id!==currentSongId),
+        playback=document.getElementById("playback-status"),next=pinned?rest[0]:ranked[0],current=pinned?.data(),
+        queue=pinned?rest:ranked,
+        ordered=queue.filter(song=>song.id!==next?.id);
+      updateAlbumAtmosphere((current||next?.data())?.capa);
+      syncMyRequestsTab();
+      if(sortMode==="requests"){
+        list.classList.remove("hidden");
+        list.innerHTML=renderMyRequestsContent();
+      }else if(sortMode==="history"){
+        const todaysHistory=playHistoryDate===localDateKey()?normalizePlayHistory(playHistory).filter(track=>track.songId!==currentSongId):[];
+        list.classList.remove("hidden");
+        list.innerHTML=!playHistoryLoaded?'<p class="text-xs text-muted p-4 text-center">Carregando histórico...</p>':todaysHistory.length?[...todaysHistory].reverse().map(renderHistoryCard).join(""):'<p class="text-xs text-muted p-4 text-center">Nenhuma música tocou hoje ainda.</p>';
+      }else{
+        list.classList.toggle("hidden",!pinned&&!!next&&!ordered.length);
+        list.innerHTML=ordered.length?ordered.map(renderCard).join(""):pinned?'<p class="text-xs text-muted p-4 text-center bg-white rounded-xl">Não há outras músicas na fila.</p>':next?"":'<p class="text-xs text-muted p-4 text-center bg-white rounded-xl">Ainda não há músicas aprovadas.</p>';
+      }
+      if(current){
+        const artworkUrl=highResolutionArtwork(current.capa),artwork=artworkUrl?`<img src="${escapeHtml(artworkUrl)}" alt="Capa de ${escapeHtml(current.nome)}">`:'<div class="artwork-fallback"><span class="material-symbols-outlined">album</span></div>',
+          nextData=next?.data(),nextCover=nextData?.capa?`<img src="${escapeHtml(nextData.capa)}" alt="">`:'<span class="material-symbols-outlined">album</span>';
+        playback.classList.remove("hidden");
+        playback.innerHTML=`${artworkUrl?`<div class="playback-backdrop" aria-hidden="true"><img src="${escapeHtml(artworkUrl)}" alt=""></div>`:""}<div class="player-content"><div class="player-feature"><div class="player-artwork">${artwork}<span class="player-state-badge"><span class="material-symbols-outlined">equalizer</span>Tocando agora</span></div><div class="player-caption"><div class="min-w-0"><b class="player-title">${escapeHtml(current.nome)}</b><span class="player-artist">${escapeHtml(current.artista||"Artista não informado")}</span>${current.duracao?`<small class="player-duration">${escapeHtml(current.duracao)}</small>`:""}</div>${renderSkipVoteButton(pinned)}${renderApprovedNotes(pinned.id)}</div></div>${next?`<div class="player-next"><div class="player-next-cover">${nextCover}</div><div class="min-w-0"><span class="player-next-label">A seguir</span><b class="player-next-title truncate">${escapeHtml(nextData.nome)}</b><span class="block truncate text-[10px] text-muted">${escapeHtml(nextData.artista||"Artista não informado")}</span></div></div>`:'<div class="player-next-waiting">Aguardando a próxima música.</div>'}</div>`;
+      }else if(ranked.length){
+        const nextSnap=ranked[0],nextSong=nextSnap.data(),artworkUrl=highResolutionArtwork(nextSong.capa),artwork=artworkUrl?`<img src="${escapeHtml(artworkUrl)}" alt="Capa de ${escapeHtml(nextSong.nome)}">`:'<div class="artwork-fallback"><span class="material-symbols-outlined">album</span></div>';
+        playback.classList.remove("hidden");
+        playback.innerHTML=`${artworkUrl?`<div class="playback-backdrop" aria-hidden="true"><img src="${escapeHtml(artworkUrl)}" alt=""></div>`:""}<div class="player-content"><div class="player-feature"><div class="player-artwork">${artwork}<span class="player-state-badge"><span class="material-symbols-outlined">queue_music</span>Próxima na fila</span></div><div class="player-caption"><div class="min-w-0"><b class="player-title">${escapeHtml(nextSong.nome)}</b><span class="player-artist">${escapeHtml(nextSong.artista||"Artista não informado")}</span>${nextSong.duracao?`<small class="player-duration">${escapeHtml(nextSong.duracao)}</small>`:""}</div>${renderVoteButton(nextSnap)}${renderApprovedNotes(nextSnap.id)}</div></div></div>`;
+      }else{playback.classList.add("hidden");playback.innerHTML="";}
+      document.querySelectorAll("#approved-list [data-vote],#playback-status [data-vote]").forEach(b=>b.onclick=()=>vote(b.dataset.vote));
+      document.querySelectorAll("#playback-status [data-skip-vote]").forEach(b=>b.onclick=()=>voteToSkip(b.dataset.skipVote));
+    }
+    function normalizePlayHistory(history){
+      const tracksBySong=new Map();
+      for(const track of history){
+        const key=track.songId||`${track.nome_low||track.nome||"unknown"}:${track.artista||""}`,
+          previous=tracksBySong.get(key),count=Math.max(1,Number(track.playCount)||1);
+        if(!previous){tracksBySong.set(key,{...track,playCount:count});continue}
+        const previousTime=Date.parse(previous.playedAt||""),trackTime=Date.parse(track.playedAt||""),
+          latest=trackTime>=previousTime?track:previous;
+        tracksBySong.set(key,{...previous,...latest,playCount:previous.playCount+count,current:previous.current||track.current});
+      }
+      return [...tracksBySong.values()].sort((a,b)=>Date.parse(a.playedAt||"")-Date.parse(b.playedAt||""));
+    }
+    function syncMyRequestsTab(){
+      const tab=document.getElementById("tab-requests"),count=document.getElementById("my-requests-count"),
+        stateIndicator=document.getElementById("playlist-state-indicator"),rejected=myRequestDocs.some(song=>song.data().status==="barrada"),
+        pendingCount=myRequestDocs.filter(song=>song.data().status==="pendente").length,
+        approvedCount=myRequestDocs.filter(song=>song.data().status==="aprovada").length,
+        playedCount=myRequestDocs.filter(song=>song.data().jaTocou===true).length,
+        visible=requestingAllowed&&myRequestDocs.length>0&&!myRequestsError,
+        hasUnread=currentRequestSignature!==acknowledgedRequestSignature;
+      tab.classList.toggle("hidden",!visible);
+      stateIndicator.classList.toggle("hidden",visible);
+      if(!visible&&sortMode==="requests"){
+        sortMode="queue";
+        document.getElementById("tab-top").setAttribute("aria-selected","true");
+        tab.setAttribute("aria-selected","false");
+      }
+      const priorityState=rejected?"rejected":pendingCount?"pending":approvedCount||playedCount?"approved":"pending",
+        priorityLabel=priorityState==="rejected"?"há pedido barrado":priorityState==="pending"?"há pedido em análise":playedCount&&!approvedCount?"pedidos já tocados":"pedidos aprovados",
+        countLabel=`${myRequestDocs.length} ${myRequestDocs.length===1?"pedido":"pedidos"}; ${priorityLabel}`;
+      count.dataset.state=priorityState;
+      count.dataset.unread=String(hasUnread);
+      count.textContent=String(myRequestDocs.length);
+      count.setAttribute("aria-label",countLabel);
+      count.classList.toggle("hidden",!hasUnread);
+      tab.setAttribute("aria-label",`Meus pedidos, ${countLabel}`);
+    }
+    function markMyRequestsRead(){
+      acknowledgedRequestSignature=currentRequestSignature;
+      localStorage.setItem(myRequestsSeenKey,acknowledgedRequestSignature);
+      syncMyRequestsTab();
+    }
+    function renderMyRequestsContent(){
+      if(myRequestsError)return '<p class="my-request-empty">Não foi possível carregar seus pedidos agora. Tente atualizar a página.</p>';
+      if(!myRequestDocs.length)return '<p class="my-request-empty">Você ainda não tem pedidos para acompanhar.</p>';
+      const ranked=approvedDocs.filter(song=>song.data().jaTocou!==true).sort((a,b)=>(Number(b.data().votos)||0)-(Number(a.data().votos)||0)),
+        currentIsApproved=ranked.some(song=>song.id===currentSongId),
+        queue=currentIsApproved?ranked.filter(song=>song.id!==currentSongId):ranked,
+        playedToday=new Set(playHistoryDate===localDateKey()?normalizePlayHistory(playHistory).map(track=>track.songId):[]);
+      const statusFor=snap=>{
+        const d=snap.data();
+        if(d.status==="barrada")return {key:"barrada",icon:"block",label:"Barrada",detail:d.motivo?`Motivo: ${escapeHtml(d.motivo)}`:"O Grêmio não informou um motivo."};
+        if(d.status==="pendente")return {key:"pendente",icon:"schedule",label:"Em análise",detail:"Aguardando a revisão do Grêmio."};
+        if(snap.id===currentSongId)return {key:"tocando",icon:"equalizer",label:"Tocando agora",detail:"Seu pedido está tocando neste momento."};
+        if(playedToday.has(snap.id))return {key:"tocou",icon:"check_circle",label:"Já tocou hoje",detail:"Esta música já foi reproduzida hoje."};
+        if(d.jaTocou===true)return {key:"tocou",icon:"check_circle",label:"Já tocou",detail:"Esta música já foi reproduzida e não está mais na fila."};
+        const position=queue.findIndex(song=>song.id===snap.id)+1;
+        return {key:"aprovada",icon:"queue_music",label:"Aprovada e na fila",detail:position?`Posição aproximada: #${position} na fila.`:"Aprovada; posição da fila atualizando."};
+      };
+      return [...myRequestDocs].sort((a,b)=>(b.data().requestedAt?.toMillis?.()||b.data().createdAt?.toMillis?.()||0)-(a.data().requestedAt?.toMillis?.()||a.data().createdAt?.toMillis?.()||0)).map(snap=>{
+        const d=snap.data(),state=statusFor(snap),cover=d.capa?`<img src="${escapeHtml(highResolutionArtwork(d.capa))}" alt="">`:'<span class="material-symbols-outlined" aria-hidden="true">album</span>';
+        return `<article class="my-request-row"><div class="my-request-cover">${cover}</div><div class="my-request-info"><b class="my-request-title">${escapeHtml(d.nome||"Música")}</b><span class="my-request-artist">${escapeHtml(d.artista||"Artista não informado")}</span><span class="my-request-state" data-status="${state.key}"><span class="material-symbols-outlined" aria-hidden="true">${state.icon}</span>${state.label}</span><p class="my-request-reason">${state.detail}</p></div></article>`;
+      }).join("");
+    }
+    onSnapshot(query(songs,where("status","==","aprovada")),snap=>{approvedDocs=snap.docs.filter(song=>song.data().jaTocou!==true);renderApproved()},error=>{console.error(error);list.innerHTML='<p class="text-xs text-red-600 p-4">Não foi possível carregar a playlist.</p>';});
+    onSnapshot(query(songs,where("votedBy","array-contains",uid)),snap=>{myRequestDocs=snap.docs.filter(s=>{const d=s.data();return Array.isArray(d.requestedBy)?d.requestedBy.includes(uid):["pendente","barrada"].includes(d.status)||(Array.isArray(d.votedBy)&&d.votedBy[0]===uid)});currentRequestSignature=JSON.stringify(myRequestDocs.map(s=>[s.id,s.data().status,s.data().jaTocou===true]).sort((a,b)=>a[0].localeCompare(b[0])));myRequestsError="";if(sortMode==="requests")markMyRequestsRead();else syncMyRequestsTab();renderApproved()},error=>{console.error("Falha ao carregar meus pedidos",error);myRequestsError="error";syncMyRequestsTab();if(sortMode==="requests")renderApproved()});
+    onSnapshot(query(recados,where("status","==","aprovada")),snap=>{approvedNotes=snap.docs;renderApproved()},error=>console.error("Falha ao carregar recados aprovados",error));
+    onSnapshot(query(recados,where("uid","==",uid)),snap=>{const rejected=snap.docs.filter(s=>s.data().status==="barrada"),box=document.getElementById("my-rejected-notes"),target=document.getElementById("rejected-notes-list");box.classList.toggle("hidden",!rejected.length);target.innerHTML=rejected.map(s=>{const d=s.data();return `<div class="rounded-xl bg-amber-50 p-3"><b class="block text-xs">${escapeHtml(d.nomeMusica||"Música")}</b><p class="mt-1 text-[11px] text-amber-900">${escapeHtml(d.texto)}</p>${d.motivo?`<span class="block text-[11px] text-amber-800 mt-1"><strong>Motivo:</strong> ${escapeHtml(d.motivo)}</span>`:""}</div>`}).join("")},error=>console.error("Falha ao carregar recados barrados",error));
+    const topTab=document.getElementById("tab-top"),requestsTab=document.getElementById("tab-requests"),historyTab=document.getElementById("tab-recent");topTab.onclick=()=>{sortMode="queue";topTab.setAttribute("aria-selected","true");requestsTab.setAttribute("aria-selected","false");historyTab.setAttribute("aria-selected","false");renderApproved()};requestsTab.onclick=()=>{if(requestsTab.classList.contains("hidden"))return;sortMode="requests";markMyRequestsRead();topTab.setAttribute("aria-selected","false");requestsTab.setAttribute("aria-selected","true");historyTab.setAttribute("aria-selected","false");renderApproved()};historyTab.onclick=()=>{if(historyTab.disabled)return;sortMode="history";historyTab.setAttribute("aria-selected","true");requestsTab.setAttribute("aria-selected","false");topTab.setAttribute("aria-selected","false");renderApproved()};
+    async function vote(id){try{await runTransaction(db,async tx=>{const ref=doc(db,"musicas",id),snap=await tx.get(ref);if(!snap.exists())return;const d=snap.data(),voters=Array.isArray(d.votedBy)?d.votedBy:[];if(voters.includes(uid))return;tx.update(ref,{votedBy:[...voters,uid],votos:(Number(d.votos)||0)+1});});}catch(error){console.error(error);showNotice("Não foi possível registrar o voto.");}}
+    async function voteToSkip(id){if(id!==currentSongId){showNotice("Essa música não está mais tocando.");return}try{await runTransaction(db,async tx=>{const ref=doc(db,"musicas",id),snap=await tx.get(ref);if(!snap.exists()||snap.data().status!=="aprovada"||id!==currentSongId)return;const d=snap.data(),voters=Array.isArray(d.skipVotedBy)?d.skipVotedBy:[];if(voters.includes(uid))return;tx.update(ref,{skipVotedBy:[...voters,uid],skipVotes:Math.max(Number(d.skipVotes)||0,voters.length)+1});});}catch(error){console.error("Falha ao registrar voto para pular",error);showNotice("Não foi possível registrar o voto para pular.");}}
+    let seconds=5;const modal=document.getElementById("rules-modal"),close=document.getElementById("close-rules"),count=document.getElementById("rules-count"),rulesSeenKey="jukebox_rules_seen",now=new Date(),today=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,"0")}-${String(now.getDate()).padStart(2,"0")}`,institutionalModal=document.getElementById("institutional-modal");if(localStorage.getItem(rulesSeenKey)!==today){modal.classList.remove("hidden");modal.classList.add("flex");localStorage.setItem(rulesSeenKey,today);}const countdown=setInterval(()=>{seconds--;count.textContent=seconds?`Aguarde (${seconds}s)...`:"Entendi, ir para a Jukebox";if(!seconds){clearInterval(countdown);close.disabled=false;close.className="mt-4 w-full py-3 rounded-xl bg-brand text-white text-xs font-bold shadow-md hover:brightness-105";}},1000);close.onclick=()=>{modal.classList.add("hidden");modal.classList.remove("flex");localStorage.setItem(rulesSeenKey,today)};const closeInstitutional=()=>{institutionalModal.classList.add("hidden");institutionalModal.classList.remove("flex")};document.getElementById("rules-info").onclick=()=>{institutionalModal.classList.remove("hidden");institutionalModal.classList.add("flex");document.getElementById("close-institutional").focus()};document.getElementById("close-institutional").onclick=closeInstitutional;document.getElementById("institutional-done").onclick=closeInstitutional;institutionalModal.addEventListener("click",event=>{if(event.target===institutionalModal)closeInstitutional()});document.addEventListener("keydown",event=>{if(event.key==="Escape"&&!institutionalModal.classList.contains("hidden"))closeInstitutional()});
+  </script>
+</body>
+</html>
