@@ -2,224 +2,160 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Chapa Renovação • Jukebox</title>
+  <title>Jukebox • Intervalo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{fontFamily:{body:["Inter"],headline:["Plus Jakarta Sans"]},colors:{primary:"#00629d",brand:"#1d9bf0",surface:"#f7f9ff",ink:"#171c21",muted:"#3f4851",soft:"#f0f4fb",green:"#006d2f",orange:"#db7e00",danger:"#f4212e"}}}};</script>
-  <style>html,body{width:100%;max-width:100%;overflow-x:hidden}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24}.doodle{position:relative}.doodle:after{content:"";position:absolute;inset:5px;border:1px solid rgba(0,98,157,.13);border-radius:18px 14px 20px 15px;pointer-events:none;transform:rotate(-.35deg)}.doodle>*{position:relative;z-index:1}</style>
-</head>
-<body class="bg-surface text-ink font-body min-h-screen">
-  <header class="fixed top-0 z-20 w-full bg-white/90 backdrop-blur-xl shadow-sm"><div class="h-14 max-w-md mx-auto px-3 flex items-center justify-between gap-2.5"><div class="flex min-w-0 items-center gap-2.5"><img src="assets/logo-al.png" alt="Logo AL" class="w-8 h-8 object-contain"><div><div class="font-headline text-sm font-bold leading-tight">Chapa Renovação</div><div class="text-[11px] text-muted leading-tight">Jukebox • Recreio</div></div></div><button id="open-settings" type="button" aria-label="Configurações" title="Configurações" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-muted hover:bg-soft hover:text-primary"><span class="material-symbols-outlined">settings</span></button></div></header>
-  <main class="max-w-md w-full mx-auto pt-16 px-3 pb-6 min-h-screen flex flex-col">
-    <div class="grid grid-cols-5 gap-1 bg-slate-200 p-1 rounded-xl mb-4 shrink-0">
-      <button data-tab="pendente" class="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold bg-white text-primary shadow-sm">Pendentes <b id="count-pendente" class="ml-1">0</b></button>
-      <button data-tab="aprovada" class="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold text-muted">Aprovadas <b id="count-aprovada" class="ml-1">0</b></button>
-      <button data-tab="historico" class="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold text-muted">Histórico <b id="count-historico" class="ml-1">0</b></button>
-      <button data-tab="barrada" class="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold text-muted">Barradas <b id="count-barrada" class="ml-1">0</b></button>
-      <button data-tab="recados" class="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold text-muted">Recados <b id="count-recados" class="ml-1">0</b></button>
-    </div>
-    <div id="admin-list" class="flex flex-col gap-2.5 flex-1 min-h-0"><p class="text-xs text-muted text-center p-4 bg-white rounded-xl">Carregando pedidos...</p></div>
-  </main>
-  <div id="reject-modal" class="hidden fixed inset-0 z-30 bg-black/60 backdrop-blur-sm items-center justify-center p-4"><div class="w-full max-w-sm bg-white rounded-2xl p-5 shadow-2xl"><div class="flex justify-between items-center mb-3"><h2 id="reject-title" class="font-headline font-bold">Barrar pedido</h2><button id="cancel-reject" class="text-muted"><span class="material-symbols-outlined">close</span></button></div><p id="reject-song-name" class="text-xs text-muted mb-3"></p><label id="reject-reason-label" for="custom-reject-reason" class="text-xs font-bold">Motivo</label><textarea id="custom-reject-reason" rows="4" class="mt-1 w-full rounded-xl border border-slate-200 p-3 text-sm outline-none focus:ring-2 focus:ring-brand" placeholder="Explique brevemente a decisão..."></textarea><div class="flex gap-2 mt-3"><button id="confirm-reject" class="flex-1 py-2.5 rounded-xl bg-danger text-white text-xs font-bold">Confirmar</button><button id="cancel-reject-2" class="flex-1 py-2.5 rounded-xl bg-soft text-xs font-bold">Cancelar</button></div></div></div>
-  <div id="toast" class="hidden fixed bottom-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-3 rounded-xl text-xs shadow-xl"></div>
-  <div id="settings-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/60 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="settings-title">
-    <div class="w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl">
-      <div class="flex items-center gap-2">
-        <button id="settings-back" type="button" aria-label="Voltar às opções" class="hidden flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted hover:bg-soft"><span class="material-symbols-outlined">arrow_back</span></button>
-        <span id="settings-icon" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-primary"><span class="material-symbols-outlined">settings</span></span>
-        <div class="min-w-0 flex-1"><h2 id="settings-title" class="font-headline font-bold">Configurações</h2><p id="settings-subtitle" class="text-[11px] text-muted">Escolha o que deseja configurar</p></div>
-        <button id="close-settings" type="button" aria-label="Fechar configurações" class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-muted hover:bg-soft"><span class="material-symbols-outlined">close</span></button>
-      </div>
-      <div id="settings-home" class="mt-4 grid gap-2">
-        <button data-settings-view="jukebox" class="flex min-h-14 items-center gap-3 rounded-xl border border-slate-200 p-3 text-left hover:bg-slate-50"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-primary"><span class="material-symbols-outlined">power_settings_new</span></span><span class="min-w-0 flex-1"><b class="block text-xs">Jukebox</b><small class="text-[10px] text-muted">Ligar ou desligar os pedidos</small></span><span class="material-symbols-outlined text-muted">chevron_right</span></button>
-        <button data-settings-view="announcement" class="flex min-h-14 items-center gap-3 rounded-xl border border-slate-200 p-3 text-left hover:bg-slate-50"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-blue-50 text-primary"><span class="material-symbols-outlined">campaign</span></span><span class="min-w-0 flex-1"><b class="block text-xs">Avisos</b><small class="text-[10px] text-muted">Publicar ou remover aviso</small></span><span class="material-symbols-outlined text-muted">chevron_right</span></button>
-        <button data-settings-view="maintenance" class="flex min-h-14 items-center gap-3 rounded-xl border border-slate-200 p-3 text-left hover:bg-slate-50"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-amber-50 text-amber-800"><span class="material-symbols-outlined">build</span></span><span class="min-w-0 flex-1"><b class="block text-xs">Manutenção</b><small class="text-[10px] text-muted">Configurar aviso de indisponibilidade</small></span><span class="material-symbols-outlined text-muted">chevron_right</span></button>
-        <button data-settings-view="theme" class="flex min-h-14 items-center gap-3 rounded-xl border border-slate-200 p-3 text-left hover:bg-slate-50"><span class="flex h-9 w-9 items-center justify-center rounded-lg bg-violet-50 text-violet-700"><span class="material-symbols-outlined">palette</span></span><span class="min-w-0 flex-1"><b class="block text-xs">Tema visual</b><small class="text-[10px] text-muted">Escolher a aparência do site do aluno</small></span><span class="material-symbols-outlined text-muted">chevron_right</span></button>
-      </div>
-      <section data-settings-panel="jukebox" class="hidden mt-4 rounded-xl border border-slate-200 p-4"><h3 class="text-sm font-bold">Controle da Jukebox</h3><p class="mt-1 text-xs text-muted">Quando desligada, os alunos não podem enviar pedidos. Ao ligar, presenças sem atividade por mais de 90 segundos são removidas; alunos online são mantidos.</p><button id="toggle-jukebox" class="mt-4 w-full justify-center rounded-full bg-soft px-3 py-2.5 text-xs font-bold text-primary flex items-center gap-1"><span class="material-symbols-outlined text-sm">power_settings_new</span><span>Carregando...</span></button></section>
-      <section data-settings-panel="announcement" class="hidden mt-4"><label for="announcement-message" class="text-xs font-bold">Aviso para todos os alunos</label><textarea id="announcement-message" maxlength="240" rows="3" class="mt-2 w-full rounded-xl border border-slate-200 p-3 text-xs outline-none focus:ring-2 focus:ring-brand" placeholder="Escreva um aviso curto para aparecer em uma janela no site do aluno."></textarea><div class="mt-3 flex gap-2"><button id="publish-announcement" class="flex-1 rounded-lg bg-blue-50 py-2.5 text-xs font-bold text-primary">Publicar aviso</button><button id="clear-announcement" class="rounded-lg bg-soft px-3 py-2.5 text-xs font-bold text-muted">Remover</button></div></section>
-      <section data-settings-panel="maintenance" class="hidden mt-4"><label for="maintenance-message" class="text-xs font-bold">Mensagem para os alunos</label><textarea id="maintenance-message" maxlength="240" rows="3" class="mt-2 w-full rounded-xl border border-slate-200 p-3 text-xs outline-none focus:ring-2 focus:ring-brand" placeholder="Explique por que a Jukebox está temporariamente indisponível."></textarea><button id="toggle-maintenance" class="mt-3 w-full rounded-lg bg-amber-50 py-2.5 text-xs font-bold text-amber-800">Ativar manutenção</button></section>
-      <section data-settings-panel="theme" class="hidden mt-4"><label for="theme-select" class="block text-xs font-bold">Tema visual</label><select id="theme-select" class="mt-2 w-full rounded-xl border border-slate-200 bg-white p-3 text-sm outline-none focus:ring-2 focus:ring-brand"><option value="default">Padrão da Jukebox</option><option value="halloween">Halloween 🎃</option></select><p class="mt-2 text-[11px] leading-relaxed text-muted">Você pode mudar o tema sempre que quiser.</p><button id="save-theme" type="button" class="mt-4 w-full rounded-xl bg-primary py-2.5 text-xs font-bold text-white">Aplicar tema</button></section>
-      <p id="settings-feedback" class="hidden mt-3 text-xs text-muted" role="status"></p>
-      <button id="cancel-settings" type="button" class="mt-4 w-full rounded-xl bg-soft py-2.5 text-xs font-bold text-ink">Fechar</button>
-    </div>
-  </div>
-  <div id="confirm-modal" class="hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm items-center justify-center p-4"><div class="w-full max-w-xs bg-white rounded-2xl p-5 shadow-2xl"><h2 class="font-headline font-bold">Excluir pedido?</h2><p class="text-xs text-muted mt-2">Essa ação não pode ser desfeita.</p><div class="flex gap-2 mt-4"><button id="confirm-delete" class="flex-1 py-2.5 rounded-xl bg-danger text-white text-xs font-bold">Excluir</button><button id="cancel-delete" class="flex-1 py-2.5 rounded-xl bg-soft text-xs font-bold">Cancelar</button></div></div></div>
-  <div id="institutional-modal" aria-hidden="true" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-black/60 backdrop-blur-sm"><div class="w-full max-w-md max-h-[90vh] overflow-y-auto bg-white rounded-3xl shadow-2xl"><div class="sticky top-0 bg-white/95 backdrop-blur px-5 py-4 border-b border-slate-100 flex items-center justify-between"><div class="flex items-center gap-2"><span class="w-9 h-9 rounded-xl bg-blue-50 text-primary flex items-center justify-center"><span class="material-symbols-outlined">gavel</span></span><div><h2 class="font-headline text-base font-bold">Institucional</h2><p class="text-[10px] text-muted">Termos, transparência e contato</p></div></div><button id="institutional-close" class="w-8 h-8 rounded-full bg-soft text-muted"><span class="material-symbols-outlined text-lg">close</span></button></div><div class="p-5 space-y-4 text-xs text-muted"><section class="rounded-2xl bg-soft p-4"><h3 class="font-headline font-bold text-ink flex items-center gap-2"><span class="material-symbols-outlined text-primary text-lg">music_note</span>Sobre a Jukebox</h3><p class="mt-2 leading-relaxed">Iniciativa do Grêmio Estudantil Azarias Leite para organizar sugestões musicais e a moderação da playlist.</p></section><section><h3 class="font-bold text-ink flex items-center gap-2"><span class="material-symbols-outlined text-green text-lg">visibility</span>Transparência</h3><p class="mt-1.5 leading-relaxed">Pedidos são analisados antes da publicação. Aprovações, recusas, votos e justificativas são registrados no Firestore para manter o processo rastreável.</p></section><section><h3 class="font-bold text-ink flex items-center gap-2"><span class="material-symbols-outlined text-orange text-lg">description</span>Termos de uso</h3><ul class="mt-1.5 space-y-1.5 list-disc pl-5 leading-relaxed"><li>Modere com respeito e coerência com as regras do ambiente escolar.</li><li>O Grêmio pode aprovar ou barrar pedidos inadequados.</li><li>Não insira informações pessoais nos campos de justificativa.</li></ul></section><section class="rounded-2xl border border-blue-100 bg-blue-50/60 p-4"><h3 class="font-bold text-ink flex items-center gap-2"><span class="material-symbols-outlined text-brand text-lg">alternate_email</span>Contato oficial</h3><a class="mt-2 inline-flex items-center gap-2 font-bold text-primary hover:underline" href="https://www.instagram.com/gremioestudantilazariasleite/" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined">photo_camera</span>@gremioestudantilazariasleite<span class="material-symbols-outlined text-sm">open_in_new</span></a></section></div></div></div>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import { getFirestore, collection, query, where, getDocs, onSnapshot, doc, updateDoc, deleteDoc, setDoc, runTransaction, Timestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    const config={apiKey:"AIzaSyDGbDeolFBC-Dw6EBZnNXygq9WuEdH8nS4",authDomain:"jukebox-c6d07.firebaseapp.com",projectId:"jukebox-c6d07",storageBucket:"jukebox-c6d07.firebasestorage.app",messagingSenderId:"56386350624",appId:"1:56386350624:web:df7a6fe404a1242176d645"},db=getFirestore(initializeApp(config)),songs=collection(db,"musicas"),recados=collection(db,"recados"),presence=collection(db,"presenca"),settingsRef=doc(db,"configuracoes","jukebox");
-    const lists={pendente:[],aprovada:[],barrada:[]};let noteDocs=[],playHistory=[],playHistoryDate="",active="pendente",rejectId=null,rejectType="song",currentSongId=null,maintenanceEnabled=false,activeTheme="default";
-    const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-    function localDateKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;}
-    function compactPlayHistory(history){
-      const tracksBySong=new Map();
-      for(const track of history){
-        const key=track.songId||`legacy:${track.nome_low||track.nome||""}:${track.artista||""}`,
-          previous=tracksBySong.get(key),playCount=Math.max(1,Number(track.playCount)||1);
-        if(!previous){tracksBySong.set(key,{...track,playCount});continue}
-        const previousTime=Date.parse(previous.playedAt||""),trackTime=Date.parse(track.playedAt||""),
-          latest=trackTime>=previousTime?track:previous;
-        tracksBySong.set(key,{...previous,...latest,playCount:previous.playCount+playCount});
-      }
-      return [...tracksBySong.values()];
-    }
-    function titleLooksExplicit(value){const words=String(value??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();return /(?:^|[^a-z0-9])(puta|putinha|putas|puto|putinho|putos|caralho|porra|buceta|bucetinha|foda|foder|fodendo|fuck|fucking|shit|bitch|dick|pussy|motherfucker)(?:$|[^a-z0-9])/.test(words);}
-    async function purgeStalePresence(){
-      const cutoff=Date.now()-90000,stale=await getDocs(query(presence,where("lastSeen","<=",Timestamp.fromMillis(cutoff))));
-      let deleted=0;
-      for(let offset=0;offset<stale.docs.length;offset+=40){
-        const results=await Promise.all(stale.docs.slice(offset,offset+40).map(snapshot=>runTransaction(db,async transaction=>{
-          const latest=await transaction.get(snapshot.ref);
-          if(!latest.exists())return false;
-          const lastSeen=latest.data().lastSeen?.toMillis?.()||0;
-          if(lastSeen>cutoff)return false;
-          transaction.delete(snapshot.ref);return true;
-        })));
-        deleted+=results.filter(Boolean).length;
-      }
-      return deleted;
-    }
-    async function deleteSongAndHistory(id){
-      const songRef=doc(songs,id);
-      await runTransaction(db,async transaction=>{
-        const [songSnapshot,settingsSnapshot]=await Promise.all([transaction.get(songRef),transaction.get(settingsRef)]);
-        if(!songSnapshot.exists()&&!settingsSnapshot.exists())throw new Error("Pedido não encontrado.");
-        const settings=settingsSnapshot.data()||{},history=Array.isArray(settings.playHistory)?settings.playHistory:[],
-          filteredHistory=history.filter(track=>track.songId!==id),updates={};
-        if(settings.currentSongId===id){updates.currentSongId=null;updates.currentSongName="";}
-        if(filteredHistory.length!==history.length)updates.playHistory=filteredHistory;
-        if(Object.keys(updates).length)transaction.set(settingsRef,{...updates,updatedAt:new Date()},{merge:true});
-        if(songSnapshot.exists())transaction.delete(songRef);
-      });
-    }
-    ["pendente","aprovada","barrada"].forEach(status=>onSnapshot(query(songs,where("status","==",status)),snap=>{lists[status]=snap.docs;document.getElementById(`count-${status}`).textContent=status==="aprovada"?snap.docs.filter(song=>song.data().jaTocou!==true).length:snap.size;render();},error=>{console.error(`Falha ao carregar ${status}`,error);}));
-    onSnapshot(recados,snap=>{noteDocs=snap.docs;document.getElementById("count-recados").textContent=noteDocs.filter(s=>s.data().status==="barrada").length;render();},error=>console.error("Falha ao carregar recados",error));
-    document.querySelectorAll(".tab").forEach(btn=>btn.onclick=()=>{active=btn.dataset.tab;document.querySelectorAll(".tab").forEach(b=>b.className="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold text-muted");btn.className="tab py-2 rounded-lg text-[10px] sm:text-xs font-bold bg-white text-primary shadow-sm";render();});
-    const power=document.getElementById("toggle-jukebox"),maintenanceButton=document.getElementById("toggle-maintenance"),themeSelect=document.getElementById("theme-select"),settingsModal=document.getElementById("settings-modal");onSnapshot(settingsRef,snap=>{const settings=snap.data()||{},enabled=settings.enabled===true;currentSongId=settings.currentSongId||null;playHistoryDate=settings.playHistoryDate||"";playHistory=Array.isArray(settings.playHistory)?settings.playHistory:[];document.getElementById("count-historico").textContent=playHistoryDate===localDateKey()?compactPlayHistory(playHistory).filter(track=>track.songId!==currentSongId).length:0;maintenanceEnabled=settings.maintenance===true;activeTheme=settings.theme==="halloween"?"halloween":"default";if(document.activeElement!==themeSelect)themeSelect.value=activeTheme;power.dataset.enabled=enabled;power.className=`px-3 py-2 rounded-full text-xs font-bold flex items-center gap-1 ${enabled?"bg-green-100 text-green":"bg-soft text-primary"}`;power.lastElementChild.textContent=enabled?"Jukebox ligada":"Ligar Jukebox";document.getElementById("announcement-message").value=settings.announcementText||"";document.getElementById("maintenance-message").value=settings.maintenanceMessage||"";maintenanceButton.textContent=maintenanceEnabled?"Encerrar manutenção":"Ativar manutenção";maintenanceButton.className=`mt-2 w-full rounded-lg py-2.5 text-xs font-bold ${maintenanceEnabled?"bg-green-50 text-green":"bg-amber-50 text-amber-800"}`;if(active==="aprovada"||active==="historico")render();},error=>console.error("Falha ao ler estado",error));power.onclick=async()=>{const enabled=power.dataset.enabled!=="true";power.disabled=true;try{await setDoc(settingsRef,{enabled,updatedAt:new Date()},{merge:true})}catch(error){console.error(error);showToast("Não foi possível alterar o estado.");power.disabled=false;return}power.disabled=false;if(!enabled){showToast("Jukebox desligada.");return}try{const deleted=await purgeStalePresence();showToast(`Jukebox ligada. ${deleted} presença(s) offline removida(s).`)}catch(error){console.error("Falha ao limpar presenças antigas",error);showToast("Jukebox ligada, mas não foi possível limpar as presenças antigas.")}};
-    const settingsHome=document.getElementById("settings-home"),settingsTitle=document.getElementById("settings-title"),settingsSubtitle=document.getElementById("settings-subtitle"),settingsBack=document.getElementById("settings-back"),settingsIcon=document.getElementById("settings-icon");
-    const settingsViews={jukebox:{title:"Jukebox",subtitle:"Ligue ou desligue os pedidos",icon:"power_settings_new"},announcement:{title:"Avisos",subtitle:"Comunique-se com os alunos",icon:"campaign"},maintenance:{title:"Manutenção",subtitle:"Configure a indisponibilidade",icon:"build"},theme:{title:"Tema visual",subtitle:"Personalize o site do aluno",icon:"palette"}};
-    function showSettingsHome(){settingsHome.classList.remove("hidden");document.querySelectorAll("[data-settings-panel]").forEach(panel=>panel.classList.add("hidden"));settingsBack.classList.add("hidden");settingsTitle.textContent="Configurações";settingsSubtitle.textContent="Escolha o que deseja configurar";settingsIcon.querySelector(".material-symbols-outlined").textContent="settings";}
-    function openSettingsView(name){const view=settingsViews[name];if(!view)return;settingsHome.classList.add("hidden");document.querySelectorAll("[data-settings-panel]").forEach(panel=>panel.classList.toggle("hidden",panel.dataset.settingsPanel!==name));settingsBack.classList.remove("hidden");settingsTitle.textContent=view.title;settingsSubtitle.textContent=view.subtitle;settingsIcon.querySelector(".material-symbols-outlined").textContent=view.icon;}
-    const closeSettings=()=>{settingsModal.classList.add("hidden");settingsModal.classList.remove("flex");showSettingsHome()};
-    settingsBack.onclick=showSettingsHome;document.querySelectorAll("[data-settings-view]").forEach(button=>button.onclick=()=>openSettingsView(button.dataset.settingsView));
-    document.getElementById("open-settings").onclick=()=>{themeSelect.value=activeTheme;showSettingsHome();settingsModal.classList.remove("hidden");settingsModal.classList.add("flex")};
-    document.getElementById("close-settings").onclick=closeSettings;document.getElementById("cancel-settings").onclick=closeSettings;document.getElementById("save-theme").onclick=async()=>{try{await setDoc(settingsRef,{theme:themeSelect.value,updatedAt:new Date()},{merge:true});closeSettings();showToast(themeSelect.value==="halloween"?"Tema de Halloween ativado para os alunos.":"Tema padrão ativado para os alunos.")}catch(error){console.error(error);showToast("Não foi possível salvar o tema.")}};
-    document.getElementById("publish-announcement").onclick=async()=>{const text=document.getElementById("announcement-message").value.trim();if(!text){showToast("Escreva um aviso antes de publicar.");return}try{await setDoc(settingsRef,{announcementText:text,announcementId:crypto.randomUUID(),updatedAt:new Date()},{merge:true});showToast("Aviso publicado para os alunos.")}catch(error){console.error(error);showToast("Não foi possível publicar o aviso.")}};
-    document.getElementById("clear-announcement").onclick=async()=>{try{await setDoc(settingsRef,{announcementText:"",announcementId:"",updatedAt:new Date()},{merge:true});showToast("Aviso removido.")}catch(error){console.error(error);showToast("Não foi possível remover o aviso.")}};
-    maintenanceButton.onclick=async()=>{const message=document.getElementById("maintenance-message").value.trim();if(!maintenanceEnabled&&!message){showToast("Explique o motivo antes de ativar a manutenção.");return}try{await setDoc(settingsRef,{maintenance:!maintenanceEnabled,maintenanceMessage:maintenanceEnabled?"":message,updatedAt:new Date()},{merge:true});showToast(maintenanceEnabled?"Manutenção encerrada.":"Modo de manutenção ativado.")}catch(error){console.error(error);showToast("Não foi possível alterar o modo de manutenção.")}};
-    function render(){const list=document.getElementById("admin-list");if(active==="recados"){const docs=noteDocs.filter(s=>s.data().status==="barrada").sort((a,b)=>(b.data().createdAt?.toMillis?.()||0)-(a.data().createdAt?.toMillis?.()||0));list.innerHTML=docs.length?docs.map(noteCard).join(""):'<p class="text-xs text-muted text-center p-4 bg-white rounded-xl">Nenhum recado barrado.</p>';}else if(active==="historico"){const tracks=playHistoryDate===localDateKey()?compactPlayHistory(playHistory).filter(track=>track.songId!==currentSongId).sort((a,b)=>Date.parse(b.playedAt||"")-Date.parse(a.playedAt||"")):[];list.innerHTML=tracks.length?tracks.map(historyCard).join(""):'<p class="text-xs text-muted text-center p-4 bg-white rounded-xl">Nenhuma música tocou hoje.</p>';}else{const docs=[...lists[active]].filter(song=>active!=="aprovada"||song.data().jaTocou!==true).sort((a,b)=>(Number(b.data().votos)||0)-(Number(a.data().votos)||0));if(active==="aprovada"&&currentSongId){const currentIndex=docs.findIndex(song=>song.id===currentSongId);if(currentIndex>0)docs.unshift(docs.splice(currentIndex,1)[0]);}list.innerHTML=docs.length?docs.map(card).join(""):'<p class="text-xs text-muted text-center p-4 bg-white rounded-xl">Nenhum pedido nesta aba.</p>';}list.querySelectorAll("[data-action]").forEach(btn=>btn.onclick=()=>action(btn.dataset.action,btn.dataset.id));}
-    function historyCard(track){
-      const cover=track.capa?`<img class="w-12 h-12 rounded-xl object-cover" src="${esc(track.capa)}" alt="">`:`<div class="w-12 h-12 rounded-xl bg-soft text-primary flex items-center justify-center"><span class="material-symbols-outlined">album</span></div>`,
-        playedAt=new Date(track.playedAt||""),time=Number.isNaN(playedAt.getTime())?"":playedAt.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
-        current=track.songId===currentSongId,playCount=Math.max(1,Number(track.playCount)||1);
-      return `<article class="doodle bg-white p-3 rounded-xl shadow-sm ring-1 ring-slate-200"><div class="flex items-center gap-3">${cover}<div class="min-w-0 flex-1"><b class="block truncate text-sm">${esc(track.nome||"Música")}</b><span class="block truncate text-xs text-muted">${esc(track.artista||"Artista não informado")}</span><small class="text-[10px] text-muted">${current?"Tocando agora":time||"Reproduzida"}${playCount>1?` • Tocada ${playCount} vezes`:""}</small></div>${track.songId?`<button data-action="delete-history" data-id="${esc(track.songId)}" aria-label="Apagar ${esc(track.nome||"música")} do histórico e do sistema" title="Apagar música e histórico" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-soft text-muted hover:bg-red-50 hover:text-danger"><span class="material-symbols-outlined text-base">delete</span></button>`:""}</div></article>`;
-    }
-    async function finishCurrentSong(currentId,nextId=null){
-      const finishedAt=new Date(),dateKey=localDateKey(finishedAt);
-      await runTransaction(db,async transaction=>{
-        const settingsSnapshot=await transaction.get(settingsRef),settings=settingsSnapshot.data()||{};
-        if(settings.currentSongId!==currentId)throw new Error("A música atual mudou. Atualize o painel e tente novamente.");
-        const currentRef=doc(songs,currentId),nextRef=nextId?doc(songs,nextId):null,
-          currentSnapshot=await transaction.get(currentRef),nextSnapshot=nextRef?await transaction.get(nextRef):null;
-        if(!currentSnapshot.exists()||currentSnapshot.data().status!=="aprovada")throw new Error("A música atual não está mais aprovada.");
-        if(nextId&&(!nextSnapshot?.exists()||nextSnapshot.data().status!=="aprovada"||nextSnapshot.data().jaTocou===true))throw new Error("A próxima música não está mais disponível na fila.");
-        const history=compactPlayHistory(settings.playHistoryDate===dateKey&&Array.isArray(settings.playHistory)?settings.playHistory:[]),
-          current=currentSnapshot.data(),previousTrack=history.find(track=>track.songId===currentId),
-          completedTrack={songId:currentId,nome:current.nome,artista:current.artista||"",capa:current.capa||"",duracao:current.duracao||"",playedAt:finishedAt.toISOString(),playCount:(Number(previousTrack?.playCount)||0)+1},
-          updatedHistory=[...history.filter(track=>track.songId!==currentId),completedTrack];
-        transaction.update(currentRef,{jaTocou:true,skipVotes:0,skipVotedBy:[]});
-        if(nextSnapshot&&nextRef)transaction.update(nextRef,{skipVotes:0,skipVotedBy:[]});
-        transaction.set(settingsRef,{currentSongId:nextId,currentSongName:nextSnapshot?.data().nome||"",playHistoryDate:dateKey,playHistory:updatedHistory,updatedAt:finishedAt},{merge:true});
-      });
-    }
-    function card(snap){
-      const d=snap.data(),explicit=d.explicita===true||titleLooksExplicit(d.nome),explicitByTitle=d.classificacaoConteudo==="termo_explicito_no_titulo"||titleLooksExplicit(d.nome),
-        cover=d.capa?`<img class="w-12 h-12 rounded-xl object-cover" src="${esc(d.capa)}" alt="">`:`<div class="w-12 h-12 rounded-xl bg-soft text-primary flex items-center justify-center"><span class="material-symbols-outlined">album</span></div>`,
-        songNotes=noteDocs.filter(note=>note.data().songId===snap.id&&note.data().status!=="barrada"),
-        skipVotes=Math.max(Number(d.skipVotes)||0,Array.isArray(d.skipVotedBy)?d.skipVotedBy.length:0),
-        skipSummary=active==="aprovada"&&currentSongId===snap.id?`<div class="mt-2 inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[10px] font-bold text-amber-800"><span class="material-symbols-outlined text-sm">skip_next</span>${skipVotes} voto(s) para pular — decisão do Grêmio</div>`:"",
-        moderation=active==="pendente"?`<button data-action="reject" data-id="${snap.id}" class="flex-1 rounded-lg bg-red-50 py-2 text-xs font-bold text-danger">Barrar música</button><button data-action="approve" data-id="${snap.id}" class="flex-1 rounded-lg bg-green-50 py-2 text-xs font-bold text-green">Aprovar música</button><button data-action="delete" data-id="${snap.id}" aria-label="Apagar pedido" title="Apagar pedido" class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-soft text-muted hover:bg-red-50 hover:text-danger"><span class="material-symbols-outlined text-base">delete</span></button>`:"",
-        player=active==="aprovada"?`<div class="mt-2 flex items-center rounded-xl border border-slate-200 bg-slate-50 p-1"><button data-action="copy" data-id="${snap.id}" aria-label="Copiar comando" class="flex min-h-9 flex-1 items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[10px] font-semibold text-muted hover:bg-white hover:text-primary"><span class="material-symbols-outlined text-base">content_copy</span>Copiar</button><button data-action="play" data-id="${snap.id}" aria-label="${currentSongId===snap.id?"Encerrar tocando agora":"Marcar tocando agora"}" class="flex min-h-9 flex-1 items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[10px] font-semibold ${currentSongId===snap.id?"bg-green-100 text-green":"text-muted hover:bg-white hover:text-primary"}"><span class="material-symbols-outlined text-base">${currentSongId===snap.id?"graphic_eq":"play_circle"}</span>${currentSongId===snap.id?"Tocando":"Tocar agora"}</button><button data-action="delete" data-id="${snap.id}" aria-label="Apagar música" class="flex min-h-9 flex-1 items-center justify-center gap-1 rounded-lg px-1 py-1.5 text-[10px] font-semibold text-muted hover:bg-red-50 hover:text-danger"><span class="material-symbols-outlined text-base">delete</span>Apagar</button></div>`:"",
-        advance=active==="aprovada"&&currentSongId===snap.id?`<button data-action="next" data-id="${snap.id}" class="mt-2 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-primary px-3 py-2 text-xs font-bold text-white hover:bg-blue-800"><span class="material-symbols-outlined text-base">skip_next</span>${lists.aprovada.some(song=>song.id!==snap.id&&song.data().jaTocou!==true)?"Próxima música":"Encerrar e enviar ao histórico"}</button>`:"",
-        history=active==="barrada"?`<button data-action="delete-history" data-id="${snap.id}" aria-label="Apagar música do histórico" class="mt-2 inline-flex min-h-9 w-full items-center justify-center gap-1 rounded-lg bg-soft px-2 py-1.5 text-[10px] font-semibold text-muted hover:bg-red-50 hover:text-danger"><span class="material-symbols-outlined text-base">delete</span>Apagar do histórico</button>`:"";
-      return `<article class="doodle ${explicit?"bg-red-50/70 ring-1 ring-red-300":"bg-white ring-1 ring-slate-200"} p-3 rounded-xl shadow-sm"><div class="flex items-center gap-3">${cover}<div class="min-w-0 flex-1"><b class="block truncate text-sm ${explicit?"text-red-700":""}">${esc(d.nome)}</b><span class="block truncate text-xs text-muted">${esc(d.artista||"Artista não informado")}</span><small class="text-[10px] text-muted">${Number(d.votos)||0} voto(s)${d.motivo?` • ${esc(d.motivo)}`:""}</small></div></div>${explicit?`<div class="mt-2 inline-flex items-center gap-1 rounded-full bg-red-100 px-2.5 py-1 text-[10px] font-bold text-red-700"><span class="material-symbols-outlined text-sm">explicit</span>${explicitByTitle?"Possível conteúdo explícito no título":"Faixa marcada como explícita pelo iTunes"} — revisar</div>`:""}${skipSummary}${songNotes.length?`<div class="mt-2 space-y-1.5">${songNotes.map(note=>noteInline(note)).join("")}</div>`:""}${moderation?`<div class="mt-2 flex gap-2">${moderation}</div>`:""}${player}${advance}${history}</article>`;
-    }
-    function noteInline(snap){const d=snap.data(),pending=d.status==="pendente";return `<div class="flex items-start gap-2 rounded-xl border ${pending?"border-amber-200 bg-amber-50/70":"border-green-100 bg-green-50/60"} p-2.5"><span class="material-symbols-outlined mt-0.5 text-sm ${pending?"text-amber-700":"text-green"}">${pending?"schedule":"chat"}</span><div class="min-w-0 flex-1"><div class="flex items-center justify-between gap-2"><span class="text-[10px] font-bold ${pending?"text-amber-800":"text-green"}">${pending?"Recado pendente":"Recado liberado"}</span><div class="flex items-center gap-1">${pending?`<button data-action="approve-note" data-id="${esc(snap.id)}" aria-label="Aprovar recado" title="Aprovar recado" class="flex h-7 w-7 items-center justify-center rounded-full text-green hover:bg-green-100"><span class="material-symbols-outlined text-base">check</span></button>`:""}<button data-action="reject-note" data-id="${esc(snap.id)}" aria-label="Apagar recado" title="Apagar recado" class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-muted hover:bg-red-100 hover:text-danger"><span class="material-symbols-outlined text-base">close</span></button></div></div><p class="mt-1 whitespace-pre-wrap break-words text-xs leading-relaxed text-ink">${esc(d.texto)}</p></div></div>`;}
-    function noteCard(snap){
-      const d=snap.data(),song=Object.values(lists).flat().find(item=>item.id===d.songId)?.data(),
-        coverUrl=d.capa||song?.capa,artist=d.artista||song?.artista,
-        cover=coverUrl?`<img class="h-14 w-14 shrink-0 rounded-xl object-cover" src="${esc(coverUrl)}" alt="Capa de ${esc(d.nomeMusica||song?.nome||"música")}">`:`<div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-soft text-primary"><span class="material-symbols-outlined">album</span></div>`,
-        songName=d.nomeMusica||song?.nome||"Música não identificada";
-      return `<article class="doodle bg-white p-3.5 rounded-xl shadow-sm ring-1 ring-red-200"><div class="flex min-w-0 items-start gap-3">${cover}<div class="min-w-0 flex-1"><div class="flex items-start justify-between gap-2"><div class="min-w-0"><b class="block text-xs text-red-700">Recado barrado</b><p class="mt-1 break-words text-[11px] text-muted">Música: <b class="text-ink">${esc(songName)}</b></p>${artist?`<p class="mt-0.5 truncate text-[10px] text-muted">${esc(artist)}</p>`:""}</div><span class="shrink-0 text-[10px] text-muted">${d.createdAt?.toDate?.().toLocaleDateString?.("pt-BR")||""}</span></div></div></div><p class="mt-3 break-words rounded-xl bg-soft p-3 text-xs leading-relaxed text-ink">${esc(d.texto)}</p><div class="mt-3 rounded-xl bg-red-50 p-3"><span class="text-[10px] font-bold uppercase tracking-wide text-red-700">Motivo informado</span><p class="mt-1 break-words text-xs leading-relaxed text-red-900">${esc(d.motivo||"Sem justificativa registrada.")}</p></div><button data-action="delete-note" data-id="${snap.id}" aria-label="Apagar recado do histórico" class="mt-3 inline-flex min-h-10 w-full items-center justify-center gap-2 rounded-xl bg-soft px-3 py-2 text-xs font-bold text-muted transition-colors hover:bg-red-50 hover:text-danger focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger"><span class="material-symbols-outlined text-base">delete</span>Apagar do histórico</button></article>`;
-    }
-    async function action(type,id){
-      if(type==="reject"||type==="reject-note"){
-        rejectId=id;rejectType=type==="reject-note"?"note":"song";
-        const d=rejectType==="note"?noteDocs.find(s=>s.id===id)?.data():lists[active].find(s=>s.id===id)?.data();
-        if(!d){showToast("Este item não está mais disponível.");return}
-        document.getElementById("reject-title").textContent=rejectType==="note"?"Apagar apenas o recado":"Barrar pedido";
-        document.getElementById("reject-song-name").textContent=rejectType==="note"?`Música: ${d.nomeMusica||"não identificada"}`:d.nome;
-        document.getElementById("reject-reason-label").textContent=rejectType==="note"?"Motivo para apagar o recado (obrigatório)":"Motivo para barrar a música";
-        document.getElementById("custom-reject-reason").placeholder=rejectType==="note"?"Explique por que este recado será removido...":"Explique brevemente a decisão...";
-        document.getElementById("custom-reject-reason").value="";
-        document.getElementById("reject-modal").classList.replace("hidden","flex");return;
-      }
-      try{
-        if(type==="approve"){
-          const song=lists[active].find(item=>item.id===id)?.data();
-          if(!song)throw new Error("Pedido pendente não encontrado.");
-          await updateDoc(doc(songs,id),{status:"aprovada",motivo:"",jaTocou:false,requestedBy:Array.isArray(song.requestedBy)?song.requestedBy:Array.isArray(song.votedBy)?song.votedBy:[]});
-        }
-        else if(type==="approve-note")await updateDoc(doc(recados,id),{status:"aprovada",motivo:""});
-        else if(type==="play"){
-          if(currentSongId===id){
-            await finishCurrentSong(id);
-            showToast("Música encerrada e enviada ao histórico.");
-            return;
-          }
-          if(currentSongId){
-            await finishCurrentSong(currentSongId,id);
-            showToast("A música atual foi para o histórico e a selecionada começou.");
-            return;
-          }
-          const startedAt=new Date();
-          await runTransaction(db,async transaction=>{
-            const songRef=doc(songs,id),songSnapshot=await transaction.get(songRef),settingsSnapshot=await transaction.get(settingsRef);
-            if(!songSnapshot.exists()||songSnapshot.data().status!=="aprovada"||songSnapshot.data().jaTocou===true)throw new Error("Música aprovada não encontrada na fila.");
-            if(settingsSnapshot.data()?.currentSongId)throw new Error("A música atual mudou. Atualize o painel e tente novamente.");
-            transaction.update(songRef,{skipVotes:0,skipVotedBy:[]});
-            transaction.set(settingsRef,{currentSongId:id,currentSongName:songSnapshot.data().nome,updatedAt:startedAt},{merge:true});
-          });
-        }else if(type==="next"){
-          const next=lists.aprovada.filter(song=>song.id!==id&&song.data().jaTocou!==true).sort((a,b)=>(Number(b.data().votos)||0)-(Number(a.data().votos)||0))[0];
-          await finishCurrentSong(id,next?.id||null);
-          showToast(next?"Música enviada ao histórico; a próxima da fila começou.":"Música enviada ao histórico. A fila está vazia.");
-        }else if(type==="delete-history"){
-          const selected=playHistory.find(track=>track.songId===id);if(!selected)throw new Error("Música não encontrada no histórico de hoje.");
-          const confirmed=await askDelete("Apagar música do histórico?",`“${selected.nome||"Esta música"}” e seu registro serão removidos permanentemente.`,"Apagar música");
-          if(!confirmed)return;
-          await deleteSongAndHistory(id);showToast("Música e registro removidos do histórico.");return;
-        }else if(type==="delete"||type==="delete-note"){
-          const selectedSong=Object.values(lists).flat().find(song=>song.id===id),
-            confirmed=type==="delete-note"
-              ?await askDelete("Apagar recado barrado?","Esta ação remove somente o recado do histórico. A música não será alterada.","Apagar recado")
-              :await askDelete("Apagar pedido?",`“${selectedSong?.data().nome||"Este pedido"}” será removido permanentemente.`,"Apagar pedido");
-          if(!confirmed)return;
-          if(type==="delete-note"){await deleteDoc(doc(recados,id));showToast("Recado apagado do histórico.");return}
-          await deleteSongAndHistory(id);
-        }else if(type==="copy"){
-          const d=lists[active].find(s=>s.id===id).data(),text=`m!p ${d.nome}${d.artista?` - ${d.artista}`:""}`;
-          await navigator.clipboard.writeText(text);showToast("Texto copiado.");return;
-        }
-        showToast(type==="play"?"Estado da reprodução atualizado.":type==="approve"?"Música aprovada.":type==="approve-note"?"Recado liberado.":"Ação realizada.");
-      }catch(error){console.error(error);showToast(type==="approve"&&error.code==="permission-denied"?"O Firestore recusou a aprovação. Verifique as regras de acesso.":"Não foi possível concluir a ação.");}
-    }
-    async function reject(){const reason=document.getElementById("custom-reject-reason").value.trim(),rejectingNote=rejectType==="note";if(!reason){showToast(rejectingNote?"Informe o motivo para apagar o recado.":"Digite um motivo para barrar a música.");return}try{if(rejectingNote)await updateDoc(doc(recados,rejectId),{status:"barrada",motivo:reason});else{const song=lists[active].find(item=>item.id===rejectId)?.data();if(!song)throw new Error("Pedido pendente não encontrado.");await updateDoc(doc(db,"musicas",rejectId),{status:"barrada",motivo:reason,requestedBy:Array.isArray(song.requestedBy)?song.requestedBy:Array.isArray(song.votedBy)?song.votedBy:[]});}closeModal();showToast(rejectingNote?"Recado removido; a música não foi alterada.":"Pedido barrado.");}catch(error){console.error(error);showToast("Não foi possível concluir a moderação.");}}
-    function closeModal(){document.getElementById("reject-modal").classList.replace("flex","hidden");rejectId=null;rejectType="song";}function showToast(text){const t=document.getElementById("toast");t.textContent=text;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),2500);}function askDelete(title="Excluir pedido?",description="Essa ação não pode ser desfeita.",confirmLabel="Excluir"){return new Promise(resolve=>{const modal=document.getElementById("confirm-modal"),yes=document.getElementById("confirm-delete"),no=document.getElementById("cancel-delete");modal.querySelector("h2").textContent=title;modal.querySelector("p").textContent=description;yes.textContent=confirmLabel;modal.classList.replace("hidden","flex");const finish=value=>{modal.classList.replace("flex","hidden");yes.onclick=null;no.onclick=null;resolve(value)};yes.onclick=()=>finish(true);no.onclick=()=>finish(false)})}
-    document.getElementById("confirm-reject").onclick=reject;document.getElementById("cancel-reject").onclick=closeModal;document.getElementById("cancel-reject-2").onclick=closeModal;
-  </script>
-</body>
-</html>
+  <script>tailwind.config={theme:{extend:{fontFamily:{body:["Inter"],headline:["Plus Jakarta Sans"]},colors:{primary:"#00629d",brand:"#1d9bf0",surface:"#f7f9ff",ink:"#171c21",muted:"#3f4851",soft:"#f0f4fb",green:"#006d2f",orange:"#db7e00"}}}};</script>
+  <style>html,body{width:100%;max-width:100%;min-height:100%;overflow-x:hidden;overflow-y:auto}body{touch-action:pan-y;-webkit-overflow-scrolling:touch}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24}.doodle{position:relative}.doodle:after{content:"";position:absolute;inset:5px;border:1px solid rgba(0,98,157,.13);border-radius:18px 14px 20px 15px;pointer-events:none;transform:rotate(-.35deg)}.doodle>*{position:relative;z-index:1}.student-note{display:flex;align-items:baseline;gap:.35rem;margin-top:.5rem;padding:.5rem .625rem;border:0!important;border-left:2px solid #00629d!important;border-radius:0 .375rem .375rem 0!important;background:#f0f6fc!important;color:#273342!important;box-shadow:none!important}.student-note .material-symbols-outlined{display:none}.student-note-label{display:inline!important;flex:none;color:#315b7b!important;font-size:10px!important;font-weight:700!important;letter-spacing:0!important;text-transform:none!important}.student-note-text{display:inline!important;margin:0!important;color:#273342!important;font-size:12px!important;font-weight:400!important;line-height:1.5!important}</style>
+  <style>
+    body.theme-halloween{position:relative;background:#0c0a09!important;color:#fafaf9!important}
+    body.theme-halloween header,body.theme-halloween footer{background:#0c0a09!important;border-color:#292524!important;color:#a8a29e!important}
+    body.theme-halloween header h1,body.theme-halloween footer .font-headline{color:#fafaf9!important}
+    body.theme-halloween header .bg-green,body.theme-halloween header .animate-ping{background:#f97316!important}
+    body.theme-halloween header .bg-soft{background:#1c1917!important;border-color:#292524!important;color:#e7e5e4!important}
+    body.theme-halloween header .text-muted,body.theme-halloween footer .text-muted{color:#a8a29e!important}
+    body.theme-halloween main,body.theme-halloween footer{position:relative;z-index:1}
+    body.theme-halloween .doodle{background:#171513!important;border-color:#292524!important;box-shadow:0 1px 3px #0008!important}
+    body.theme-halloween .doodle:after{border-color:#fb92341c}
+    body.theme-halloween #my-rejected-notes{--tw-ring-color:#854d0e!important}
+    body.theme-halloween #my-rejected-notes h2{color:#fb923c!important}
+    body.theme-halloween #my-rejected-notes #rejected-notes-list>div{background:#21180f!important;border:1px solid #713f12;color:#fff7ed!important}
+    body.theme-halloween #my-rejected-notes #rejected-notes-list .text-amber-900{color:#fed7aa!important}
+    body.theme-halloween #my-rejected-notes #rejected-notes-list .text-amber-800{color:#fdba74!important}
+    body.theme-halloween #maintenance-notice{background:#1c1710!important;border-color:#854d0e!important;color:#fde68a!important}
+    body.theme-halloween #maintenance-notice h2,body.theme-halloween #maintenance-notice p{color:#fde68a!important}
+    body.theme-halloween #song-request-form>div:first-of-type{background:#110f0d!important;border-color:#57534e!important}
+    body.theme-halloween #song-input{color:#fafaf9!important}
+    body.theme-halloween #song-input::placeholder{color:#78716c!important}
+    body.theme-halloween #submit-song{background:#ea580c!important;color:white!important}
+    body.theme-halloween #search-results{background-color:#171513!important;border-color:#44403c!important}
+    body.theme-halloween #search-results button{background-color:#171513!important;color:#e7e5e4!important;border-color:#292524!important}
+    body.theme-halloween #search-results button:hover{background:#292524!important}
+    body.theme-halloween #playlist-state{color:#a8a29e!important}
+    body.theme-halloween #tab-top,body.theme-halloween #tab-requests,body.theme-halloween #tab-recent{background:#1c1917!important;color:#a8a29e!important}
+    body.theme-halloween #tab-top.bg-ink,body.theme-halloween #tab-requests.bg-ink,body.theme-halloween #tab-recent.bg-ink{background:#ea580c!important;color:white!important}
+    body.theme-halloween #approved-list>p.bg-white{background:#171513!important;color:#a8a29e!important}
+    body.theme-halloween #approved-list>article{background:#171513!important;color:#fafaf9!important;--tw-ring-color:#292524!important}
+    body.theme-halloween #approved-list>article .text-muted{color:#a8a29e!important}
+    body.theme-halloween #approved-list>article .bg-soft{background:#292524!important;color:#e7e5e4!important}
+    body.theme-halloween #approved-list .vote-btn,body.theme-halloween #playback-status .vote-btn{background:#292524!important;color:#fed7aa!important}
+    body.theme-halloween #approved-list .vote-btn.is-voted,body.theme-halloween #playback-status .vote-btn.is-voted{background:#ea580c!important;color:#fff!important}
+    body.theme-halloween #approved-list .vote-icon,body.theme-halloween #playback-status .vote-icon{filter:brightness(0) saturate(100%)}
+    body.theme-halloween #approved-list .vote-btn.is-voted .vote-icon,body.theme-halloween #playback-status .vote-btn.is-voted .vote-icon{filter:none}
+    body.theme-halloween #approved-list>article .bg-blue-50{background:#1c1917!important;color:#fed7aa!important}
+    body.theme-halloween #approved-list .student-note{background:#1c1917!important;border-color:#fb923c!important;color:#fff7ed!important}
+    body.theme-halloween #approved-list .student-note-label{color:#fdba74!important}
+    body.theme-halloween #approved-list .student-note-text{color:#fff7ed!important}
+    body.theme-halloween #playback-status{background:#1c1917!important;border:1px solid #44403c;color:#e7e5e4!important}
+    body.theme-halloween #playback-status .border-blue-100{border-color:#44403c!important}
+    body.theme-halloween #rules-modal>div,body.theme-halloween #request-confirm-modal>div,body.theme-halloween #rejected-song-modal>div,body.theme-halloween #announcement-modal>div{background:#171513!important;color:#e7e5e4!important;border:1px solid #292524}
+    body.theme-halloween #rules-modal h2,body.theme-halloween #request-confirm-modal h2,body.theme-halloween #announcement-modal h2{color:#fafaf9!important}
+    body.theme-halloween #rules-modal .text-muted,body.theme-halloween #request-confirm-modal .text-muted,body.theme-halloween #announcement-modal .text-muted{color:#a8a29e!important}
+    body.theme-halloween #request-confirm-song{background:#1c1917!important;border-color:#292524!important;color:#fafaf9!important}
+    body.theme-halloween #request-note{background:#110f0d!important;border-color:#57534e!important;color:#fafaf9!important}
+    body.theme-halloween #cancel-request,body.theme-halloween #close-rejected-song{background:#292524!important;border-color:#44403c!important;color:#e7e5e4!important}
+    body.theme-halloween #confirm-request,body.theme-halloween #announcement-modal button{background:#ea580c!important;color:#fff!important}
+    body.theme-halloween #rejected-song-title{color:#e7e5e4!important}
+    body.theme-halloween #rejected-song-reason{color:#fecaca!important}
+    body.theme-halloween #notice{background:#1c1917!important;border:1px solid #44403c!important;color:#fafaf9!important}
+    body.theme-halloween #rules-modal{background:#000c!important}
+    body.theme-halloween #rules-modal>div{background:#171513!important;border:1px solid #292524!important;color:#e7e5e4}
+    body.theme-halloween #rules-modal .bg-blue-50,body.theme-halloween #rules-modal .bg-blue-50\/80,body.theme-halloween #rules-modal .bg-red-50\/80,body.theme-halloween #rules-modal .bg-green-50\/80,body.theme-halloween #rules-modal .bg-violet-50\/80{background:#211c18!important;--tw-ring-color:#403329!important}
+    body.theme-halloween #rules-modal .text-muted,body.theme-halloween #rules-modal .text-muted\/80{color:#c4b9ae!important}
+    body.theme-halloween #rules-modal .text-ink,body.theme-halloween #rules-modal h2{color:#fff7ed!important}
+    body.theme-halloween #rules-modal .text-primary,body.theme-halloween #rules-modal .text-brand,body.theme-halloween #rules-modal .text-red-500,body.theme-halloween #rules-modal .text-green,body.theme-halloween #rules-modal .text-violet-600{color:#fb923c!important}
+    body.theme-halloween #close-rules{background:#ea580c!important;color:#fff!important}
+    body.theme-halloween #announcement-modal>div{background:#171513!important;border:1px solid #292524!important;color:#e7e5e4}
+    body.theme-halloween #announcement-modal h2{color:#fff7ed!important}
+    body.theme-halloween #announcement-modal #announcement-message-display{color:#e7e5e4!important}
+    body.theme-halloween #announcement-modal button{background:#ea580c!important;color:#fff!important}
+  </style>
+  <style>
+    :root{color-scheme:dark}
+    body{--page:#100b0a;--panel:#1b1210;--panel-raised:#241714;--line:rgba(255,255,255,.1);--primary-text:#f5f2f1;--secondary-text:#a99f9c;--accent:#e11d2e;--accent-soft:rgba(225,29,46,.13);position:relative;isolation:isolate;min-height:100vh;background:#100c0b!important;color:var(--primary-text)!important;font-family:Inter,sans-serif;padding-bottom:28px}
+    body:before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:0;background-image:url("assets/halloween-wallpaper.png");background-size:180px 180px}
+    body.theme-halloween{--page:#0c0a09;--panel:#171513;--panel-raised:#211c18;--line:rgba(251,146,60,.18);--primary-text:#fff7ed;--secondary-text:#c4b9ae;--accent:#f97316;--accent-soft:rgba(249,115,22,.14);background:#0c0a09!important}
+    body.theme-halloween .player-artwork{background:radial-gradient(circle at 50% 38%,#653d20 0,#291c15 42%,#17100f 78%)}
+    body.theme-halloween #close-rules:disabled{background:#3b2c20!important;color:#c4b9ae!important}
+    body *{scrollbar-color:#59413a transparent}
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 500,'GRAD' 0,'opsz' 24}
+    .doodle{position:relative;background:rgba(27,18,16,.72)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:0 16px 40px rgba(0,0,0,.2)!important;backdrop-filter:blur(22px) saturate(1.15);-webkit-backdrop-filter:blur(22px) saturate(1.15)}
+    .doodle:after{display:none!important}
+    .music-header{position:sticky!important;top:0;z-index:40;height:64px!important;background:rgba(15,10,9,.94)!important;border-color:var(--line)!important;box-shadow:0 1px 18px rgba(0,0,0,.24)!important;color:var(--primary-text)!important}
+    #album-atmosphere{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#100c0b}
+    #album-atmosphere img{position:absolute;inset:-12%;width:124%;height:124%;object-fit:cover;object-position:center 62%;opacity:.55;filter:blur(68px) saturate(1.35) brightness(.65);transform:scale(1.12);transition:opacity .7s ease}
+    #album-atmosphere:after{position:absolute;inset:0;background:linear-gradient(180deg,rgba(16,12,11,.4),rgba(16,12,11,.56) 48%,rgba(11,8,7,.78));content:""}
+    body.theme-halloween #album-atmosphere:after{background-image:url("assets/halloween-wallpaper.png"),linear-gradient(rgba(0,0,0,.40),rgba(0,0,0,.18)),linear-gradient(180deg,rgba(9,7,6,.76),rgba(9,7,6,.84) 48%,rgba(3,3,3,.94));background-repeat:repeat,no-repeat,no-repeat;background-size:180px 180px,cover,cover;background-blend-mode:screen,normal,normal}
+    .music-header-inner{max-width:560px!important;height:100%!important;padding:0 16px!important}
+    .music-header img{border:0;border-radius:0;background:transparent!important}
+    .music-header h1{color:#fff!important}
+    .music-header .text-muted{color:var(--secondary-text)!important}
+    #theme-badge{border-color:var(--line)!important;background:var(--accent-soft)!important;color:var(--accent)!important}
+    .header-actions{gap:8px!important}
+    #rules-info{display:inline-flex;align-items:center;gap:5px;padding:7px 10px!important;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05)!important;color:#e6dcda!important;font-size:11px;font-weight:600}
+    #rules-info:hover{background:rgba(255,255,255,.1)!important}
+    .online-pill{background:rgba(255,255,255,.05)!important;border-color:var(--line)!important;color:#e6dcda!important}
+    .online-pill .bg-green,.online-pill .animate-ping{background:#10b981!important}
+    .music-main{position:relative;z-index:1;width:100%;max-width:560px!important;min-height:calc(100vh - 64px)!important;margin:0 auto;padding:18px 16px 32px!important;gap:14px!important}
+    #request-status{display:inline-flex;min-height:26px;align-items:center;gap:6px;max-width:100%;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);color:var(--secondary-text);font-size:9px;font-weight:700;line-height:1.2;white-space:nowrap}
+    #request-status .status-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#78716c}
+    #request-status[data-state="open"]{border-color:rgba(52,211,153,.2);background:rgba(16,185,129,.1);color:#a7f3d0}
+    #request-status[data-state="open"] .status-dot{background:#34d399;box-shadow:0 0 8px rgba(52,211,153,.55)}
+    #request-status[data-state="maintenance"]{border-color:rgba(251,191,36,.24);background:rgba(245,158,11,.1);color:#fde68a}
+    #request-status[data-state="maintenance"] .status-dot{background:#fbbf24}
+    #request-status[data-state="closed"]{color:var(--secondary-text)}
+    body.theme-halloween #request-status[data-state="open"]{border-color:rgba(52,211,153,.2);background:rgba(16,185,129,.1);color:#a7f3d0}
+    body.theme-halloween #request-status[data-state="maintenance"]{border-color:rgba(251,191,36,.24);background:rgba(245,158,11,.1);color:#fde68a}
+    #maintenance-notice{background:#291b0b!important;border-color:#8b5b18!important;color:#fde68a!important}
+    #maintenance-notice h2,#maintenance-notice p{color:#fde68a!important}
+    .request-panel{position:relative;z-index:5;padding:16px!important}
+    .my-request-row{display:grid;grid-template-columns:42px minmax(0,1fr);align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.025)}
+    .my-request-cover{display:flex;width:42px;height:42px;align-items:center;justify-content:center;overflow:hidden;border-radius:9px;background:var(--panel-raised);color:var(--secondary-text)}
+    .my-request-cover img{width:100%;height:100%;object-fit:cover}
+    .my-request-info{min-width:0}
+    .my-request-title{display:block;overflow:hidden;color:var(--primary-text);font-size:11px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+    .my-request-artist{display:block;overflow:hidden;margin-top:2px;color:var(--secondary-text);font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+    .my-request-state{display:inline-flex;align-items:center;gap:4px;margin-top:5px;color:var(--secondary-text);font-size:9px;font-weight:700}
+    .my-request-state .material-symbols-outlined{font-size:13px}
+    .my-request-state[data-status="pendente"]{color:#fbbf24}
+    .my-request-state[data-status="aprovada"]{color:#86efac}
+    .my-request-state[data-status="tocando"],.my-request-state[data-status="tocou"]{color:#93c5fd}
+    .my-request-state[data-status="barrada"]{color:#fca5a5}
+    .my-request-reason{margin-top:4px;color:var(--secondary-text);font-size:10px;line-height:1.4}
+    .my-request-empty{padding:10px 2px;color:var(--secondary-text);font-size:11px;line-height:1.5}
+    .section-heading{color:var(--primary-text)!important}
+    .request-form{margin-bottom:0!important}
+    .search-field{background:#110d0c!important;border-color:var(--line)!important;box-shadow:inset 0 1px 6px rgba(0,0,0,.28)!important}
+    .search-field:focus-within{--tw-ring-color:var(--accent)!important;border-color:var(--accent)!important}
+    .search-field .material-symbols-outlined{color:var(--secondary-text)!important}
+    #song-input{color:var(--primary-text)!important}
+    #song-input::placeholder{color:#817775!important}
+    #submit-song,#confirm-request,#announcement-modal button,#close-rules:not(:disabled),#institutional-done{background:var(--accent)!important;color:white!important}
+    #submit-song:hover,#confirm-request:hover,#announcement-modal button:hover,#close-rules:not(:disabled):hover{filter:brightness(1.1)}
+    #close-rules:disabled{background:#3b3331!important;color:#a99f9c!important;filter:none;cursor:not-allowed}
+    #search-results{position:absolute!important;z-index:30;left:0;right:0;width:100%;box-sizing:border-box;margin-top:8px!important;max-height:256px;overflow-y:auto;overflow-x:hidden;border:1px solid var(--line)!important;border-radius:14px;background-color:#1b1210!important;color:var(--primary-text)!important;box-shadow:0 18px 38px rgba(0,0,0,.62)!important;backdrop-filter:blur(18px)}
+    #search-results button{width:100%;min-height:68px;align-items:center;padding:12px!important;gap:12px!important;border-color:var(--line)!important;background-color:#1b1210!important;color:var(--primary-text)!important}
+    #search-results button>img{width:48px;height:48px;flex:none;border-radius:10px}
+    #search-results button b{font-size:14px;line-height:1.35}
+    #search-results button small{margin-top:3px;font-size:12px;line-height:1.3}
+    #search-results button:hover{background:var(--panel-raised)!important}
+    .request-hint{color:var(--secondary-text)!important}
+    .playlist-panel{overflow:hidden}
+    .playlist-heading{padding:12px 14px!important;border-color:var(--line)!important}
+    .playlist-tabs{gap:clamp(8px,2.2vw,14px)!important}
+    #tab-top,#tab-requests,#tab-recent{position:relative;display:inline-flex;align-items:center;gap:4px;padding:7px 1px!important;border-radius:0!important;background:transparent!important;color:var(--secondary-text)!important;font-size:11px!important;font-weight:700!important;letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+    #tab-requests.hidden,#playlist-state-indicator.hidden{display:none!important}
+    #tab-top[aria-selected="true"],#tab-requests[aria-selected="true"],#tab-recent[aria-selected="true"]{color:#fff!important}
+    #tab-top[aria-selected="true"]:after,#tab-requests[aria-selected="true"]:after,#tab-recent[aria-selected="true"]:after{position:absolute;right:0;bottom:-13px;left:0;height:2px;background:var(--accent);content:""}
+    #tab-recent:disabled{cursor:not-allowed;opacity:.45}
+    #my-requests-count{display:inline-flex;min-width:16px;height:16px;align-items:center;justify-content:center;padding:0 4px;border-radius:999px;background:rgba(255,255,255,.1);color:var(--secondary-text);font-size:9px;font-weight:800;letter-spacing:0}
+    #my-requests-count.hidden{display:none!important}
+    #my-requests-count[data-state="pending"]{background:rgba(251,191,36,.16);color:#fcd34d}
+    #my-requests-count[data-state="approved"]{background:rgba(52,211,153,.15);color:#6ee7b7}
+    #my-requests-count[data-state="rejected"]{background:#dc2626;color:#fff}
+    #my-requests-count[data-unread="true"]{animation:request-status-pulse 1s ease-in-out infinite}
+    @keyframes request-status-pulse{50%{opacity:.42;transform:scale(.92)}}
+    #playlist-state{color:var(--secondary-text)!important}
+    #playlist-indicator.text-green{color:#34d399!important}
+    #playback-status{margin:0!important;padding:14px!important;border:1px solid var(--line)!important;bor
