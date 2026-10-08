@@ -95,8 +95,6 @@
     .header-actions{gap:8px!important}
     #rules-info{display:inline-flex;align-items:center;gap:5px;padding:7px 10px!important;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.05)!important;color:#e6dcda!important;font-size:11px;font-weight:600}
     #rules-info:hover{background:rgba(255,255,255,.1)!important}
-    .online-pill{background:rgba(255,255,255,.05)!important;border-color:var(--line)!important;color:#e6dcda!important}
-    .online-pill .bg-green,.online-pill .animate-ping{background:#10b981!important}
     .music-main{position:relative;z-index:1;width:100%;max-width:560px!important;min-height:calc(100vh - 64px)!important;margin:0 auto;padding:18px 16px 32px!important;gap:14px!important}
     #request-status{display:inline-flex;min-height:26px;align-items:center;gap:6px;max-width:100%;padding:5px 9px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.045);color:var(--secondary-text);font-size:9px;font-weight:700;line-height:1.2;white-space:nowrap}
     #request-status .status-dot{width:6px;height:6px;flex:none;border-radius:50%;background:#78716c}
@@ -276,7 +274,7 @@
     #institutional-modal a{color:var(--accent);font-weight:700;text-decoration:none}
     #institutional-modal a:hover{text-decoration:underline}
     @media(min-width:640px){.music-main{padding-top:22px!important}.player-artwork{max-height:520px}.request-panel{padding:18px!important}}
-    @media(max-width:380px){.music-header-inner{padding:0 11px!important}.music-main{padding-right:11px!important;padding-left:11px!important}.header-actions{gap:5px!important}#rules-info{padding:6px 8px!important;font-size:10px}.online-pill{padding-right:7px!important;padding-left:7px!important}.player-title{font-size:15px}}
+    @media(max-width:380px){.music-header-inner{padding:0 11px!important}.music-main{padding-right:11px!important;padding-left:11px!important}.header-actions{gap:5px!important}#rules-info{padding:6px 8px!important;font-size:10px}.player-title{font-size:15px}}
     body.theme-halloween #playback-status.playback-panel{background:linear-gradient(145deg,rgba(42,27,18,.82),rgba(23,21,19,.94))!important;border-color:rgba(251,146,60,.2)!important}
     body.theme-halloween .my-request-row{background:#171513!important;border-color:#292524!important}
     body.theme-halloween .my-request-cover{background:#211c18!important}
@@ -293,7 +291,7 @@
         <img src="assets/logo-al.png" alt="Logo Grêmio AL" class="w-9 h-9 object-contain">
         <div class="min-w-0"><div class="flex items-center gap-1.5"><h1 class="font-headline text-base font-bold leading-none tracking-tight">Jukebox</h1><span id="theme-badge" class="hidden rounded border border-orange-500/30 bg-orange-500/15 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-orange-400">Halloween</span></div><span class="text-muted truncate text-[11px] leading-tight font-medium">Uma ação da Chapa Renovação</span></div>
       </div>
-      <div class="header-actions flex items-center"><button aria-label="Regras e informações" aria-haspopup="dialog" aria-controls="institutional-modal" title="Regras e informações" id="rules-info" type="button"><span class="material-symbols-outlined text-base" aria-hidden="true">info</span><span>Regras</span></button><div class="online-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs shrink-0 border"><i class="w-2 h-2 rounded-full bg-green animate-ping"></i><b><span id="online-count">0</span> online</b></div></div>
+      <div class="header-actions flex items-center"><button aria-label="Regras e informações" aria-haspopup="dialog" aria-controls="institutional-modal" title="Regras e informações" id="rules-info" type="button"><span class="material-symbols-outlined text-base" aria-hidden="true">info</span><span>Regras</span></button></div>
     </div>
   </header>
   <main class="music-main flex flex-col">
@@ -345,7 +343,7 @@
         </section>
         <section class="institutional-section">
           <div class="flex items-center gap-2"><span class="institutional-icon"><span class="material-symbols-outlined text-base">visibility</span></span><h3>Transparência e privacidade</h3></div>
-          <p>A playlist aprovada é atualizada em tempo real. Um identificador aleatório guardado neste navegador ajuda a limitar votos repetidos e a mostrar o resultado dos seus pedidos; a Jukebox não solicita nome, e-mail ou senha. Sugestões e recados ficam visíveis à equipe do Grêmio para moderação.</p>
+          <p>A playlist aprovada é atualizada em tempo real. Um identificador aleatório guardado neste navegador ajuda a limitar votos repetidos e a mostrar o resultado dos seus pedidos; a Jukebox não solicita nome, e-mail ou senha. Sugestões e recados ficam visíveis à equipe do Grêmio para moderação. O histórico de reprodução e os registros de ações administrativas são apagados automaticamente após 90 dias. As alterações do painel não ficam associadas a uma identidade.</p>
         </section>
         <section class="institutional-section">
           <div class="flex items-center gap-2"><span class="institutional-icon"><span class="material-symbols-outlined text-base">alternate_email</span></span><h3>Contato</h3></div>
@@ -381,11 +379,18 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { getFirestore, collection, query, where, getDocs, onSnapshot, runTransaction, serverTimestamp, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
     const firebaseConfig={apiKey:"AIzaSyDGbDeolFBC-Dw6EBZnNXygq9WuEdH8nS4",authDomain:"jukebox-c6d07.firebaseapp.com",projectId:"jukebox-c6d07",storageBucket:"jukebox-c6d07.firebasestorage.app",messagingSenderId:"56386350624",appId:"1:56386350624:web:df7a6fe404a1242176d645"};
-    const db=getFirestore(initializeApp(firebaseConfig)), songs=collection(db,"musicas"), recados=collection(db,"recados"), presence=collection(db,"presenca"), settingsRef=doc(db,"configuracoes","jukebox");
-    const uid=localStorage.getItem("jukebox_uid")||crypto.randomUUID(); localStorage.setItem("jukebox_uid",uid);
+    const app=initializeApp(firebaseConfig),db=getFirestore(app);
+    function createStudentId(){
+      if(crypto.randomUUID)return crypto.randomUUID();
+      return Array.from(crypto.getRandomValues(new Uint8Array(16)),byte=>byte.toString(16).padStart(2,"0")).join("");
+    }
+    const uid=localStorage.getItem("jukebox_uid")||createStudentId();
+    localStorage.setItem("jukebox_uid",uid);
+    const songs=collection(db,"musicas"),recados=collection(db,"recados"),presence=collection(db,"presenca"),
+      historyCollection=collection(db,"historico_musicas"),settingsRef=doc(db,"configuracoes","jukebox");
     const myRequestsSeenKey=`jukebox_my_requests_seen_${uid}`;
     let acknowledgedRequestSignature=localStorage.getItem(myRequestsSeenKey)||"",currentRequestSignature="";
-    const input=document.getElementById("song-input"), results=document.getElementById("search-results"), list=document.getElementById("approved-list"),notice=document.getElementById("notice");let approvedDocs=[],approvedNotes=[],myRequestDocs=[],myRequestsError="",playHistory=[],playHistoryDate="",playHistoryLoaded=false,sortMode="queue",jukeboxOverride=false,currentSongId=null,maintenanceEnabled=false,settingsLoaded=false,requestingAllowed=false;
+    const input=document.getElementById("song-input"), results=document.getElementById("search-results"), list=document.getElementById("approved-list"),notice=document.getElementById("notice");let approvedDocs=[],approvedNotes=[],myRequestDocs=[],myRequestsError="",playHistory=[],historyDocs=[],playHistoryDate="",playHistoryLoaded=false,legacyHistoryMigratedDate="",sortMode="queue",jukeboxOverride=false,currentSongId=null,maintenanceEnabled=false,settingsLoaded=false,requestingAllowed=false;
     function showNotice(text){notice.textContent=text;notice.classList.remove("hidden");setTimeout(()=>notice.classList.add("hidden"),2800)}
     function updateBreak(){
       const now=new Date(),start=new Date(now),end=new Date(now);
@@ -418,8 +423,10 @@
     }
     document.getElementById("footer-year").textContent=new Date().getFullYear();document.getElementById("close-announcement").onclick=()=>{const modal=document.getElementById("announcement-modal");localStorage.setItem("jukebox_announcement_seen",modal.dataset.announcementId||"");modal.classList.add("hidden");modal.classList.remove("flex")};updateBreak();setInterval(updateBreak,15000);
     function applyTheme(theme){const halloween=theme==="halloween";document.body.classList.toggle("theme-halloween",halloween);document.getElementById("theme-badge").classList.toggle("hidden",!halloween)}
-    onSnapshot(settingsRef,snap=>{const settings=snap.data()||{};settingsLoaded=true;jukeboxOverride=settings.enabled===true;maintenanceEnabled=settings.maintenance===true;currentSongId=settings.currentSongId||null;playHistoryDate=settings.playHistoryDate||"";playHistory=Array.isArray(settings.playHistory)?settings.playHistory:[];playHistoryLoaded=true;applyTheme(settings.theme);document.getElementById("maintenance-message-display").textContent=settings.maintenanceMessage||"A equipe está trabalhando para restabelecer o serviço.";updateBreak();renderApproved();const announcementId=settings.announcementId||"",announcementText=settings.announcementText||"";if(announcementId&&announcementText&&announcementId!==localStorage.getItem("jukebox_announcement_seen")){const modal=document.getElementById("announcement-modal");modal.dataset.announcementId=announcementId;document.getElementById("announcement-message-display").textContent=announcementText;modal.classList.remove("hidden");modal.classList.add("flex")}else if(!announcementId||!announcementText){const modal=document.getElementById("announcement-modal");modal.classList.add("hidden");modal.classList.remove("flex")}},error=>console.error("Falha ao ler estado da Jukebox",error));
-    async function heartbeat(){try{await setDoc(doc(presence,uid),{lastSeen:serverTimestamp()},{merge:true})}catch(error){console.error("Falha na presença",error)}}heartbeat();setInterval(heartbeat,30000);onSnapshot(presence,snap=>{const cutoff=Date.now()-90000;document.getElementById("online-count").textContent=[...snap.docs].filter(s=>(s.data().lastSeen?.toMillis?.()||0)>cutoff).length});
+    onSnapshot(settingsRef,snap=>{const settings=snap.data()||{};settingsLoaded=true;jukeboxOverride=settings.enabled===true;maintenanceEnabled=settings.maintenance===true;currentSongId=settings.currentSongId||null;playHistoryDate=settings.playHistoryDate||"";playHistory=Array.isArray(settings.playHistory)?settings.playHistory:[];legacyHistoryMigratedDate=settings.legacyHistoryMigratedDate||"";applyTheme(settings.theme);document.getElementById("maintenance-message-display").textContent=settings.maintenanceMessage||"A equipe está trabalhando para restabelecer o serviço.";updateBreak();renderApproved();const announcementId=settings.announcementId||"",announcementText=settings.announcementText||"";if(announcementId&&announcementText&&announcementId!==localStorage.getItem("jukebox_announcement_seen")){const modal=document.getElementById("announcement-modal");modal.dataset.announcementId=announcementId;document.getElementById("announcement-message-display").textContent=announcementText;modal.classList.remove("hidden");modal.classList.add("flex")}else if(!announcementId||!announcementText){const modal=document.getElementById("announcement-modal");modal.classList.add("hidden");modal.classList.remove("flex")}},error=>console.error("Falha ao ler estado da Jukebox",error));
+    onSnapshot(query(historyCollection,where("playDate","==",localDateKey())),snap=>{historyDocs=snap.docs;playHistoryLoaded=true;renderApproved()},error=>{console.error("Falha ao carregar histórico de hoje",error);playHistoryLoaded=false;if(sortMode==="history")renderApproved()});
+    async function heartbeat(){try{await setDoc(doc(presence,uid),{lastSeen:serverTimestamp()},{merge:true})}catch(error){console.error("Falha ao atualizar a presença online",error)}}
+    heartbeat();setInterval(heartbeat,30000);
     let timer, apiSongs=[], pendingRequest=null, requestCheckId=0;
     const escapeHtml=value=>String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
     function highResolutionArtwork(url){return String(url||"").replace(/\/\d{2,4}x\d{2,4}bb(?=\.)/i,"/600x600bb");}
@@ -435,6 +442,7 @@
       image.src=source;
     }
     function titleLooksExplicit(value){const words=String(value??"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();return /(?:^|[^a-z0-9])(puta|putinha|putas|puto|putinho|putos|caralho|porra|buceta|bucetinha|foda|foder|fodendo|fuck|fucking|shit|bitch|dick|pussy|motherfucker)(?:$|[^a-z0-9])/.test(words);}
+    async function stableSongId(nameLow){const digest=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(nameLow));return `song-${Array.from(new Uint8Array(digest),byte=>byte.toString(16).padStart(2,"0")).join("")}`;}
     function showResults(items,term){apiSongs=items; results.innerHTML=items.length?items.map((s,i)=>`<button type="button" data-index="${i}" class="w-full p-2.5 flex gap-2.5 text-left hover:bg-soft border-b border-slate-100"><img class="w-10 h-10 rounded-lg object-cover" src="${escapeHtml(highResolutionArtwork(s.artworkUrl100))}" alt=""><span class="min-w-0"><b class="block text-xs truncate">${escapeHtml(s.trackName)}</b><small class="text-[11px] text-muted truncate block">${escapeHtml(s.artistName)}</small></span></button>`).join(""):`<button type="button" id="manual-request" class="w-full p-3 text-left text-xs font-bold text-primary hover:bg-soft">Não achou? Enviar manualmente</button>`; results.classList.remove("hidden"); results.querySelectorAll("[data-index]").forEach(b=>b.onclick=()=>openRequestConfirmation(apiSongs[Number(b.dataset.index)])); const manual=document.getElementById("manual-request"); if(manual)manual.onclick=()=>openRequestConfirmation({trackName:term,artistName:"",artworkUrl100:"",trackTimeMillis:0,manual:true});}
     async function search(term){try{const r=await fetch(`https://itunes.apple.com/search?term=${encodeURIComponent(term)}&entity=song&limit=4`); const data=await r.json(); showResults(data.results||[],term);}catch(error){console.error("Falha na busca do iTunes",error);showResults([],term);}}
     input.addEventListener("input",()=>{clearTimeout(timer);const term=input.value.trim();if(!term){results.classList.add("hidden");return}timer=setTimeout(()=>search(term),500)});
@@ -450,11 +458,11 @@
       const name=meta.trackName.trim(),low=name.toLocaleLowerCase("pt-BR"),apiExplicitness=String(meta.trackExplicitness||"desconhecida").toLowerCase(),titleExplicit=titleLooksExplicit(name),explicit=apiExplicitness==="explicit"||titleExplicit,explicitness=apiExplicitness==="explicit"?"itunes_explicit":titleExplicit?"termo_explicito_no_titulo":apiExplicitness;
       const payload={nome:name,nome_low:low,artista:meta.artistName||"",capa:highResolutionArtwork(meta.artworkUrl100)||null,duracao:meta.trackTimeMillis?formatDuration(meta.trackTimeMillis):"",explicita:explicit,classificacaoConteudo:explicitness,status:"pendente",motivo:"",votos:1,votedBy:[uid],requestedBy:[uid],requestedAt:serverTimestamp(),skipVotes:0,skipVotedBy:[],createdAt:serverTimestamp()};
       try{
-        const matches=await getDocs(query(songs,where("nome_low","==",low))),newSongRef=doc(songs),noteRef=noteText?doc(recados):null;
+        const matches=await getDocs(query(songs,where("nome_low","==",low))),newSongRef=doc(songs,await stableSongId(low)),noteRef=noteText?doc(recados):null;
         let blockedByRejection=null,savedSongRef=null;
         await runTransaction(db,async tx=>{
           blockedByRejection=null;savedSongRef=null;
-          const existingDocs=await Promise.all(matches.docs.map(s=>tx.get(s.ref)));
+          const existingDocs=await Promise.all([...matches.docs.map(s=>tx.get(s.ref)),tx.get(newSongRef)]);
           const rejected=existingDocs.find(s=>s.exists()&&s.data().status==="barrada");
           if(rejected){blockedByRejection=rejected.data();return}
           const existing=existingDocs.find(s=>s.exists());
@@ -478,7 +486,7 @@
     function localDateKey(date=new Date()){return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;}
     function renderHistoryCard(track){
       const cover=track.capa?`<img src="${escapeHtml(highResolutionArtwork(track.capa))}" alt="Capa de ${escapeHtml(track.nome)}">`:'<span class="material-symbols-outlined">album</span>',
-        playedAt=new Date(track.playedAt||""),time=Number.isNaN(playedAt.getTime())?"":playedAt.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
+        playedAt=new Date(historyMillis(track)),time=Number.isNaN(playedAt.getTime())?"":playedAt.toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"}),
         popular=Number(track.playCount)>1?`<span class="history-popular" role="img" aria-label="Tocada ${Number(track.playCount)} vezes; música popular" title="Tocada ${Number(track.playCount)} vezes"><span class="material-symbols-outlined" aria-hidden="true">favorite</span></span>`:"";
       return `<article class="track-row"><div class="track-cover">${cover}</div><div class="track-info"><b>${escapeHtml(track.nome||"Música")}</b><span>${escapeHtml(track.artista||"Artista não informado")}</span>${track.duracao?`<small>${escapeHtml(track.duracao)}</small>`:""}</div>${popular}${track.current?'<span class="history-time">Atual</span>':time?`<time class="history-time" datetime="${escapeHtml(playedAt.toISOString())}">${time}</time>`:""}</article>`;
     }
@@ -507,7 +515,7 @@
         list.classList.remove("hidden");
         list.innerHTML=renderMyRequestsContent();
       }else if(sortMode==="history"){
-        const todaysHistory=playHistoryDate===localDateKey()?normalizePlayHistory(playHistory).filter(track=>track.songId!==currentSongId):[];
+        const todaysHistory=todayHistory().filter(track=>track.songId!==currentSongId);
         list.classList.remove("hidden");
         list.innerHTML=!playHistoryLoaded?'<p class="text-xs text-muted p-4 text-center">Carregando histórico...</p>':todaysHistory.length?[...todaysHistory].reverse().map(renderHistoryCard).join(""):'<p class="text-xs text-muted p-4 text-center">Nenhuma música tocou hoje ainda.</p>';
       }else{
@@ -527,17 +535,25 @@
       document.querySelectorAll("#approved-list [data-vote],#playback-status [data-vote]").forEach(b=>b.onclick=()=>vote(b.dataset.vote));
       document.querySelectorAll("#playback-status [data-skip-vote]").forEach(b=>b.onclick=()=>voteToSkip(b.dataset.skipVote));
     }
+    function historyMillis(track){const value=track.playedAt?.toMillis?.()??Date.parse(track.playedAt||"");return Number.isFinite(value)?value:0;}
     function normalizePlayHistory(history){
       const tracksBySong=new Map();
       for(const track of history){
         const key=track.songId||`${track.nome_low||track.nome||"unknown"}:${track.artista||""}`,
-          previous=tracksBySong.get(key),count=Math.max(1,Number(track.playCount)||1);
-        if(!previous){tracksBySong.set(key,{...track,playCount:count});continue}
-        const previousTime=Date.parse(previous.playedAt||""),trackTime=Date.parse(track.playedAt||""),
+          previous=tracksBySong.get(key),count=Math.max(1,Number(track.playCount)||1),
+          eventIds=track.eventId?[track.eventId]:Array.isArray(track.eventIds)?track.eventIds:[];
+        if(!previous){tracksBySong.set(key,{...track,playCount:count,eventIds});continue}
+        const previousTime=historyMillis(previous),trackTime=historyMillis(track),
           latest=trackTime>=previousTime?track:previous;
-        tracksBySong.set(key,{...previous,...latest,playCount:previous.playCount+count,current:previous.current||track.current});
+        tracksBySong.set(key,{...previous,...latest,playCount:previous.playCount+count,current:previous.current||track.current,eventIds:[...new Set([...previous.eventIds,...eventIds])]});
       }
-      return [...tracksBySong.values()].sort((a,b)=>Date.parse(a.playedAt||"")-Date.parse(b.playedAt||""));
+      return [...tracksBySong.values()].sort((a,b)=>historyMillis(a)-historyMillis(b));
+    }
+    function todayHistory(){
+      const persistent=historyDocs.map(snapshot=>({...snapshot.data(),eventId:snapshot.id})),
+        persistentSongs=new Set(persistent.map(track=>track.songId).filter(Boolean)),
+        legacy=playHistoryDate===localDateKey()&&legacyHistoryMigratedDate!==playHistoryDate?playHistory.filter(track=>!persistentSongs.has(track.songId)):[];
+      return normalizePlayHistory([...legacy,...persistent]);
     }
     function syncMyRequestsTab(){
       const tab=document.getElementById("tab-requests"),count=document.getElementById("my-requests-count"),
@@ -575,7 +591,7 @@
       const ranked=approvedDocs.filter(song=>song.data().jaTocou!==true).sort((a,b)=>(Number(b.data().votos)||0)-(Number(a.data().votos)||0)),
         currentIsApproved=ranked.some(song=>song.id===currentSongId),
         queue=currentIsApproved?ranked.filter(song=>song.id!==currentSongId):ranked,
-        playedToday=new Set(playHistoryDate===localDateKey()?normalizePlayHistory(playHistory).map(track=>track.songId):[]);
+        playedToday=new Set(todayHistory().map(track=>track.songId));
       const statusFor=snap=>{
         const d=snap.data();
         if(d.status==="barrada")return {key:"barrada",icon:"block",label:"Barrada",detail:d.motivo?`Motivo: ${escapeHtml(d.motivo)}`:"O Grêmio não informou um motivo."};
