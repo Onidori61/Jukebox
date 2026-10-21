@@ -6,10 +6,12 @@
   <title>Transparência • Jukebox</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400..600,0..1,0..200" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800" rel="stylesheet">
   <style>
     :root{font-family:Inter,sans-serif;color:#171c21;background:#f7f9ff;font-synthesis:none;text-rendering:optimizeLegibility}
     *{box-sizing:border-box}
+    .material-icon{display:inline-block;width:1em;height:1em;flex:none;background-color:currentColor;mask:var(--icon-url) center/contain no-repeat;-webkit-mask:var(--icon-url) center/contain no-repeat;vertical-align:-.125em}
+    .material-icon.hidden{display:none}
     body{margin:0;min-height:100vh;background:#f7f9ff;color:#171c21;line-height:1.6}
     body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0;background-image:url("assets/halloween-wallpaper.png");background-size:180px 180px}
     .site-header,.page{position:relative;z-index:1}
@@ -22,26 +24,26 @@
     .page{width:min(100% - 32px,680px);margin:0 auto;padding:28px 0 36px}
     .back-link{display:inline-flex;align-items:center;gap:7px;color:#00629d;font-size:13px;font-weight:700;text-decoration:none}
     .back-link:hover{text-decoration:underline}
-    .back-link .material-symbols-outlined{font-size:19px}
+    .back-link .material-icon{font-size:19px}
     .panel{margin-top:20px;padding:clamp(22px,5vw,36px);border:1px solid #e2e8f0;border-radius:22px;background:#fff;box-shadow:0 8px 28px #0f172a0a}
     .eyebrow{display:inline-flex;align-items:center;gap:7px;color:#00629d;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
-    .eyebrow .material-symbols-outlined{font-size:17px}
+    .eyebrow .material-icon{font-size:17px}
     h1{margin:10px 0 0;font-family:"Plus Jakarta Sans",sans-serif;font-size:clamp(24px,6vw,32px);line-height:1.2;letter-spacing:-.035em}
     .intro{margin:12px 0 0;color:#475569;font-size:14px}
     .info-grid{display:grid;gap:12px;margin-top:24px}
     .info-card{display:flex;align-items:flex-start;gap:13px;padding:15px;border:1px solid #e8edf4;border-radius:15px;background:#f8fafc}
     .info-icon{display:flex;flex:none;width:36px;height:36px;align-items:center;justify-content:center;border-radius:11px;background:#eaf4fb;color:#00629d}
-    .info-icon .material-symbols-outlined{font-size:20px}
+    .info-icon .material-icon{font-size:20px}
     .info-card h2{margin:0;color:#171c21;font-size:13px;font-weight:700}
     .info-card p{margin:4px 0 0;color:#475569;font-size:12px;line-height:1.55}
     .contact{margin-top:16px;padding:18px;border:1px solid #cfe5f4;border-radius:16px;background:#f0f8fd}
     .contact-heading{display:flex;align-items:center;gap:9px;color:#171c21;font-size:13px;font-weight:700}
-    .contact-heading .material-symbols-outlined{color:#00629d}
+    .contact-heading .material-icon{color:#00629d}
     .contact p{margin:7px 0 0;color:#475569;font-size:12px}
     .contact-link{display:inline-flex;align-items:center;gap:8px;margin-top:14px;color:#00629d;font-size:12px;font-weight:700;text-decoration:none;overflow-wrap:anywhere}
     .contact-link:hover{text-decoration:underline}
     .contact-link img{width:25px;height:25px;border-radius:8px;object-fit:contain;background:white}
-    .contact-link .material-symbols-outlined{font-size:16px}
+    .contact-link .material-icon{font-size:16px}
     .page-footer{margin-top:22px;color:#64748b;font-size:11px;text-align:center}
     body.theme-halloween{background:#0c0a09;color:#fafaf9}
     body.theme-halloween:before{opacity:.07}
@@ -56,7 +58,7 @@
     body.theme-halloween .info-icon{background:#34251b;color:#fb923c}
     body.theme-halloween .info-card h2,body.theme-halloween h1,body.theme-halloween .contact-heading{color:#fff7ed}
     body.theme-halloween .contact{border-color:#493322;background:#211c18}
-    body.theme-halloween .contact-heading .material-symbols-outlined,body.theme-halloween .contact-link{color:#fb923c}
+    body.theme-halloween .contact-heading .material-icon,body.theme-halloween .contact-link{color:#fb923c}
     body.theme-halloween .page-footer{color:#a8a29e}
     @media(max-width:420px){.page{padding-top:22px}.panel{border-radius:18px}.info-card{padding:12px}}
     @media(prefers-reduced-motion:no-preference){.panel{animation:arrive .28s ease-out}@keyframes arrive{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}}
@@ -71,7 +73,7 @@
     body:not(.theme-halloween) .info-card{border-color:rgba(255,255,255,.1);background:#241714}
     body:not(.theme-halloween) .info-icon{background:rgba(225,29,46,.13);color:#e11d2e}
     body:not(.theme-halloween) .contact{border-color:rgba(225,29,46,.28);background:#241714}
-    body:not(.theme-halloween) .contact-heading .material-symbols-outlined,body:not(.theme-halloween) .contact-link{color:#e11d2e}
+    body:not(.theme-halloween) .contact-heading .material-icon,body:not(.theme-halloween) .contact-link{color:#e11d2e}
   </style>
 </head>
 <body>
@@ -79,21 +81,21 @@
     <div class="header-inner"><div class="brand"><img src="assets/logo-al.png" alt="Grêmio Estudantil Azarias Leite"></div><div><div class="brand-title">Jukebox <span class="theme-badge">Halloween 🎃</span></div><div class="brand-subtitle">Grêmio Estudantil Azarias Leite</div></div></div>
   </header>
   <main class="page">
-    <a class="back-link" href="index.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span>Voltar para a Jukebox</a>
+    <a class="back-link" href="index.html"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/arrow_back.svg)"></span>Voltar para a Jukebox</a>
     <article class="panel">
-      <div class="eyebrow"><span class="material-symbols-outlined" aria-hidden="true">visibility</span>Como funciona</div>
+      <div class="eyebrow"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/visibility.svg)"></span>Como funciona</div>
       <h1>Transparência</h1>
       <p class="intro">Veja como os pedidos são tratados e quais informações são usadas para manter a participação na Jukebox.</p>
       <div class="info-grid">
-        <section class="info-card"><span class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">playlist_play</span></span><div><h2>Playlist atualizada ao vivo</h2><p>Músicas aprovadas aparecem no feed em tempo real. A fila é organizada pelos votos, respeitando a faixa marcada como “Tocando agora”.</p></div></section>
-        <section class="info-card"><span class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">fact_check</span></span><div><h2>Moderação independente</h2><p>Cada música e cada recado são revisados. Se um recado for removido, isso não altera a aprovação da música.</p></div></section>
-        <section class="info-card"><span class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">admin_panel_settings</span></span><div><h2>Identificador anônimo</h2><p>Um ID aleatório guardado neste navegador controla votos únicos e permite acompanhar os pedidos enviados. Não coletamos nome, e-mail nem criamos uma conta para o aluno.</p></div></section>
-        <section class="info-card"><span class="info-icon"><span class="material-symbols-outlined" aria-hidden="true">schedule</span></span><div><h2>Histórico e retenção</h2><p>O histórico de reprodução e os registros de ações administrativas são apagados automaticamente após 90 dias. O Grêmio também pode remover reproduções manualmente no painel. As alterações administrativas não ficam associadas a uma identidade.</p></div></section>
+        <section class="info-card"><span class="info-icon"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/playlist_play.svg)"></span></span><div><h2>Playlist atualizada ao vivo</h2><p>Músicas aprovadas aparecem no feed em tempo real. A fila é organizada pelos votos, respeitando a faixa marcada como “Tocando agora”.</p></div></section>
+        <section class="info-card"><span class="info-icon"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/fact_check.svg)"></span></span><div><h2>Moderação independente</h2><p>Cada música e cada recado são revisados. Se um recado for removido, isso não altera a aprovação da música.</p></div></section>
+        <section class="info-card"><span class="info-icon"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/admin_panel_settings.svg)"></span></span><div><h2>Identificador anônimo</h2><p>Um ID aleatório guardado neste navegador controla votos únicos e permite acompanhar os pedidos enviados. Não coletamos nome, e-mail nem criamos uma conta para o aluno.</p></div></section>
+        <section class="info-card"><span class="info-icon"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/schedule.svg)"></span></span><div><h2>Histórico e retenção</h2><p>O histórico de reprodução e os registros de ações administrativas são apagados automaticamente após 90 dias. O Grêmio também pode remover reproduções manualmente no painel. As alterações administrativas não ficam associadas a uma identidade.</p></div></section>
       </div>
       <section class="contact">
-        <div class="contact-heading"><span class="material-symbols-outlined" aria-hidden="true">alternate_email</span>Contato do Grêmio</div>
+        <div class="contact-heading"><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/alternate_email.svg)"></span>Contato do Grêmio</div>
         <p>Para dúvidas, sugestões ou informações sobre a Jukebox, fale diretamente com o Grêmio Estudantil Azarias Leite.</p>
-        <a class="contact-link" href="https://www.instagram.com/gremioestudantilazariasleite/" target="_blank" rel="noopener noreferrer"><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/all-icons/instagram-utsutp90ohyzmixr5oh6.png/instagram-j1roc3udylhe1b6g5vtjl.png?_a=DATAiZAAZAA0" alt=""><span>@gremioestudantilazariasleite</span><span class="material-symbols-outlined" aria-hidden="true">open_in_new</span></a>
+        <a class="contact-link" href="https://www.instagram.com/gremioestudantilazariasleite/" target="_blank" rel="noopener noreferrer"><img src="https://assets.streamlinehq.com/image/private/w_300,h_300,ar_1/f_auto/v1/icons/all-icons/instagram-utsutp90ohyzmixr5oh6.png/instagram-j1roc3udylhe1b6g5vtjl.png?_a=DATAiZAAZAA0" alt=""><span>@gremioestudantilazariasleite</span><span class="material-icon" aria-hidden="true" style="--icon-url:url(assets/icons/open_in_new.svg)"></span></a>
       </section>
     </article>
     <footer class="page-footer">Jukebox • Chapa Renovação</footer>
